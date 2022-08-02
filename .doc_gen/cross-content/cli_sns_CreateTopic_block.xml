@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+        <para>The following create-topic example creates an SNS topic named my-topic. </para>
+        <programlisting language="none">
+aws sns create-topic \
+    --name my-topic</programlisting>
+        <para>Output</para>
+        <programlisting language="none">
+{
+    "ResponseMetadata": {
+        "RequestId": "1469e8d7-1642-564e-b85d-a19b4b341f83"
+    },
+    "TopicArn": "arn:aws:sns:us-west-2:123456789012:my-topic"
+}</programlisting>
+        <para>For more information, see `Using the AWS Command Line Interface with Amazon SQS and Amazon SNS https://docs.aws.amazon.com/cli/latest/userguide/cli-sqs-queue-sns-topic.html> in the *AWS Command Line Interface User Guide*.</para>
+</block>

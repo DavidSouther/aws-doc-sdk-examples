@@ -12,6 +12,17 @@ C++:
         title: "Additional code examples for the &CPPlong;"
         title_abbrev: "Additional code examples"
   guide: "&guide-cpp-dev;"
+CLI:
+  property: none
+  sdk:
+    2:
+      long: "&CLIlong;"
+      short: "&CLI;"
+      api_ref:
+        uid: "CLI"
+        name: "&guide-cli-ref;"
+        link_template: "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{.Service}}/index.html"
+  guide: "&guide-cli-ug;"
 Go:
   property: go
   sdk:

@@ -541,6 +541,10 @@ sns_CreateTopic:
           excerpts:
             - snippet_tags:
                 - sns.cpp.create_topic.code
+    CLI:
+      versions:
+        - sdk_version: 2
+          block_content: cli_sns_CreateTopic_block.xml
     Go:
       versions:
         - sdk_version: 2
