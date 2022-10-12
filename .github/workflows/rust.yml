@@ -12,27 +12,15 @@ on:
 permissions:
   contents: read
 jobs:
-  check:
-    name: Check
+  test:
+    name: "Rust: test clippy lint audit"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: --all-targets --manifest-path rust_dev_preview/Cargo.toml
-      - uses: actions-rs/cargo@v1
-        if: success() || failure()
-        with:
-          command: clippy
-          args: --manifest-path rust_dev_preview/Cargo.toml -- -D warnings
-      - uses: actions-rs/cargo@v1
-        if: success() || failure()
-        with:
-          command: test
-          args: --manifest-path rust_dev_preview/Cargo.toml
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          cd rust_dev_preview
+          cargo test --all-targets --all-features && \
+          cargo clippy --all-targets && \
+          cargo fmt -- --check && \
+          cargo audit
