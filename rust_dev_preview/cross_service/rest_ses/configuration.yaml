@@ -1,0 +1,5 @@
+application_port: 8000
+sdk_config:
+  db_instance: "auroraappdb"
+  secret_arn: "arn:aws:secretsmanager:us-east-1:659765859849:secret:docexampleauroraappsecret8B-ZRuYk32DvFmC-Dz2N2y"
+  cluster_arn: "arn:aws:rds:us-east-1:659765859849:cluster:docexampleauroraapp-docexampleauroraappclustereb7e-vqwzivzly59p"
