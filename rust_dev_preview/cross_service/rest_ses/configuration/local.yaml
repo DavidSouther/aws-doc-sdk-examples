@@ -1,3 +1,5 @@
-sdk_config:
+rds:
   secret_arn: "arn:aws:secretsmanager:us-east-1:659765859849:secret:docexampleauroraappsecret8B-ZRuYk32DvFmC-Dz2N2y"
   cluster_arn: "arn:aws:rds:us-east-1:659765859849:cluster:docexampleauroraapp-docexampleauroraappclustereb7e-vqwzivzly59p"
+ses:
+  source: "dpsouth@amazon.com"
