@@ -5,7 +5,7 @@ FROM rust:1.40 as builder
 RUN mkdir /src
 COPY . /src/
 WORKDIR /src
-RUN cargo install --path .
-RUN cargo build
+RUN cd /src && cargo install --path .
+RUN cd /src && cargo build
 
 CMD ["bash"]
