@@ -1,11 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rust:1.40 as builder
-
-# copy in files
-RUN mkdir /src
+ARG MSRV=1.58
+FROM rust:$MSRV
 COPY . /src/
-WORKDIR /src
-RUN cd /src && cargo install --path .
-RUN cd /src && cargo build
-
-CMD ["bash"]
+CMD cargo test --all-targets --ignored --path /src/
