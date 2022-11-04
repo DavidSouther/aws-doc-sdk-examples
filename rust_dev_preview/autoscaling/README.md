@@ -6,7 +6,7 @@ These examples demonstrate how to perform several Amazon Elastic Compute Cloud (
 
 Use Auto Scaling group enables to treat a collection of Amazon EC2 instances as a logical grouping for the purposes of automatic scaling and management.
 
-## Code examples
+## Code examples!
 
 - [Create an autoscaling group](src/bin/create-autoscaling-group.rs) (CreateAutoscalingGroup)
 - [Delete an autoscaling group](src/bin/delete-autoscaling-group.rs) (DeleteAutoscalingGroup)
