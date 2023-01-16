@@ -5,9 +5,10 @@
 These examples demonstrate how to perform several Amazon Kinesis Firehose operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon Kinesis Data Firehose is an extract, transform, and load (ETL) service that reliably captures, transforms, and delivers streaming data to data lakes, data stores, and analytics services.
+
 ## Code examples
 
-- [Assume put_record_batch](src/bin/put-records-batch.rs) (PutRecordsBatch)
+- [put_record_batch](src/bin/put-records-batch.rs) (PutRecordsBatch)
 
 ## ⚠ Important
 

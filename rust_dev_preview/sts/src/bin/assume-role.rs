@@ -37,11 +37,11 @@ async fn assume_role(
     session_name: Option<String>,
 ) -> Result<(), Error> {
     match config.credentials_provider() {
-        Some(i) => {
+        Some(credential) => {
             let provider = aws_config::sts::AssumeRoleProvider::builder(role_name)
                 .region(region)
                 .session_name(session_name.unwrap_or(String::from("rust-assume-role")))
-                .build(i.clone());
+                .build(credential.clone());
             let local_config = aws_config::from_env()
                 .credentials_provider(provider)
                 .load()
