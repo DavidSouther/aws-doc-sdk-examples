@@ -1,0 +1,18 @@
+# zexi 0.4.0
+firehose_PutRecordBatch:
+  title: "&FHLong; batch record write"
+  title_abbrev: Writes multiple data records
+  synopsis: Writes multiple data records into a &FH; delivery stream in a single call, which can achieve higher throughput per producer than when writing single records.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/firehose
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - firehose.rust.put_record_batch
+  services:
+    firehose: { PutRecordBatch }
