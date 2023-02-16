@@ -409,6 +409,11 @@ eventbridge:
   tags:
     product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
+firehose:
+  long: "&FHLong;"
+  short: "&FH;"
+  sort: Firehose
+  api_ref: firehose/latest/APIReference/Welcome.html
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
