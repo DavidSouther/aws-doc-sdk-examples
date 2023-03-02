@@ -414,6 +414,16 @@ firehose:
   short: "&FH;"
   sort: Firehose
   api_ref: firehose/latest/APIReference/Welcome.html
+  expanded:
+    long: Amazon FireHose
+    short: FireHose
+	blurb:  is an extract, transform, and load (ETL) service that reliably captures, transforms, and delivers streaming data to data lakes, data stores, and analytics services.
+  guide:
+    subtitle: User Guide
+    url: firehose/latest/dev/what-is-this-service.html
+	version: firehose-2015-08-04
+	tags:
+    product_categories: {'Analytics'}
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
