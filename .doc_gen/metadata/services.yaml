@@ -417,7 +417,7 @@ firehose:
   expanded:
     long: Amazon FireHose
     short: FireHose
-	blurb:  is an extract, transform, and load (ETL) service that reliably captures, transforms, and delivers streaming data to data lakes, data stores, and analytics services.
+  blurb:  is an extract, transform, and load (ETL) service that reliably captures, transforms, and delivers streaming data to data lakes, data stores, and analytics services.
   guide:
     subtitle: User Guide
     url: firehose/latest/dev/what-is-this-service.html
