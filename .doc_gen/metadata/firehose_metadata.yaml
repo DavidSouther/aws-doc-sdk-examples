@@ -15,4 +15,4 @@ firehose_PutRecordBatch:
               snippet_tags:
                 - firehose.rust.put_record_batch
   services:
-    firehose: { PutRecordBatch }
+    firehose: {PutRecordBatch}
