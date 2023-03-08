@@ -2,90 +2,98 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
-
-use lambda_runtime::handler_fn;
-use log::{error, info};
-use serde::{Deserialize, Serialize};
-
 // snippet-start:[lambda.rust.main]
+use lambda_runtime::{service_fn, Error, LambdaEvent};
+use serde::{Deserialize, Serialize};
+use std::time::SystemTime;
+
 #[derive(Deserialize)]
 struct Request {
-    pub body: String,
+    body: String,
 }
-
 #[derive(Debug, Serialize)]
-struct SuccessResponse {
-    pub body: String,
+struct Response {
+    req_id: String,
+    body: String,
 }
-
-#[derive(Debug, Serialize)]
-struct FailureResponse {
-    pub body: String,
-}
-
-// Implement Display for the Failure response so that we can then implement Error.
-impl std::fmt::Display for FailureResponse {
+impl std::fmt::Display for Response {
+    /// Display the response struct as a JSON string
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.body)
+        let err_as_json = serde_json::json!(self).to_string();
+        write!(f, "{err_as_json}")
     }
 }
-
-// Implement Error for the FailureResponse so that we can `?` (try) the Response
-// returned by `lambda_runtime::run(func).await` in `fn main`.
-impl std::error::Error for FailureResponse {}
-
-type Response = Result<SuccessResponse, FailureResponse>;
-
-#[tokio::main]
-async fn main() -> Result<(), lambda_runtime::Error> {
-    let func = handler_fn(handler);
-    lambda_runtime::run(func).await?;
-
-    Ok(())
-}
-
-async fn handler(req: Request, _ctx: lambda_runtime::Context) -> Response {
-    info!("handling a request...");
-    let bucket_name = std::env::var("BUCKET_NAME")
-        .expect("A BUCKET_NAME must be set in this app's Lambda environment variables.");
-
-    // No extra configuration is needed as long as your Lambda has
-    // the necessary permissions attached to its role.
-    let config = aws_config::load_from_env().await;
-    let s3_client = aws_sdk_s3::Client::new(&config);
+impl std::error::Error for Response {}
+#[tracing::instrument(skip(s3_client, event), fields(req_id = %event.context.request_id))]
+async fn put_object(
+    s3_client: &aws_sdk_s3::Client,
+    bucket_name: &str,
+    event: LambdaEvent<Request>,
+) -> Result<Response, Error> {
+    tracing::info!("handling a request");
     // Generate a filename based on when the request was received.
-    let filename = format!("{}.txt", time::OffsetDateTime::now_utc().unix_timestamp());
-
-    let _ = s3_client
+    let timestamp = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .map(|n| n.as_secs())
+        .expect("SystemTime before UNIX EPOCH, clock might have gone backwards");
+    let filename = format!("{timestamp}.txt");
+    let response = s3_client
         .put_object()
         .bucket(bucket_name)
-        .body(req.body.as_bytes().to_owned().into())
+        .body(event.payload.body.as_bytes().to_owned().into())
         .key(&filename)
         .content_type("text/plain")
         .send()
-        .await
-        .map_err(|err| {
-            // In case of failure, log a detailed error to CloudWatch.
-            error!(
-                "failed to upload file '{}' to S3 with error: {}",
-                &filename, err
+        .await;
+    match response {
+        Ok(_) => {
+            tracing::info!(
+                filename = %filename,
+                "data successfully stored in S3",
             );
-            // The sender of the request receives this message in response.
-            FailureResponse {
-                body: "The lambda encountered an error and your message was not saved".to_owned(),
-            }
-        })?;
-
-    info!(
-        "Successfully stored the incoming request in S3 with the name '{}'",
-        &filename
-    );
-
-    Ok(SuccessResponse {
-        body: format!(
-            "the lambda has successfully stored the your request in S3 with name '{}'",
-            filename
-        ),
-    })
+            // Return `Response` (it will be serialized to JSON automatically by the runtime)
+            Ok(Response {
+                req_id: event.context.request_id,
+                body: format!(
+                    "the lambda has successfully stored the your data in S3 with name '{filename}'"
+                ),
+            })
+        }
+        Err(err) => {
+            // In case of failure, log a detailed error to CloudWatch.
+            tracing::error!(
+                err = %err,
+                filename = %filename,
+                "failed to upload data to S3"
+            );
+            Err(Box::new(Response {
+                req_id: event.context.request_id,
+                body: "The lambda encountered an error and your data was not saved".to_owned(),
+            }))
+        }
+    }
 }
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt()
+     .with_max_level(tracing::Level::INFO)
+            // disable printing the name of the module in every log line.
+            .with_target(false)
+            // disabling time is handy because CloudWatch will add the ingestion time.
+            .without_time()
+            .init();
+        let bucket_name = std::env::var("BUCKET_NAME")
+            .expect("A BUCKET_NAME must be set in this app's Lambda environment variables.");
+        // Initialize the client here to be able to reuse it across
+        // different invocations.
+        //
+        // No extra configuration is needed as long as your Lambda has
+        // the necessary permissions attached to its role.
+        let config = aws_config::load_from_env().await;
+        let s3_client = aws_sdk_s3::Client::new(&config);
+            lambda_runtime::run(service_fn(|event: LambdaEvent<Request>| async {
+                put_object(&s3_client, &bucket_name, event).await
+            }))
+            .await
+           }
 // snippet-end:[lambda.rust.main]
