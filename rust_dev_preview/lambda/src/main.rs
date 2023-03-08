@@ -82,18 +82,18 @@ async fn main() -> Result<(), Error> {
             // disabling time is handy because CloudWatch will add the ingestion time.
             .without_time()
             .init();
-        let bucket_name = std::env::var("BUCKET_NAME")
-            .expect("A BUCKET_NAME must be set in this app's Lambda environment variables.");
-        // Initialize the client here to be able to reuse it across
-        // different invocations.
-        //
-        // No extra configuration is needed as long as your Lambda has
-        // the necessary permissions attached to its role.
-        let config = aws_config::load_from_env().await;
-        let s3_client = aws_sdk_s3::Client::new(&config);
-            lambda_runtime::run(service_fn(|event: LambdaEvent<Request>| async {
-                put_object(&s3_client, &bucket_name, event).await
-            }))
-            .await
-           }
+    let bucket_name = std::env::var("BUCKET_NAME")
+        .expect("A BUCKET_NAME must be set in this app's Lambda environment variables.");
+    // Initialize the client here to be able to reuse it across
+    // different invocations.
+    //
+    // No extra configuration is needed as long as your Lambda has
+    // the necessary permissions attached to its role.
+    let config = aws_config::load_from_env().await;
+    let s3_client = aws_sdk_s3::Client::new(&config);
+        lambda_runtime::run(service_fn(|event: LambdaEvent<Request>| async {
+            put_object(&s3_client, &bucket_name, event).await
+        }))
+        .await
+}
 // snippet-end:[lambda.rust.main]
