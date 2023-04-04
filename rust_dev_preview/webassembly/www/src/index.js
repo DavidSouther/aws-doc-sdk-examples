@@ -4,7 +4,6 @@
  */
 
 import init, { main } from "aws-wasm";
-import { setCredentials } from "./env/index.mjs";
 
 export const initialize = async () => {
   await init();
@@ -16,6 +15,7 @@ const run = async () => {
   const verbose = document.getElementById("verbose").checked;
   document.getElementById("result").textContent = "";
   try {
+    console.log("calling main", region, verbose);
     const result = await main(region, verbose);
     document.getElementById("result").textContent = String(result);
   } catch (err) {

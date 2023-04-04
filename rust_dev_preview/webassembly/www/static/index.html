@@ -5,7 +5,7 @@
     <title>AWS SDK example using WebAssembly</title>
   </head>
   <body style="max-width: 450px; margin: 0 auto">
-    <p><a id="login" href="#login">Login</a></p>
+    <p><a id="login" href="#login">Login</a> <span id="login-error"></span></p>
     <div style="display: grid; grid-template-columns: 1fr 1fr">
       <label for="region">AWS Region:</label>
       <select id="region" name="region">
@@ -14,7 +14,7 @@
         <option value="eu-central-1">Europe (Frankfurt)</option>
       </select>
       <label for="verbose">Verbose:</label>
-      <input type="checkbox" id="verbose" name="verbose" />
+      <input type="checkbox" id="verbose" name="verbose" checked />
       <button id="run">Run</button>
     </div>
     <p>

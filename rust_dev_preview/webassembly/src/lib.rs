@@ -28,8 +28,6 @@ pub struct AwsCredentials {
 
 #[wasm_bindgen(module = "env")]
 extern "C" {
-    fn now() -> f64;
-
     #[wasm_bindgen(js_name = retrieveCredentials)]
     fn retrieve_credentials() -> JsValue;
 }
@@ -42,50 +40,53 @@ pub fn start() {
 
 #[wasm_bindgen]
 pub async fn main(region: String, verbose: bool) -> Result<String, String> {
-    log!("");
 
     if verbose {
         log!("Lambda client version:   {}", PKG_VERSION);
         log!("Region:                  {}", region);
-        log!("");
     }
 
     let credentials_provider = static_credential_provider();
+    log!("Got credentials provider");
     let credentials = credentials_provider.provide_credentials().await.unwrap();
-    let access_key = credentials.access_key_id();
+    log!("got credentials");
 
-    let shared_config = aws_config::from_env()
-        .sleep_impl(BrowserSleep)
-        .region(Region::new(region))
-        .credentials_cache(browser_credentials_cache())
-        .credentials_provider(credentials_provider)
-        .http_connector(DynConnector::new(Adapter::new(
-            verbose,
-            access_key == "access_key",
-        )))
-        .load()
-        .await;
-    let client = Client::new(&shared_config);
+    // log!("access key id: {}", credentials.access_key_id());
+    // log!("secret access key: {}", credentials.secret_access_key());
+    // log!("session token: {}", credentials.session_token().unwrap_or_else(|| "missing"));
 
-    // let now = std::time::Duration::new(now() as u64, 0);
-    // log!("current date in unix timestamp: {}", now.as_secs());
+    // let access_key = credentials.access_key_id();
 
-    let resp = client
-        .list_functions()
-        .send()
-        .await
-        .map_err(|e| format!("{:?}", e))?;
-    let functions = resp.functions().unwrap_or_default();
+    // let shared_config = aws_config::from_env()
+    //     .sleep_impl(BrowserSleep)
+    //     .region(Region::new(region))
+    //     .credentials_cache(browser_credentials_cache())
+    //     .credentials_provider(credentials_provider)
+    //     .http_connector(DynConnector::new(Adapter::new(
+    //         verbose,
+    //         access_key == "access_key",
+    //     )))
+    //     .load()
+    //     .await;
+    // let client = Client::new(&shared_config);
 
-    for function in functions {
-        log!(
-            "Function Name: {}",
-            function.function_name().unwrap_or_default()
-        );
-    }
-    let output = functions.len().to_string();
+    // let resp = client
+    //     .list_functions()
+    //     .send()
+    //     .await
+    //     .map_err(|e| format!("{:?}", e))?;
+    // let functions = resp.functions().unwrap_or_default();
 
-    Ok(output)
+    // for function in functions {
+    //     log!(
+    //         "Function Name: {}",
+    //         function.function_name().unwrap_or_default()
+    //     );
+    // }
+    // let output = functions.len().to_string();
+
+    // Ok(output)
+    Ok("")
 }
 
 #[derive(Debug, Clone)]
@@ -99,6 +100,7 @@ impl AsyncSleep for BrowserSleep {
 }
 
 fn static_credential_provider() -> impl ProvideCredentials {
+    log!("Retrieving credentials in static_credential_provider");
     let credentials = serde_wasm_bindgen::from_value::<AwsCredentials>(retrieve_credentials())
         .expect("invalid credentials");
     Credentials::from_keys(

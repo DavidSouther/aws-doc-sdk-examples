@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const loginError = document.getElementById("login-error");
+  loginError.innerText = "";
   const url = new URL(document.URL);
   const hash = url.hash;
   const hashParams = new URLSearchParams(hash.substring(1));
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tokenDetails = JSON.parse(atob(token.split(".")[1]));
   console.log(tokenDetails);
 
-  const cognitoidentity = new CognitoIdentityClient({
+  const cognitoIdentity = new CognitoIdentityClient({
     region,
     credentials: fromCognitoIdentityPool({
       identityPoolId,
@@ -56,7 +58,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }),
   });
 
-  const cognitoCredentials = await cognitoidentity.config.credentials();
+  const cognitoCredentials = await cognitoIdentity.config
+    .credentials()
+    .catch((e) => {
+      console.error("COULD NOT GET CREDENTIALS", e);
+      loginError.innerText = String(e);
+    });
   console.log(cognitoCredentials);
 
   // const stsClient = new STSClient({ region, credentials: cognitoCredentials });
