@@ -25,6 +25,3 @@ const run = async () => {
 
 window.onload = initialize;
 document.getElementById("run").addEventListener("click", run);
-document
-  .getElementById("set-credentials")
-  .addEventListener("click", setCredentials);

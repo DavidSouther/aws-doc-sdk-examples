@@ -8,7 +8,9 @@
     "start": "webpack serve"
   },
   "dependencies": {
+    "@aws-sdk/client-lambda": "^3.303.0",
     "@aws-sdk/client-sts": "^3.303.0",
+    "@aws-sdk/credential-providers": "^3.303.0",
     "aws-wasm": "file://./pkg",
     "env": "file://./env",
     "jose": "^4.13.1"

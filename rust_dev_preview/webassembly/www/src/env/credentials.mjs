@@ -2,31 +2,39 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+
 import {
   STSClient,
   AssumeRoleWithWebIdentityCommand,
 } from "@aws-sdk/client-sts";
 
-const EXAMPLE_CREDENTIALS = {
-  accessKeyId: "ASIAZTHI4CYE7YBRKR5L",
-  secretAccessKey: "D6TuhJjB3Od6dsCWhZ4brH+FcamD4uxaBzSIvXXl",
-  sessionToken:
-    "IQoJb3JpZ2luX2VjENb//////////wEaCXVzLWVhc3QtMSJHMEUCIGWvBNQqEWYWa7AvMBjINaJyx0FPLlMznp+HmvIFfL51AiEAozpqP9AnTJkb3jBezGi0MIUbCiNEqUcMLy0J3q4VGxIqpgIIr///////////ARAAGgw2NTk3NjU4NTk4NDkiDG+JtSSk9iOKW5P33yr6AetUQxW3JVCTQ4rHPaB1hX8fWeqBvbUztrE+Za49pmETDsffyv5lXoiq8xvMQbjsymIhTa/lezM76+QlZn5jV021jv3hC2e6JI0QCN87n94OAN+dfJ9n+eP0OeGFllXWCbixuHVK7qXBIZY+1Ni9fkZ6ts5SqSmfwDz0jPwSBHmgStqPoN6BOsew+dGbkM7MujIUHZIdMeicZdliUygvnzC6WQDY+rJEcCzSkAbf87QpYrIoHmR2iHdhFAmrkyOJ3+Ts7r5b9t3A5ZWEbT0klaDug+67YNaQKtoaUuRma5FtXCWQakr7iIIhTLxhIdFI2eso3Tborc1+8Yww8MWioQY6nQGJluUe8g1u0fTH0IfWgOMrelfoZuT/1C++RsnZqX1bvRvXGtjlAxitwUyau85MeIo4xKV5mD51MeRe0XK7VjYCseaR8uq5+5aAEv62CUQ1Xp12NLQHEAJEkKGnusuuGlwv+ZmufFuKjjOwlnIpmaH2nWcSg1HsyF4zFaXeaKTg7YLS9m32JSUE7CbTwxAYYZXlSUbr8o80TYgQ9BVn",
+import { LambdaClient, ListFunctionsCommand } from "@aws-sdk/client-lambda";
+
+const EMPTY_CREDENTIALS = {
+  accessKeyId: "",
+  secretAccessKey: "",
+  sessionToken: "",
 };
 
+const region = "us-east-1";
+
 const HOSTED_UI_DOMAIN = "wasm-demo-a48ce63c.auth.us-east-1.amazoncognito.com";
-const CLIENT_UD = "2al53frjfsb46uk7ujeju53vba";
+const CLIENT_ID = "2al53frjfsb46uk7ujeju53vba";
+
+const USER_POOL_ID = "us-east-1_tECk9W0Dk";
 const RoleArn = "arn:aws:iam::659765859849:role/WASM-ListFunctions-Role";
+const identityPoolId = "us-east-1:8de5c99b-81fa-4914-8376-fd6f185023c7";
 
 const REDIRECT_URI = encodeURIComponent("http://localhost:3000/");
-const region = "us-east-1";
-export const LOGIN_URL = `https://${HOSTED_UI_DOMAIN}/login?response_type=token&client_id=${CLIENT_UD}&redirect_uri=${REDIRECT_URI}`;
+export const LOGIN_URL = `https://${HOSTED_UI_DOMAIN}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login").setAttribute("href", LOGIN_URL);
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const url = new URL(document.URL);
   const hash = url.hash;
   const hashParams = new URLSearchParams(hash.substring(1));
@@ -36,20 +44,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const tokenDetails = JSON.parse(atob(token.split(".")[1]));
   console.log(tokenDetails);
 
-  const client = new STSClient({ region });
-
-  const command = new AssumeRoleWithWebIdentityCommand({
-    RoleArn,
-    RoleSessionName: tokenDetails["email"],
-    WebIdentityToken: token,
+  const cognitoidentity = new CognitoIdentityClient({
+    region,
+    credentials: fromCognitoIdentityPool({
+      identityPoolId,
+      userIdentifier: tokenDetails["email"],
+      clientConfig: { region },
+      logins: {
+        [`cognito-idp.${region}.amazonaws.com/${USER_POOL_ID}`]: token,
+      },
+    }),
   });
 
-  client
-    .send(command)
-    .then((data) => {
-      console.log("Assumed role", data);
-    })
-    .catch((e) => console.error("Failed to assume role:", e));
+  const cognitoCredentials = await cognitoidentity.config.credentials();
+  console.log(cognitoCredentials);
+
+  // const stsClient = new STSClient({ region, credentials: cognitoCredentials });
+  // const assumedRole = await stsClient.send(
+  //   new AssumeRoleWithWebIdentityCommand({
+  //     RoleArn,
+  //     RoleSessionName: tokenDetails["email"],
+  //     WebIdentityToken: token,
+  //   })
+  // );
+
+  const credentials = cognitoCredentials;
+
+  EMPTY_CREDENTIALS.accessKeyId = credentials.accessKeyId;
+  EMPTY_CREDENTIALS.secretAccessKey = credentials.secretAccessKey;
+  EMPTY_CREDENTIALS.sessionToken = credentials.sessionToken;
+
+  setCredentials(credentials);
+
+  const lambdaClient = new LambdaClient({
+    region,
+    credentials,
+  });
+
+  const functions = await lambdaClient.send(new ListFunctionsCommand({}));
+  console.log(functions);
 });
 
 const parseCookie = (str) =>
@@ -67,14 +100,14 @@ export const retrieveCredentials = () => {
   let cookie = parseCookie(document.cookie ?? "");
   return cookie.credentials_aws
     ? JSON.parse(cookie.credentials_aws)
-    : EXAMPLE_CREDENTIALS;
+    : EMPTY_CREDENTIALS;
 };
 
-export const setCredentials = () => {
-  const credentials = encodeURIComponent(
+export const setCredentials = (credentials) => {
+  const encodedCredentials = encodeURIComponent(
     JSON.stringify({
-      ...EXAMPLE_CREDENTIALS,
+      ...credentials,
     })
   );
-  document.cookie = `credentials_aws=${credentials}; max-age=43200; path=/;`;
+  document.cookie = `credentials_aws=${encodedCredentials}; max-age=43200; path=/;`;
 };
