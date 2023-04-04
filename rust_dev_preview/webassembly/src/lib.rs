@@ -67,8 +67,8 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
         .await;
     let client = Client::new(&shared_config);
 
-    let now = std::time::Duration::new(now() as u64, 0);
-    log!("current date in unix timestamp: {}", now.as_secs());
+    // let now = std::time::Duration::new(now() as u64, 0);
+    // log!("current date in unix timestamp: {}", now.as_secs());
 
     let resp = client
         .list_functions()

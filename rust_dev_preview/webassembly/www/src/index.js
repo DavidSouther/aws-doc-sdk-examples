@@ -4,10 +4,11 @@
  */
 
 import init, { main } from "aws-wasm";
-import { setCredentials } from "env";
+import { setCredentials } from "./env/index.mjs";
 
 export const initialize = async () => {
   await init();
+  // await setCredentials();
 };
 
 const run = async () => {
