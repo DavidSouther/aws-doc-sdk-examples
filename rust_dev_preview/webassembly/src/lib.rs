@@ -4,7 +4,11 @@
  */
 
 use async_trait::async_trait;
-use aws_credential_types::{cache::CredentialsCache, provider::ProvideCredentials, Credentials};
+use aws_credential_types::{
+    cache::{CredentialsCache, ProvideCachedCredentials},
+    provider::ProvideCredentials,
+    Credentials,
+};
 use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_async::rt::sleep::{AsyncSleep, Sleep};
 use aws_smithy_client::erase::DynConnector;
@@ -28,6 +32,8 @@ pub struct AwsCredentials {
 
 #[wasm_bindgen(module = "env")]
 extern "C" {
+    fn now() -> f64;
+
     #[wasm_bindgen(js_name = retrieveCredentials)]
     fn retrieve_credentials() -> JsValue;
 }
@@ -40,7 +46,6 @@ pub fn start() {
 
 #[wasm_bindgen]
 pub async fn main(region: String, verbose: bool) -> Result<String, String> {
-
     if verbose {
         log!("Lambda client version:   {}", PKG_VERSION);
         log!("Region:                  {}", region);
@@ -51,42 +56,45 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
     let credentials = credentials_provider.provide_credentials().await.unwrap();
     log!("got credentials");
 
-    // log!("access key id: {}", credentials.access_key_id());
-    // log!("secret access key: {}", credentials.secret_access_key());
-    // log!("session token: {}", credentials.session_token().unwrap_or_else(|| "missing"));
+    log!("access key id: {}", credentials.access_key_id());
+    log!("secret access key: {}", credentials.secret_access_key());
+    log!(
+        "session token: {}",
+        credentials.session_token().unwrap_or_else(|| "missing")
+    );
 
-    // let access_key = credentials.access_key_id();
+    let access_key = credentials.access_key_id();
 
-    // let shared_config = aws_config::from_env()
-    //     .sleep_impl(BrowserSleep)
-    //     .region(Region::new(region))
-    //     .credentials_cache(browser_credentials_cache())
-    //     .credentials_provider(credentials_provider)
-    //     .http_connector(DynConnector::new(Adapter::new(
-    //         verbose,
-    //         access_key == "access_key",
-    //     )))
-    //     .load()
-    //     .await;
-    // let client = Client::new(&shared_config);
+    let shared_config = aws_config::from_env()
+        .sleep_impl(BrowserSleep)
+        .region(Region::new(region))
+        .credentials_cache(browser_credentials_cache())
+        .credentials_provider(credentials_provider)
+        .http_connector(DynConnector::new(Adapter::new(
+            verbose,
+            access_key == "access_key",
+        )))
+        .load()
+        .await;
+    let client = Client::new(&shared_config);
 
-    // let resp = client
-    //     .list_functions()
-    //     .send()
-    //     .await
-    //     .map_err(|e| format!("{:?}", e))?;
-    // let functions = resp.functions().unwrap_or_default();
+    let resp = client
+        .list_functions()
+        .send()
+        .await
+        .map_err(|e| format!("{:?}", e))?;
 
-    // for function in functions {
-    //     log!(
-    //         "Function Name: {}",
-    //         function.function_name().unwrap_or_default()
-    //     );
-    // }
-    // let output = functions.len().to_string();
+    let functions = resp.functions().unwrap_or_default();
 
-    // Ok(output)
-    Ok("")
+    for function in functions {
+        log!(
+            "Function Name: {}",
+            function.function_name().unwrap_or_default()
+        );
+    }
+    let output = functions.len().to_string();
+
+    Ok(output)
 }
 
 #[derive(Debug, Clone)]
@@ -112,9 +120,12 @@ fn static_credential_provider() -> impl ProvideCredentials {
 
 fn browser_credentials_cache() -> CredentialsCache {
     CredentialsCache::lazy_builder()
+        .time_source()
         .sleep(std::sync::Arc::new(BrowserSleep))
         .into_credentials_cache()
 }
+
+struct BrowserTimeSource;
 
 /// At this moment, there is no standard mechanism to make an outbound
 /// HTTP request from within the guest Wasm module.

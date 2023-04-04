@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-import init, { main } from "aws-wasm";
+import init, { main } from "../pkg/aws_wasm.js";
 
 export const initialize = async () => {
   await init();

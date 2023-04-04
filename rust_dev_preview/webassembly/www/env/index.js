@@ -7,4 +7,4 @@ export const now = () => {
   return Date.now();
 };
 
-export * from "./credentials.mjs";
+export * from "./credentials.js";
