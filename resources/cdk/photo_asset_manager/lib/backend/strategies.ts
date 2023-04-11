@@ -1,4 +1,4 @@
-import { BundlingOutput, Duration } from "aws-cdk-lib";
+import { BundlingOutput, DockerImage, Duration } from "aws-cdk-lib";
 import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { resolve } from "path";
 import { PamLambdasStrategy } from "./lambdas";
@@ -64,6 +64,36 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     return Code.fromAsset(pythonSources);
   },
   runtime: Runtime.PYTHON_3_9,
+  handlers: {
+    ...EMPTY_LAMBDAS_STRATEGY.handlers,
+  },
+};
+
+export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  codeAsset() {
+    const rustSources = resolve(
+      "../../../rust_dev_preview/cross_service/photo_asset_management/"
+    );
+    return Code.fromAsset(rustSources, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          "cargo lambda build --release --output-format zip && cp ",
+        ],
+        image: new DockerImage("ghcr.io/cargo-lambda/cargo-lambda"),
+        user: "root",
+        outputType: BundlingOutput.ARCHIVED,
+        // volumes: [
+        //   {
+        //     hostPath: `${process.env["HOME"]}/.m2/`,
+        //     containerPath: "/root/.m2",
+        //   },
+        // ],
+      },
+    });
+  },
+  runtime: Runtime.PROVIDED_AL2,
   handlers: {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
   },
