@@ -95,7 +95,10 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.PROVIDED_AL2,
   handlers: {
-    ...EMPTY_LAMBDAS_STRATEGY.handlers,
+    detectLabels: "detect_labels::handler",
+    download: "download::handler",
+    labels: "labels::handler",
+    upload: "upload::handler",
   },
 };
 
