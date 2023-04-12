@@ -1,15 +1,15 @@
 use anyhow::anyhow;
-use lambda_runtime::{service_fn, LambdaEvent};
+use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 #[derive(Deserialize)]
-struct Request {
+pub struct Request {
     labels: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]
-struct Response {
+pub struct Response {
     body: String,
 }
 
@@ -19,11 +19,12 @@ impl std::fmt::Display for Response {
     }
 }
 
-async fn do_download(labels: Vec<String>, notify: String) -> Result<(), anyhow::Error> {
+async fn do_download(_labels: Vec<String>, _notify: String) -> Result<(), anyhow::Error> {
     Ok(())
 }
 
-async fn download(event: LambdaEvent<Request>) -> Result<(), anyhow::Error> {
+#[tracing::instrument(skip(event), fields(req_id = %event.context.request_id))]
+pub async fn handler(event: LambdaEvent<Request>) -> Result<(), anyhow::Error> {
     // let notify = .unwrap().identity_id;
     match event.context.identity {
         Some(identity) => {

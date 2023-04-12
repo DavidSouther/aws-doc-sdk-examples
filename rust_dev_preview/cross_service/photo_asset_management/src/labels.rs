@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
-use lambda_runtime::{service_fn, LambdaEvent};
+use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 #[derive(Deserialize)]
-struct Request {}
+pub struct Request {}
 
 #[derive(Serialize)]
-struct Response {
+pub struct Response {
     body: String,
 }
 
@@ -57,7 +57,7 @@ async fn get_labels() -> Result<Labels, anyhow::Error> {
 }
 
 #[tracing::instrument(skip(event), fields(req_id = %event.context.request_id))]
-async fn labels(event: LambdaEvent<Request>) -> Result<Response, anyhow::Error> {
+pub async fn handler(event: LambdaEvent<Request>) -> Result<Response, anyhow::Error> {
     let labels = get_labels().await?;
 
     Ok(Response {

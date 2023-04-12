@@ -1,12 +1,10 @@
 use aws_lambda_events::s3::S3Event;
+use lambda_runtime::LambdaEvent;
 use rayon::prelude::*;
-use std::fmt::Display;
-
-use lambda_runtime::{service_fn, LambdaEvent};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 #[derive(Debug, Serialize)]
-struct Response {}
+pub struct Response {}
 
 impl std::fmt::Display for Response {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14,18 +12,20 @@ impl std::fmt::Display for Response {
     }
 }
 
-async fn detect_record(record: &aws_lambda_events::s3::S3EventRecord) -> Result<(), anyhow::Error> {
+async fn detect_record(
+    _record: &aws_lambda_events::s3::S3EventRecord,
+) -> Result<(), anyhow::Error> {
     Ok(())
 }
 
-#[tracing::instrument(skip(event), fields(req_id = %event.context.request_id, records = event.payload.records))]
-async fn detect_labels(event: LambdaEvent<S3Event>) -> Result<Response, anyhow::Error> {
+#[tracing::instrument(skip(event), fields(req_id = %event.context.request_id, record_count = event.payload.records.len()))]
+pub async fn handler(event: LambdaEvent<S3Event>) -> Result<Response, anyhow::Error> {
     event
         .payload
         .records
         .par_iter()
         .map(|r| detect_record(r))
-        .collect()?;
+        .count();
 
     Ok(Response {})
 }
