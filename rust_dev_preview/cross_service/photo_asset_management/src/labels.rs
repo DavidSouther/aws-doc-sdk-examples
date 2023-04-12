@@ -64,17 +64,3 @@ async fn labels(event: LambdaEvent<Request>) -> Result<Response, anyhow::Error> 
         body: json!(labels).to_string(),
     })
 }
-
-#[tokio::main]
-async fn main() -> Result<(), lambda_runtime::Error> {
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::INFO)
-        .with_target(false)
-        .without_time()
-        .init();
-
-    lambda_runtime::run(service_fn(|event: LambdaEvent<Request>| async {
-        labels(event).await
-    }))
-    .await
-}
