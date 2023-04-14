@@ -1,11 +1,6 @@
-use aws_lambda_events::s3::S3Event;
+use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use lambda_runtime::{service_fn, LambdaEvent};
-
-mod detect_labels;
-mod download;
-mod hello;
-mod labels;
-mod upload;
+use photo_asset_management::{common::Common, detect_labels, download, hello, labels, upload};
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_runtime::Error> {
@@ -15,36 +10,42 @@ async fn main() -> Result<(), lambda_runtime::Error> {
         .without_time()
         .init();
 
+    let common = Common::init().await;
+
     let handler = std::env::var("_HANDLER").expect("_HANDLER provided");
 
     match handler.as_str() {
         "detect_labels::handler" => {
-            lambda_runtime::run(service_fn(|event: LambdaEvent<S3Event>| async {
-                detect_labels::handler(event).await
-            }))
+            lambda_runtime::run(service_fn(
+                |event: LambdaEvent<detect_labels::Request>| async {
+                    detect_labels::handler(&common, event).await
+                },
+            ))
             .await
         }
         "download::handler" => {
-            lambda_runtime::run(service_fn(|event: LambdaEvent<download::Request>| async {
-                download::handler(event).await
-            }))
+            lambda_runtime::run(service_fn(
+                |event: LambdaEvent<ApiGatewayProxyRequest>| async {
+                    download::handler(&common, event).await
+                },
+            ))
             .await
         }
         "labels::handler" => {
             lambda_runtime::run(service_fn(|event: LambdaEvent<labels::Request>| async {
-                labels::handler(event).await
+                labels::handler(&common, event).await
             }))
             .await
         }
         "hello::handler" => {
             lambda_runtime::run(service_fn(|event: LambdaEvent<hello::Request>| async {
-                hello::handler(event).await
+                hello::handler(&common, event).await
             }))
             .await
         }
         "upload::handler" => {
             lambda_runtime::run(service_fn(|event: LambdaEvent<upload::Request>| async {
-                upload::handler(event).await
+                upload::handler(&common, event).await
             }))
             .await
         }

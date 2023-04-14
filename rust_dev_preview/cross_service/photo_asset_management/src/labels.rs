@@ -1,8 +1,11 @@
 use std::collections::HashMap;
 
+use aws_lambda_events::apigw::ApiGatewayProxyResponse;
 use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+
+use crate::{apig_response, common::Common};
 
 #[derive(Deserialize)]
 pub struct Request {}
@@ -46,7 +49,7 @@ impl std::fmt::Display for Response {
     }
 }
 
-async fn get_labels() -> Result<Labels, anyhow::Error> {
+async fn get_labels(_common: &Common) -> Result<Labels, anyhow::Error> {
     let mut labels = Labels::new();
     labels.add("mountain".into(), 5);
     labels.add("lake".into(), 3);
@@ -56,11 +59,12 @@ async fn get_labels() -> Result<Labels, anyhow::Error> {
     Ok(labels)
 }
 
-#[tracing::instrument(skip(event), fields(req_id = %event.context.request_id))]
-pub async fn handler(event: LambdaEvent<Request>) -> Result<Response, anyhow::Error> {
-    let labels = get_labels().await?;
+#[tracing::instrument(skip(common, event), fields(req_id = %event.context.request_id))]
+pub async fn handler(
+    common: &Common,
+    event: LambdaEvent<Request>,
+) -> Result<ApiGatewayProxyResponse, anyhow::Error> {
+    let labels = get_labels(common).await?;
 
-    Ok(Response {
-        body: json!(labels).to_string(),
-    })
+    Ok(apig_response!(labels))
 }

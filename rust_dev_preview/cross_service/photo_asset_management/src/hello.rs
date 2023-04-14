@@ -1,6 +1,8 @@
 use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 
+use crate::common::Common;
+
 #[derive(Deserialize)]
 pub struct Request {}
 
@@ -15,8 +17,11 @@ impl std::fmt::Display for Response {
     }
 }
 
-#[tracing::instrument(skip(event), fields(req_id = %event.context.request_id))]
-pub async fn handler(event: LambdaEvent<Request>) -> Result<Response, anyhow::Error> {
+#[tracing::instrument(skip(_common, event), fields(req_id = %event.context.request_id))]
+pub async fn handler(
+    _common: &Common,
+    event: LambdaEvent<Request>,
+) -> Result<Response, anyhow::Error> {
     Ok(Response {
         body: r#"{"message": "Hello, world"}"#.into(),
     })
