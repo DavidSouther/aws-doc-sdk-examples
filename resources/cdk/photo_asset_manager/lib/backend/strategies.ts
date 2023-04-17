@@ -7,7 +7,7 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(10),
   memorySize: 128,
   codeAsset() {
-    return Code.fromAsset("");
+    return Code.fromAsset("./unknown");
   },
   runtime: Runtime.NODEJS_18_X,
   handlers: {
@@ -79,7 +79,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
         command: [
           "/bin/sh",
           "-c",
-          "cargo lambda build --release --output-format zip && cp ",
+          "cargo lambda build --release --output-format zip && cp /asset-input/target/lambda/photo_asset_management/bootstrap.zip /asset-output/",
         ],
         image: new DockerImage("ghcr.io/cargo-lambda/cargo-lambda"),
         user: "root",
@@ -105,6 +105,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
   python: PYTHON_LAMBDAS_STRATEGY,
+  rust: RUST_LAMBDAS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 

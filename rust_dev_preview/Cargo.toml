@@ -66,3 +66,7 @@ members = [
     "tls",
     "transcribestreaming"
 ]
+
+[profile.release.package.photo_asset_management]
+opt-level = 3
+strip = "debuginfo"
