@@ -4,12 +4,13 @@ use crate::common::Common;
 use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use aws_sdk_dynamodb::primitives::DateTime;
 use aws_sdk_s3::types::CompletedPart;
+use aws_smithy_types_convert::date_time::DateTimeExt;
 use chrono::NaiveDateTime;
 use futures::{stream, StreamExt, TryStreamExt};
 use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use streaming_zip::Archive;
+use streaming_zip::{Archive, CompressionMode};
 
 #[derive(Deserialize)]
 pub struct Request {
@@ -119,20 +120,18 @@ async fn do_download(
             .send()
             .await?;
 
-        let last_modified = NaiveDateTime::from_timestamp_micros(
-            (object
-                .last_modified
-                .unwrap_or_else(|| DateTime::from_millis(0))
-                .as_nanos()
-                / 1000)
-                .try_into()?,
-        )
-        .expect("got a valid last modified");
+        let last_modified: NaiveDateTime = object
+            .last_modified
+            .unwrap_or_else(|| DateTime::from_millis(0))
+            .to_chrono_utc()
+            .expect("converted to chrono")
+            .naive_utc();
 
         let _ = zip_writer
             .start_new_file(
                 image.into_bytes(),
-                last_modified::CompressionMode::Deflate(8),
+                last_modified,
+                CompressionMode::Deflate(8),
                 false,
             )
             .expect("started new file");

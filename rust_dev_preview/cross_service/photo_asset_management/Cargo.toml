@@ -11,6 +11,7 @@ aws-config = "0.55.1"
 aws-sdk-dynamodb = "0.26.0"
 aws-sdk-rekognition = "0.26.0"
 aws-sdk-s3 = "0.26.0"
+aws-smithy-types-convert = { version = "0.55.1", features = ["convert-chrono"] }
 aws_lambda_events = { version = "0.8.3", features = ["s3", "apigw"] }
 chrono = "0.4.24"
 futures = "0.3.28"
