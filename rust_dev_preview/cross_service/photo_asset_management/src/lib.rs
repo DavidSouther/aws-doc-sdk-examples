@@ -1,6 +1,3 @@
 pub mod common;
-pub mod detect_labels;
-pub mod download;
-pub mod hello;
-pub mod labels;
-pub mod upload;
+pub mod handlers;
+pub mod uploader;
