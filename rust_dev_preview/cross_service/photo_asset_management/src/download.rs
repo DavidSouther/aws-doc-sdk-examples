@@ -75,26 +75,26 @@ impl<'a> Uploader<'a> {
 
     async fn write_body_bytes(&mut self) -> Result<(), anyhow::Error> {
         let mut body = [0u8; 65356];
-        let read = self.pipe.read(&mut body)?;
-        tracing::trace!(read, "Read zipped bytes");
-        let upload_part_response = self
-            .common
-            .s3_client()
-            .upload_part()
-            .bucket(self.common.working_bucket())
-            .key(self.key.to_string())
-            .body(Vec::from(body).into())
-            .part_number(self.part)
-            .upload_id(self.upload_id.clone())
-            .send()
-            .await?;
-        self.upload_parts.push(
-            CompletedPart::builder()
-                .e_tag(upload_part_response.e_tag().unwrap_or_default())
+        while self.pipe.read(&mut body)? > 0 {
+            let upload_part_response = self
+                .common
+                .s3_client()
+                .upload_part()
+                .bucket(self.common.working_bucket())
+                .key(self.key.to_string())
+                .body(Vec::from(body).into())
                 .part_number(self.part)
-                .build(),
-        );
-        self.part += 1;
+                .upload_id(self.upload_id.clone())
+                .send()
+                .await?;
+            self.upload_parts.push(
+                CompletedPart::builder()
+                    .e_tag(upload_part_response.e_tag().unwrap_or_default())
+                    .part_number(self.part)
+                    .build(),
+            );
+            self.part += 1;
+        }
         Ok::<(), anyhow::Error>(())
     }
 
