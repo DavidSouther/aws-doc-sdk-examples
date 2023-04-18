@@ -1,13 +1,14 @@
-use std::{collections::HashSet, mem};
+use std::{collections::HashSet, io::Read};
 
 use crate::common::Common;
 use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use aws_sdk_dynamodb::primitives::DateTime;
-use aws_sdk_s3::types::CompletedPart;
+use aws_sdk_s3::{presigning::PresigningConfig, types::CompletedPart};
 use aws_smithy_types_convert::date_time::DateTimeExt;
-use chrono::NaiveDateTime;
+use chrono::{Duration, NaiveDateTime};
 use futures::{stream, StreamExt, TryStreamExt};
 use lambda_runtime::LambdaEvent;
+use pipe::PipeReader;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use streaming_zip::{Archive, CompressionMode};
@@ -77,28 +78,28 @@ async fn do_download(
         .to_string();
 
     let mut part = 0;
-    let mut body_bytes: Vec<u8> = Vec::new();
-    let mut zip_writer = Archive::new(body_bytes);
+    let mut pipe = pipe::pipe();
+    let mut zip_writer = Archive::new(pipe.1);
     let mut upload_parts: Vec<CompletedPart> = Vec::new();
 
-    // let mut write_body_bytes =
-    //     |part: &mut i32, bytes: &mut Vec<u8>, upload_parts: &mut Vec<CompletedPart>| async {
     async fn write_body_bytes(
         part: &mut i32,
-        bytes: &mut Vec<u8>,
+        pipe: &mut PipeReader,
         upload_parts: &mut Vec<CompletedPart>,
         common: &Common,
         key: uuid::Uuid,
+        upload_id: &String,
     ) -> Result<(), anyhow::Error> {
-        let mut body: Vec<u8> = Vec::new();
-        mem::swap(bytes, &mut body);
+        let mut body = [0u8; 65356];
+        pipe.read(&mut body)?;
         let upload_part_response = common
             .s3_client()
             .upload_part()
             .bucket(common.working_bucket())
             .key(key.to_string())
-            .body(body.into())
+            .body(Vec::from(body).into())
             .part_number(*part)
+            .upload_id(upload_id.clone())
             .send()
             .await?;
         upload_parts.push(
@@ -137,21 +138,72 @@ async fn do_download(
             .expect("started new file");
 
         while let Some(bytes) = object.body.try_next().await? {
-            zip_writer.append_data(&bytes);
+            zip_writer.append_data(&bytes)?;
 
-            write_body_bytes(&mut part, &mut body_bytes, &mut upload_parts, common, key).await?;
+            write_body_bytes(
+                &mut part,
+                &mut pipe.0,
+                &mut upload_parts,
+                common,
+                key,
+                &upload_id,
+            )
+            .await?;
         }
 
-        let _ = zip_writer.finish_file().expect("closed up file");
-        write_body_bytes(&mut part, &mut body_bytes, &mut upload_parts, common, key).await?;
+        zip_writer.finish_file()?;
+        write_body_bytes(
+            &mut part,
+            &mut pipe.0,
+            &mut upload_parts,
+            common,
+            key,
+            &upload_id,
+        )
+        .await?;
     }
 
-    zip_writer.finish().expect("finished stream");
-    write_body_bytes(&mut part, &mut body_bytes, &mut upload_parts, common, key).await?;
+    zip_writer.finish()?;
+    write_body_bytes(
+        &mut part,
+        &mut pipe.0,
+        &mut upload_parts,
+        common,
+        key,
+        &upload_id,
+    )
+    .await?;
 
-    let _ = common.s3_client().complete_multipart_upload();
+    let _ = common
+        .s3_client()
+        .complete_multipart_upload()
+        .bucket(common.working_bucket())
+        .key(key.to_string())
+        .upload_id(upload_id.clone())
+        .send()
+        .await?;
 
     // Send notification
+    let get_object = common
+        .s3_client()
+        .get_object()
+        .bucket(common.working_bucket())
+        .key(key.to_string())
+        .presigned(
+            PresigningConfig::builder()
+                .expires_in(Duration::days(1).to_std()?)
+                .build()?,
+        )
+        .await?;
+    let message = format!("Retrieve your photos {}", get_object.uri());
+
+    common
+        .sns_client()
+        .publish()
+        .topic_arn(common.notification_arn())
+        .message(message)
+        .send()
+        .await?;
 
     Ok(())
 }

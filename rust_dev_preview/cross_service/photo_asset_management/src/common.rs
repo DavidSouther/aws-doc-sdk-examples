@@ -5,6 +5,7 @@ pub struct Common {
     rekognition_client: aws_sdk_rekognition::Client,
     dynamodb_client: aws_sdk_dynamodb::Client,
     s3_client: aws_sdk_s3::Client,
+    sns_client: aws_sdk_sns::Client,
     storage_bucket: String,
     working_bucket: String,
     labels_table: String,
@@ -17,11 +18,13 @@ impl Common {
         let dynamodb_client = aws_sdk_dynamodb::Client::new(&sdk_config);
         let rekognition_client = aws_sdk_rekognition::Client::new(&sdk_config);
         let s3_client = aws_sdk_s3::Client::new(&sdk_config);
+        let sns_client = aws_sdk_sns::Client::new(&sdk_config);
         Common {
             sdk_config,
             dynamodb_client,
             rekognition_client,
             s3_client,
+            sns_client,
             storage_bucket: std::env::var("STORAGE_BUCKET").expect("storage bucket in environment"),
             working_bucket: std::env::var("WORKING_BUCKET").expect("working bucket in environment"),
             labels_table: std::env::var("LABELS_TABLE").expect("labels table in environment"),
@@ -43,6 +46,10 @@ impl Common {
 
     pub fn s3_client(&self) -> &aws_sdk_s3::Client {
         &self.s3_client
+    }
+
+    pub fn sns_client(&self) -> &aws_sdk_sns::Client {
+        &self.sns_client
     }
 
     pub fn storage_bucket(&self) -> &String {
