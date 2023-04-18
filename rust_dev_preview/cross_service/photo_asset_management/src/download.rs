@@ -75,7 +75,8 @@ impl<'a> Uploader<'a> {
 
     async fn write_body_bytes(&mut self) -> Result<(), anyhow::Error> {
         let mut body = [0u8; 65356];
-        self.pipe.read(&mut body)?;
+        let read = self.pipe.read(&mut body)?;
+        tracing::trace!(read, "Read zipped bytes");
         let upload_part_response = self
             .common
             .s3_client()
@@ -114,8 +115,7 @@ impl<'a> Uploader<'a> {
             .expect("converted to chrono")
             .naive_utc();
 
-        let _ = self
-            .zip_writer
+        self.zip_writer
             .start_new_file(
                 image.into_bytes(),
                 last_modified,
@@ -141,14 +141,12 @@ impl<'a> Uploader<'a> {
         Ok(())
     }
 
-    async fn finish(&mut self) -> Result<String, anyhow::Error> {
-        let pipe = pipe::pipe();
-        let mut zip_writer = Archive::new(pipe.1);
+    async fn finish(mut self) -> Result<String, anyhow::Error> {
+        let mut zip_writer = Archive::new(pipe::pipe().1);
         std::mem::swap(&mut self.zip_writer, &mut zip_writer);
         zip_writer.finish()?;
         self.write_body_bytes().await?;
 
-        self.pipe = pipe.0;
         let _ = self
             .common
             .s3_client()
