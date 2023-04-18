@@ -19,7 +19,8 @@ use crate::common::Common;
 const READ_SIZE: usize = 1_048_578;
 
 // ZipUploader is a struct to manage streaming a number of files into a single zip,
-// that is itself streamed to an s3 object.
+// that is itself streamed to an s3 object. It reads from a source bucket, to a
+// bucket and key for the zip.
 pub struct ZipUpload<'a> {
     part: i32,
     pipe: PipeReader,
@@ -27,15 +28,14 @@ pub struct ZipUpload<'a> {
     upload_parts: Vec<CompletedPart>,
     upload_id: String,
     key: String,
-    dest_bucket: String,
+    bucket: String,
     source_bucket: String,
-    // common: &'a Common,
     s3_client: &'a aws_sdk_s3::Client,
 }
 
 pub struct ZipUploadBuilder<'a> {
     source_bucket: Option<String>,
-    dest_bucket: Option<String>,
+    bucket: Option<String>,
     key: Option<String>,
     common: &'a Common,
 }
@@ -51,33 +51,37 @@ impl<'a> ZipUploadBuilder<'a> {
         self
     }
 
-    pub fn dest_bucket(&mut self, bucket: String) -> &Self {
-        self.dest_bucket = Some(bucket);
+    pub fn bucket(&mut self, bucket: String) -> &Self {
+        self.bucket = Some(bucket);
         self
     }
 
     pub async fn build(self) -> Result<ZipUpload<'a>, anyhow::Error> {
+        let s3_client = self.common.s3_client();
         let part = 0;
+        let upload_parts: Vec<CompletedPart> = Vec::new();
+
         let pipe = pipe::pipe();
         let zip_writer = Archive::new(pipe.1);
-        let upload_parts: Vec<CompletedPart> = Vec::new();
+        let pipe = pipe.0;
+
         let key = self.key.unwrap_or_else(|| Uuid::new_v4().to_string());
         let source_bucket = self
             .source_bucket
             .unwrap_or_else(|| self.common.storage_bucket().clone());
-        let dest_bucket = self
-            .dest_bucket
+        let bucket = self
+            .bucket
             .unwrap_or_else(|| self.common.working_bucket().clone());
 
-        let upload = self
-            .common
-            .s3_client()
+        // Start the multipart upload...
+        let upload = s3_client
             .create_multipart_upload()
-            .bucket(&dest_bucket)
+            .bucket(&bucket)
             .key(&key)
+            .content_type("application/zip")
             .send()
             .await?;
-
+        // ... and keep its ID.
         let upload_id = upload
             .upload_id()
             .expect("can multipart upload")
@@ -85,24 +89,24 @@ impl<'a> ZipUploadBuilder<'a> {
 
         Ok(ZipUpload {
             part,
-            pipe: pipe.0,
+            pipe,
             zip_writer,
             upload_parts,
-            // common: self.common,
-            s3_client: self.common.s3_client(),
             key,
-            dest_bucket,
+            bucket,
             source_bucket,
             upload_id,
+            s3_client,
         })
     }
 }
 
 impl<'a> ZipUpload<'a> {
+    // Start a builder for the ZipUpload.
     pub fn builder(common: &'a Common) -> ZipUploadBuilder {
         ZipUploadBuilder {
             key: None,
-            dest_bucket: None,
+            bucket: None,
             source_bucket: None,
             common,
         }
@@ -116,7 +120,7 @@ impl<'a> ZipUpload<'a> {
             let upload_part_response = self
                 .s3_client
                 .upload_part()
-                .bucket(&self.dest_bucket)
+                .bucket(&self.bucket)
                 .key(self.key.to_string())
                 .body(Vec::from(body).into())
                 .part_number(self.part)
@@ -135,7 +139,9 @@ impl<'a> ZipUpload<'a> {
         Ok(())
     }
 
-    // Add an object in the
+    // Add an object to the archive. Reads the key from the source_bucket, passes it
+    // through a new file entry in the archive, and writes the parts to the multipart
+    // upload.
     pub async fn add_object(&mut self, key: String) -> Result<(), anyhow::Error> {
         let mut object = self.next_object(key).await?;
         while let Some(bytes) = object.body.try_next().await? {
@@ -176,6 +182,7 @@ impl<'a> ZipUpload<'a> {
         Ok(object)
     }
 
+    // Write one sequence of bytes through the zip_writer and upload the part.
     async fn next_part(&mut self, bytes: &bytes::Bytes) -> Result<(), anyhow::Error> {
         self.zip_writer.append_data(bytes)?;
 
@@ -191,20 +198,26 @@ impl<'a> ZipUpload<'a> {
     }
 
     pub async fn finish(mut self) -> Result<(String, String), anyhow::Error> {
+        // Swap out the Archive so that it can get finalized (and the new empty one dropped).
+        // Without this, zip_writer.finish takes ownership of self, and effectively ends
+        // the method early.
         let mut zip_writer = Archive::new(pipe::pipe().1);
         std::mem::swap(&mut self.zip_writer, &mut zip_writer);
         zip_writer.finish()?;
         self.write_body_bytes().await?;
 
-        let _ = self
+        let upload = self
             .s3_client
             .complete_multipart_upload()
-            .bucket(&self.dest_bucket)
+            .bucket(&self.bucket)
             .key(&self.key)
             .upload_id(self.upload_id.clone())
             .send()
             .await?;
 
-        Ok((self.dest_bucket, self.key))
+        tracing::trace!(?upload, "Finished upload");
+
+        // After taking ownership of `self`, return the owned bucket and key strings.
+        Ok((self.bucket, self.key))
     }
 }

@@ -45,6 +45,8 @@ async fn detect_record(
                     label.name().expect("found label name").to_string(),
                 ),
             )
+            // Using an update expression ensures the count and list are updated atomically.
+            // This does require passing `:one` as a value.
             .update_expression("SET count = count + :one SET images = images + :image")
             .expression_attribute_values(
                 ":one",
@@ -66,12 +68,13 @@ pub async fn handler(
     common: &Common,
     event: LambdaEvent<Request>,
 ) -> Result<Response, anyhow::Error> {
-    let _ = stream::iter(event.payload.0.records)
-        .map(move |r| {
-            let _ = detect_record(common, &r);
-            Ok::<(), anyhow::Error>(())
-        })
-        .count();
+    let count = stream::iter(event.payload.0.records)
+        .map(|r| async move { detect_record(common, &r).await })
+        .buffered(1)
+        .count()
+        .await;
+
+    tracing::trace!("Handled {count} records");
 
     Ok(Response {})
 }

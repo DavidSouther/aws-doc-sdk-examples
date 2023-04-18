@@ -27,7 +27,7 @@ impl std::fmt::Display for Response {
     }
 }
 
-async fn make_url(common: &Common, file_name: String) -> Result<Url, anyhow::Error> {
+async fn make_put_url(common: &Common, file_name: String) -> Result<Url, anyhow::Error> {
     let uuid = uuid::Uuid::new_v4();
     let key_name = format!("{uuid}/{file_name}");
     let put_object = common
@@ -46,7 +46,7 @@ pub async fn handler(
     common: &Common,
     event: LambdaEvent<Request>,
 ) -> Result<ApiGatewayProxyResponse, anyhow::Error> {
-    let url = make_url(common, event.payload.file_name).await?;
+    let url = make_put_url(common, event.payload.file_name).await?;
 
     Ok(apig_response!(url))
 }
