@@ -3,12 +3,14 @@ use std::{collections::HashSet, io::Read};
 use crate::common::Common;
 use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use aws_sdk_dynamodb::primitives::DateTime;
-use aws_sdk_s3::{presigning::PresigningConfig, types::CompletedPart};
+use aws_sdk_s3::{
+    operation::get_object::GetObjectOutput, presigning::PresigningConfig, types::CompletedPart,
+};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use chrono::{Duration, NaiveDateTime};
 use futures::{stream, StreamExt, TryStreamExt};
 use lambda_runtime::LambdaEvent;
-use pipe::PipeReader;
+use pipe::{PipeReader, PipeWriter};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use streaming_zip::{Archive, CompressionMode};
@@ -26,6 +28,137 @@ pub struct Response {
 impl std::fmt::Display for Response {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", json!(self))
+    }
+}
+
+struct Uploader<'a> {
+    part: i32,
+    pipe: PipeReader,
+    zip_writer: Archive<PipeWriter>,
+    upload_parts: Vec<CompletedPart>,
+    upload_id: String,
+    key: uuid::Uuid,
+    common: &'a Common,
+}
+
+impl<'a> Uploader<'a> {
+    async fn build(common: &'a Common) -> Result<Uploader<'a>, anyhow::Error> {
+        let part = 0;
+        let pipe = pipe::pipe();
+        let zip_writer = Archive::new(pipe.1);
+        let upload_parts: Vec<CompletedPart> = Vec::new();
+        let key = uuid::Uuid::new_v4();
+
+        let upload = common
+            .s3_client()
+            .create_multipart_upload()
+            .bucket(common.working_bucket())
+            .key(key.to_string())
+            .send()
+            .await?;
+
+        let upload_id = upload
+            .upload_id()
+            .expect("can multipart upload")
+            .to_string();
+
+        Ok(Uploader {
+            part,
+            pipe: pipe.0,
+            zip_writer,
+            upload_parts,
+            common,
+            key,
+            upload_id,
+        })
+    }
+
+    async fn write_body_bytes(&mut self) -> Result<(), anyhow::Error> {
+        let mut body = [0u8; 65356];
+        self.pipe.read(&mut body)?;
+        let upload_part_response = self
+            .common
+            .s3_client()
+            .upload_part()
+            .bucket(self.common.working_bucket())
+            .key(self.key.to_string())
+            .body(Vec::from(body).into())
+            .part_number(self.part)
+            .upload_id(self.upload_id.clone())
+            .send()
+            .await?;
+        self.upload_parts.push(
+            CompletedPart::builder()
+                .e_tag(upload_part_response.e_tag().unwrap_or_default())
+                .part_number(self.part)
+                .build(),
+        );
+        self.part += 1;
+        Ok::<(), anyhow::Error>(())
+    }
+
+    async fn next_image(&mut self, image: String) -> Result<GetObjectOutput, anyhow::Error> {
+        let object = self
+            .common
+            .s3_client()
+            .get_object()
+            .bucket(self.common.storage_bucket())
+            .key(image.clone())
+            .send()
+            .await?;
+
+        let last_modified: NaiveDateTime = object
+            .last_modified
+            .unwrap_or_else(|| DateTime::from_millis(0))
+            .to_chrono_utc()
+            .expect("converted to chrono")
+            .naive_utc();
+
+        let _ = self
+            .zip_writer
+            .start_new_file(
+                image.into_bytes(),
+                last_modified,
+                CompressionMode::Deflate(8),
+                false,
+            )
+            .expect("started new file");
+
+        Ok(object)
+    }
+
+    async fn next_part(&mut self, bytes: &bytes::Bytes) -> Result<(), anyhow::Error> {
+        self.zip_writer.append_data(bytes)?;
+
+        self.write_body_bytes().await?;
+
+        Ok(())
+    }
+
+    async fn finish_image(&mut self) -> Result<(), anyhow::Error> {
+        self.zip_writer.finish_file()?;
+        self.write_body_bytes().await?;
+        Ok(())
+    }
+
+    async fn finish(&mut self) -> Result<String, anyhow::Error> {
+        let pipe = pipe::pipe();
+        let mut zip_writer = Archive::new(pipe.1);
+        std::mem::swap(&mut self.zip_writer, &mut zip_writer);
+        zip_writer.finish()?;
+        self.write_body_bytes().await?;
+
+        self.pipe = pipe.0;
+        let _ = self
+            .common
+            .s3_client()
+            .complete_multipart_upload()
+            .bucket(self.common.working_bucket())
+            .key(self.key.to_string())
+            .upload_id(self.upload_id.clone())
+            .send()
+            .await?;
+        Ok(self.key.to_string())
     }
 }
 
@@ -62,126 +195,17 @@ async fn do_download(
         .cloned()
         .collect();
 
-    // let flat = par_iter.flat_map_iter(map_op)
-    let key = uuid::Uuid::new_v4();
-    let upload = common
-        .s3_client()
-        .create_multipart_upload()
-        .bucket(common.working_bucket())
-        .key(key.to_string())
-        .send()
-        .await?;
-
-    let upload_id = upload
-        .upload_id()
-        .expect("can multipart upload")
-        .to_string();
-
-    let mut part = 0;
-    let mut pipe = pipe::pipe();
-    let mut zip_writer = Archive::new(pipe.1);
-    let mut upload_parts: Vec<CompletedPart> = Vec::new();
-
-    async fn write_body_bytes(
-        part: &mut i32,
-        pipe: &mut PipeReader,
-        upload_parts: &mut Vec<CompletedPart>,
-        common: &Common,
-        key: uuid::Uuid,
-        upload_id: &String,
-    ) -> Result<(), anyhow::Error> {
-        let mut body = [0u8; 65356];
-        pipe.read(&mut body)?;
-        let upload_part_response = common
-            .s3_client()
-            .upload_part()
-            .bucket(common.working_bucket())
-            .key(key.to_string())
-            .body(Vec::from(body).into())
-            .part_number(*part)
-            .upload_id(upload_id.clone())
-            .send()
-            .await?;
-        upload_parts.push(
-            CompletedPart::builder()
-                .e_tag(upload_part_response.e_tag().unwrap_or_default())
-                .part_number(*part)
-                .build(),
-        );
-        *part += 1;
-        Ok::<(), anyhow::Error>(())
-    }
+    let mut uploader = Uploader::build(common).await?;
 
     for image in images {
-        let mut object = common
-            .s3_client()
-            .get_object()
-            .bucket(common.storage_bucket())
-            .key(image.clone())
-            .send()
-            .await?;
-
-        let last_modified: NaiveDateTime = object
-            .last_modified
-            .unwrap_or_else(|| DateTime::from_millis(0))
-            .to_chrono_utc()
-            .expect("converted to chrono")
-            .naive_utc();
-
-        let _ = zip_writer
-            .start_new_file(
-                image.into_bytes(),
-                last_modified,
-                CompressionMode::Deflate(8),
-                false,
-            )
-            .expect("started new file");
-
+        let mut object = uploader.next_image(image).await?;
         while let Some(bytes) = object.body.try_next().await? {
-            zip_writer.append_data(&bytes)?;
-
-            write_body_bytes(
-                &mut part,
-                &mut pipe.0,
-                &mut upload_parts,
-                common,
-                key,
-                &upload_id,
-            )
-            .await?;
+            uploader.next_part(&bytes).await?;
         }
-
-        zip_writer.finish_file()?;
-        write_body_bytes(
-            &mut part,
-            &mut pipe.0,
-            &mut upload_parts,
-            common,
-            key,
-            &upload_id,
-        )
-        .await?;
+        uploader.finish_image().await?;
     }
 
-    zip_writer.finish()?;
-    write_body_bytes(
-        &mut part,
-        &mut pipe.0,
-        &mut upload_parts,
-        common,
-        key,
-        &upload_id,
-    )
-    .await?;
-
-    let _ = common
-        .s3_client()
-        .complete_multipart_upload()
-        .bucket(common.working_bucket())
-        .key(key.to_string())
-        .upload_id(upload_id.clone())
-        .send()
-        .await?;
+    let key = uploader.finish().await?;
 
     // Send notification
     let get_object = common
