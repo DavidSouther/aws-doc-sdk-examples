@@ -1,5 +1,5 @@
 use lambda_runtime::{service_fn, LambdaEvent};
-use photo_asset_management::{common::Common, detect_labels};
+use photo_asset_management::{common::Common, handlers::detect_labels};
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_runtime::Error> {

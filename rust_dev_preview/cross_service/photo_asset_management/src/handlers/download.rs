@@ -82,7 +82,7 @@ async fn send_notification(
     common
         .sns_client()
         .publish()
-        .topic_arn(common.notification_arn())
+        .topic_arn(common.notification_topic())
         .message(message)
         .send()
         .await?;

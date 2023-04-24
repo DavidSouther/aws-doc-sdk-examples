@@ -7,12 +7,12 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.70"
-aws-config = "0.55.1"
-aws-sdk-dynamodb = "0.26.0"
-aws-sdk-rekognition = "0.26.0"
-aws-sdk-s3 = "0.26.0"
-aws-sdk-sns = "0.26.0"
-aws-smithy-types-convert = { version = "0.55.1", features = ["convert-chrono"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-sns = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-types-convert ={ git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["convert-chrono"] }
 aws_lambda_events = { version = "0.8.3", features = ["s3", "apigw"] }
 bytes = "1.4.0"
 chrono = "0.4.24"
@@ -22,6 +22,7 @@ lambda_runtime = "0.7.3"
 miniz_oxide = "0.7.1"
 pin-project = "1.0.12"
 pipe = "0.4.0"
+sdk-examples-test-utils = { path = "../../test-utils" }
 serde = { version = "1.0.159", features = ["derive"] }
 serde_json = "1.0.95"
 streaming-zip = "0.5.0"

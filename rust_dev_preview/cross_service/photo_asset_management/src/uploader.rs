@@ -147,12 +147,12 @@ impl<'a> ZipUpload<'a> {
         while let Some(bytes) = object.body.try_next().await? {
             self.next_part(&bytes).await?;
         }
-        self.finish_image().await?;
+        self.finish_object().await?;
 
         Ok(())
     }
 
-    // Move to the next object. This starts the object download from s3, and starts a new entry
+    // Move to the next object. This starts the object download from s3, as well as a new entry
     // in the Zip archive. It returns the GetObjectOutput to iterate the download's body.
     async fn next_object(&mut self, key: String) -> Result<GetObjectOutput, anyhow::Error> {
         let object = self
@@ -191,12 +191,15 @@ impl<'a> ZipUpload<'a> {
         Ok(())
     }
 
-    async fn finish_image(&mut self) -> Result<(), anyhow::Error> {
+    // Finish the current object and flush the part.
+    async fn finish_object(&mut self) -> Result<(), anyhow::Error> {
         self.zip_writer.finish_file()?;
         self.write_body_bytes().await?;
         Ok(())
     }
 
+    // Finish the entire operation. Takes ownership of itself to invalidate future operations
+    // with this uploader.
     pub async fn finish(mut self) -> Result<(String, String), anyhow::Error> {
         // Swap out the Archive so that it can get finalized (and the new empty one dropped).
         // Without this, zip_writer.finish takes ownership of self, and effectively ends

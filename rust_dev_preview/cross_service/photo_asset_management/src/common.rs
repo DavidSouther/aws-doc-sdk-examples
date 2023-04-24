@@ -1,5 +1,9 @@
 use aws_config::SdkConfig;
 
+// Common fields are loaded during the Lambda init phase. These include reading
+// several environment variables to know which buckets and tables to work from,
+// as well as preparing the SDK Config (expensive) and several clients from that
+// config (cheap).
 pub struct Common {
     sdk_config: SdkConfig,
     rekognition_client: aws_sdk_rekognition::Client,
@@ -9,7 +13,7 @@ pub struct Common {
     storage_bucket: String,
     working_bucket: String,
     labels_table: String,
-    notification_arn: String,
+    notification_topic: String,
 }
 
 impl Common {
@@ -25,10 +29,12 @@ impl Common {
             rekognition_client,
             s3_client,
             sns_client,
+            // PAM environment is declared in the cdk, in lib/backend/lambdas.ts
             storage_bucket: std::env::var("STORAGE_BUCKET").expect("storage bucket in environment"),
             working_bucket: std::env::var("WORKING_BUCKET").expect("working bucket in environment"),
             labels_table: std::env::var("LABELS_TABLE").expect("labels table in environment"),
-            notification_arn: std::env::var("").expect("notification channel in environment"),
+            notification_topic: std::env::var("NOTIFICATION_TOPIC")
+                .expect("notification topic in environment"),
         }
     }
 
@@ -64,21 +70,22 @@ impl Common {
         &self.labels_table
     }
 
-    pub fn notification_arn(&self) -> &String {
-        &self.notification_arn
+    pub fn notification_topic(&self) -> &String {
+        &self.notification_topic
     }
 }
 
 #[macro_export]
 macro_rules! apig_response(
   ($body:expr) => {{
-    let headers = http::header::HeaderMap::new();
+    let mut headers = http::header::HeaderMap::new();
+    headers.insert("Access-Control-Allow-Origin", http::header::HeaderValue::from_static("*"));
     aws_lambda_events::apigw::ApiGatewayProxyResponse {
       status_code: 200,
       headers,
       multi_value_headers: http::header::HeaderMap::new(),
       body: Some(aws_lambda_events::encodings::Body::Text(serde_json::json!($body).to_string())),
-      is_base64_encoded: Some(true)
+      is_base64_encoded: None
     }
   }}
 );

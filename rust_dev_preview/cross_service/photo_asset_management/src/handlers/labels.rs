@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 
+use anyhow::anyhow;
 use aws_lambda_events::apigw::ApiGatewayProxyResponse;
+use aws_sdk_dynamodb::types::AttributeValue;
 use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -15,7 +17,7 @@ pub struct Response {
     body: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, PartialEq, Eq)]
 struct Label {
     count: u32,
 }
@@ -26,9 +28,39 @@ impl Label {
     }
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, PartialEq, Eq)]
 struct Labels {
     labels: HashMap<String, Label>,
+}
+
+struct LabelEntry {
+    label: String,
+    count: u32,
+}
+
+impl TryFrom<&HashMap<String, AttributeValue>> for LabelEntry {
+    type Error = anyhow::Error;
+
+    fn try_from(value: &HashMap<String, AttributeValue>) -> Result<Self, Self::Error> {
+        let label = {
+            value
+                .get("Label")
+                .ok_or_else(|| anyhow!("found item Label attribute"))?
+                .as_s()
+                .map_err(|e| anyhow!("Could not get Label as string {e:?}"))?
+                .clone()
+        };
+        let count = {
+            value
+                .get("Count")
+                .ok_or_else(|| anyhow!("found item Count attribute"))?
+                .as_n()
+                .map_err(|e| anyhow!("Could not get Count as number {e:?}"))?
+                .clone()
+                .parse::<u32>()?
+        };
+        Ok(LabelEntry { label, count })
+    }
 }
 
 impl Labels {
@@ -41,6 +73,10 @@ impl Labels {
     fn add(&mut self, label: String, count: u32) {
         self.labels.insert(label, Label::new(count));
     }
+
+    fn insert(&mut self, entry: LabelEntry) {
+        self.add(entry.label, entry.count);
+    }
 }
 
 impl std::fmt::Display for Response {
@@ -49,12 +85,24 @@ impl std::fmt::Display for Response {
     }
 }
 
-async fn get_labels(_common: &Common) -> Result<Labels, anyhow::Error> {
-    let mut labels = Labels::new();
-    labels.add("mountain".into(), 5);
-    labels.add("lake".into(), 3);
+async fn get_labels(
+    client: &aws_sdk_dynamodb::Client,
+    table: String,
+) -> Result<Labels, anyhow::Error> {
+    let scan = client
+        .scan()
+        .table_name(table)
+        .select(aws_sdk_dynamodb::types::Select::AllProjectedAttributes)
+        .projection_expression("Label, Count")
+        .send()
+        .await?;
 
-    // TODO Get Labels
+    let items = scan.items().ok_or_else(|| anyhow!("no scanned items"))?;
+
+    let mut labels = Labels::new();
+    for item in items {
+        labels.insert(item.try_into()?);
+    }
 
     Ok(labels)
 }
@@ -64,7 +112,47 @@ pub async fn handler(
     common: &Common,
     event: LambdaEvent<Request>,
 ) -> Result<ApiGatewayProxyResponse, anyhow::Error> {
-    let labels = get_labels(common).await?;
+    let labels = get_labels(common.dynamodb_client(), common.labels_table().clone()).await?;
 
     Ok(apig_response!(labels))
+}
+
+#[cfg(test)]
+mod test {
+    use sdk_examples_test_utils::single_shot_client;
+    use serde_json::json;
+
+    use super::{get_labels, Labels};
+
+    #[tokio::test]
+    async fn test_get_labels() {
+        let client: aws_sdk_dynamodb::Client = single_shot_client! {
+            sdk: aws_sdk_dynamodb,
+            status: 200,
+            response: r#"{"Count":2,"Items":[{"Label":{"S":"Mountain"},"Count":{"N":"3"}},{"Label":{"S":"Lake"},"Count":{"N":"2"}}],"ScannedCount":2}"#
+        };
+        let labels = get_labels(&client, "test".to_string())
+            .await
+            .map_err(|e| {
+                eprintln!("{e}");
+                e
+            })
+            .expect("got labels")
+            .labels;
+        assert_eq!(labels.get("Mountain").expect("has Mountain").count, 3);
+        assert_eq!(labels.get("Lake").expect("has Lake").count, 2);
+    }
+
+    #[test]
+    fn test_labels_response() {
+        let mut labels = Labels::new();
+        labels.add("Mountain".to_string(), 3);
+        labels.add("River".to_string(), 5);
+        labels.add("Lake".to_string(), 2);
+        let labels_json = json!(labels);
+        assert_eq!(
+            labels_json.to_string(),
+            r#"{"labels":{"Lake":{"count":2},"Mountain":{"count":3},"River":{"count":5}}}"#
+        )
+    }
 }

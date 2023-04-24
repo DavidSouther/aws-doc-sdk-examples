@@ -1,6 +1,6 @@
 use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use lambda_runtime::{service_fn, LambdaEvent};
-use photo_asset_management::{common::Common, download};
+use photo_asset_management::{common::Common, handlers::download};
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_runtime::Error> {

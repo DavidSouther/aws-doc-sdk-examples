@@ -1,5 +1,5 @@
 use lambda_runtime::{service_fn, LambdaEvent};
-use photo_asset_management::{common::Common, upload};
+use photo_asset_management::{common::Common, handlers::upload};
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_runtime::Error> {

@@ -30,8 +30,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
         command: [
           "/bin/sh",
           "-c",
-          "mvn install && \
-                      cp /asset-input/target/PhotoAssetRestSDK-1.0-SNAPSHOT.jar /asset-output/",
+          "mvn install && cp /asset-input/target/PhotoAssetRestSDK-1.0-SNAPSHOT.jar /asset-output/",
         ],
         image: this.runtime.bundlingImage,
         user: "root",
@@ -84,12 +83,16 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
         image: new DockerImage("ghcr.io/cargo-lambda/cargo-lambda"),
         user: "root",
         outputType: BundlingOutput.ARCHIVED,
-        // volumes: [
-        //   {
-        //     hostPath: `${process.env["HOME"]}/.m2/`,
-        //     containerPath: "/root/.m2",
-        //   },
-        // ],
+        volumes: [
+          {
+            hostPath: `${process.env["HOME"]}/.cargo/`,
+            containerPath: "/root/.cargo",
+          },
+          {
+            hostPath: `${__dirname}/../../rust-target`,
+            containerPath: "/asset-input/target",
+          },
+        ],
       },
     });
   },

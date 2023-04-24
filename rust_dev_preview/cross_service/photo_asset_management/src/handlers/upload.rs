@@ -19,7 +19,9 @@ pub struct Response {
 }
 
 #[derive(Serialize)]
-struct Url(String);
+struct Url {
+    url: String,
+}
 
 impl std::fmt::Display for Response {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -38,7 +40,9 @@ async fn make_put_url(common: &Common, file_name: String) -> Result<Url, anyhow:
         .content_type("image/jpeg")
         .presigned(PresigningConfig::expires_in(Duration::from_secs(5 * 60))?)
         .await?;
-    Ok(Url(put_object.uri().to_string()))
+    Ok(Url {
+        url: put_object.uri().to_string(),
+    })
 }
 
 #[tracing::instrument(skip(common, event), fields(req_id = %event.context.request_id))]
@@ -49,4 +53,38 @@ pub async fn handler(
     let url = make_put_url(common, event.payload.file_name).await?;
 
     Ok(apig_response!(url))
+}
+
+#[cfg(test)]
+mod test {
+    use serde_json::json;
+
+    use crate::apig_response;
+
+    use super::Url;
+
+    #[test]
+    pub fn test_url_serialization() {
+        let url = Url {
+            url: "https://localhost/object".to_string(),
+        };
+        let stringed_url = json!(url);
+        assert_eq!(
+            stringed_url.to_string(),
+            r#"{"url":"https://localhost/object"}"#
+        );
+    }
+
+    #[test]
+    fn test_upload_response() {
+        let url = Url {
+            url: "https://localhost/object".to_string(),
+        };
+        let response = apig_response!(url);
+        let response_string = json!(response);
+        assert_eq!(
+            response_string.to_string(),
+            r#"{"body":"{\"url\":\"https://localhost/object\"}","headers":{"access-control-allow-origin":"*"},"multiValueHeaders":{},"statusCode":200}"#
+        );
+    }
 }
