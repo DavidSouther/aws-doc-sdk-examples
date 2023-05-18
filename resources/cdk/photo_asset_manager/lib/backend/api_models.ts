@@ -89,6 +89,19 @@ export class DownloadRequestModel extends Model {
   }
 }
 
+export class DetectLabelsRequestModel extends Model {
+  constructor(scope: Construct, props: PartialModelProps) {
+    super(scope, "DetectLabelsRequestModel", {
+      ...props,
+      schema: {
+        schema: JsonSchemaVersion.DRAFT4,
+        type: JsonSchemaType.OBJECT,
+        properties: {},
+      },
+    });
+  }
+}
+
 export class Empty extends Model {
   constructor(scope: Construct, props: PartialModelProps) {
     super(scope, "Empty", {

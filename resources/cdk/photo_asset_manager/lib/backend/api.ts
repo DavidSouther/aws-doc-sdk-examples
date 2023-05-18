@@ -9,8 +9,6 @@ import {
   Cors,
   GatewayResponse,
   LambdaIntegration,
-  LogGroupLogDestination,
-  MethodLoggingLevel,
   Model,
   PassthroughBehavior,
   ResponseType,
@@ -58,13 +56,13 @@ export class PamApi extends Construct {
         defaultCorsPreflightOptions: {
           allowOrigins: Cors.ALL_ORIGINS,
           allowCredentials: true,
-        }
-      
-   //     deployOptions: {
-   //       accessLogDestination: new LogGroupLogDestination(access),
-   //       loggingLevel: MethodLoggingLevel.INFO,
-   //       dataTraceEnabled: true,
-   //     },
+        },
+
+        //     deployOptions: {
+        //       accessLogDestination: new LogGroupLogDestination(access),
+        //       loggingLevel: MethodLoggingLevel.INFO,
+        //       dataTraceEnabled: true,
+        //     },
       }
     ));
 
@@ -78,6 +76,11 @@ export class PamApi extends Construct {
     this.empty = new models.Empty(this, { restApi });
     this.route("labels", lambdas.labels, "GET", {
       response: new models.LabelsResponseModel(this, { restApi }),
+    });
+
+    this.route("detect_labels", lambdas.detectLabels, "POST", {
+      event: true,
+      request: new models.DetectLabelsRequestModel(this, { restApi }),
     });
 
     this.route("upload", lambdas.upload, "PUT", {

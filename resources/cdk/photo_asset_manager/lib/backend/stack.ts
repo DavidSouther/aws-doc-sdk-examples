@@ -14,6 +14,9 @@ import {
 import { PamApi } from "./api";
 import { PamLambda, PamLambdasStrategy } from "./lambdas";
 import { PamBuckets, PamTables } from "./resources";
+import { EventBridgeDestination } from "aws-cdk-lib/aws-lambda-destinations";
+import { EventType } from "aws-cdk-lib/aws-s3";
+import { ApiDestination, Connection, EventBus } from "aws-cdk-lib/aws-events";
 
 export interface PamStackProps extends StackProps {
   // name: string;
@@ -28,6 +31,7 @@ export class PamStack extends Stack {
   readonly lambdas: PamLambda;
   readonly topic: Topic;
   readonly api: PamApi;
+  readonly bus: EventBus;
 
   constructor(scope: Construct, id: string, props: PamStackProps) {
     super(scope, id, props);
@@ -48,6 +52,7 @@ export class PamStack extends Stack {
     });
 
     this.permissions();
+    this.events();
     this.outputs();
   }
 
@@ -101,7 +106,14 @@ export class PamStack extends Stack {
         new PolicyStatement({ actions: ["sns:subscribe"], resources: ["*"] })
       );
     }
+  }
 
+  private events() {
+    const bus = new EventBus(this, "EventBus");
+    const dest = new EventBridgeDestination(bus);
+    /// ??? Make this bus send a message to the `detect_labels` route
+    this.buckets.storage.addEventNotification(EventType.OBJECT_CREATED, dest);
+    new EventBridgeDestination();
   }
 
   private outputs() {
