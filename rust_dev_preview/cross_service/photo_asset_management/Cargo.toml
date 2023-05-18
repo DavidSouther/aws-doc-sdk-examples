@@ -3,7 +3,15 @@ name = "photo_asset_management"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+
+[package.metadata.lambda.env]
+RUST_LOG = "trace"
+AWS_REGION = "us-west-1"
+LABELS_TABLE_NAME	= "dpsouth-rust-PAM-PamTablesLabelsTable6998F453-1SUGS6I753LEH"
+NOTIFICATION_TOPIC = "arn:aws:sns:us-west-1:659765859849:dpsouth-rust-PAM-PamNotifier9D8DBE72-X0yDjyGW9tNt"
+STORAGE_BUCKET_NAME = "dpsouth-rust-pam-pambucketsstoragebucket08049213-j2ezd29bjwd9"
+WORKING_BUCKET_NAME = "dpsouth-rust-pam-pambucketsworkingbucket9940330b-ma96i8bkuecp"
 
 [dependencies]
 anyhow = "1.0.70"
@@ -12,17 +20,21 @@ aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "
 aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-sns = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "test-util",
+] }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-smithy-types-convert ={ git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["convert-chrono"] }
-aws_lambda_events = { version = "0.8.3", features = ["s3", "apigw"] }
+aws_lambda_events = { version = "0.8.5", features = ["s3", "apigw"], default-features = false }
 bytes = "1.4.0"
 chrono = "0.4.24"
 futures = "0.3.28"
 http = "0.2.9"
-lambda_runtime = "0.7.3"
+lambda_http = "0.8.0"
+lambda_runtime = "0.8.0"
 miniz_oxide = "0.7.1"
 pin-project = "1.0.12"
 pipe = "0.4.0"
-sdk-examples-test-utils = { path = "../../test-utils" }
 serde = { version = "1.0.159", features = ["derive"] }
 serde_json = "1.0.95"
 streaming-zip = "0.5.0"

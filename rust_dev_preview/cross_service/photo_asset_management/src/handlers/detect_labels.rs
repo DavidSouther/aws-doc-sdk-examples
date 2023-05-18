@@ -1,24 +1,15 @@
 use anyhow::anyhow;
+use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use aws_lambda_events::s3::S3Event;
 use aws_sdk_dynamodb::operation::update_item::builders::UpdateItemFluentBuilder;
 use aws_sdk_rekognition::types::{Image, Label, S3Object};
 use futures::{stream, StreamExt};
 use lambda_runtime::LambdaEvent;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 use crate::common::Common;
 
-#[derive(Deserialize, Serialize)]
-pub struct Request(S3Event);
-
-#[derive(Debug, Serialize)]
-pub struct Response {}
-
-impl std::fmt::Display for Response {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", serde_json::json!(self))
-    }
-}
+pub struct DetectLabelsRequest(S3Event);
 
 fn prepare_update_expression(
     update: UpdateItemFluentBuilder,
@@ -86,12 +77,17 @@ async fn detect_record(
     Ok(())
 }
 
-#[tracing::instrument(skip(common, event), fields(req_id = %event.context.request_id, record_count = event.payload.0.records.len()))]
+#[tracing::instrument(skip(common, request))]
 pub async fn handler(
     common: &Common,
-    event: LambdaEvent<Request>,
-) -> Result<Response, anyhow::Error> {
-    let count = stream::iter(event.payload.0.records)
+    request: LambdaEvent<ApiGatewayProxyRequest>,
+) -> Result<impl Serialize, anyhow::Error> {
+    let body = request
+        .payload
+        .body
+        .ok_or_else(|| anyhow!("missing s3 event body"))?;
+    let event: S3Event = serde_json::from_str(body.as_str())?;
+    let count = stream::iter(event.records)
         .map(|r| async move { detect_record(common, &r).await })
         .buffered(1)
         .count()
@@ -99,7 +95,7 @@ pub async fn handler(
 
     tracing::trace!("Handled {count} records");
 
-    Ok(Response {})
+    Ok(())
 }
 
 #[cfg(test)]

@@ -1,5 +1,14 @@
 use aws_config::SdkConfig;
 
+pub fn init_tracing_subscriber() {
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::INFO)
+        .with_target(true)
+        .with_ansi(false)
+        .without_time()
+        .init();
+}
+
 // Common fields are loaded during the Lambda init phase. These include reading
 // several environment variables to know which buckets and tables to work from,
 // as well as preparing the SDK Config (expensive) and several clients from that
@@ -30,9 +39,11 @@ impl Common {
             s3_client,
             sns_client,
             // PAM environment is declared in the cdk, in lib/backend/lambdas.ts
-            storage_bucket: std::env::var("STORAGE_BUCKET").expect("storage bucket in environment"),
-            working_bucket: std::env::var("WORKING_BUCKET").expect("working bucket in environment"),
-            labels_table: std::env::var("LABELS_TABLE").expect("labels table in environment"),
+            storage_bucket: std::env::var("STORAGE_BUCKET_NAME")
+                .expect("storage bucket in environment"),
+            working_bucket: std::env::var("WORKING_BUCKET_NAME")
+                .expect("working bucket in environment"),
+            labels_table: std::env::var("LABELS_TABLE_NAME").expect("labels table in environment"),
             notification_topic: std::env::var("NOTIFICATION_TOPIC")
                 .expect("notification topic in environment"),
         }

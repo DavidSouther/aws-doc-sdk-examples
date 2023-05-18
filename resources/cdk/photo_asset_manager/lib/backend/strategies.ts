@@ -1,7 +1,9 @@
 import { BundlingOutput, DockerImage, Duration } from "aws-cdk-lib";
-import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { resolve } from "path";
 import { PamLambdasStrategy } from "./lambdas";
+import { existsSync } from "fs";
+import { execSync } from "child_process";
 
 export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(10),
@@ -16,9 +18,11 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     labels: "",
     upload: "",
   },
+  architecture: Architecture.X86_64,
 };
 
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   timeout: Duration.seconds(90),
   memorySize: 1024,
   codeAsset() {
@@ -55,6 +59,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 };
 
 export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   timeout: Duration.seconds(60),
   memorySize: 512,
   codeAsset() {
@@ -69,39 +74,39 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 };
 
 export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   codeAsset() {
     const rustSources = resolve(
-      "../../../rust_dev_preview/cross_service/photo_asset_management/"
+      "../../../rust_dev_preview/cross_service/photo_asset_management"
     );
-    return Code.fromAsset(rustSources, {
-      bundling: {
-        command: [
-          "/bin/sh",
-          "-c",
-          "cargo lambda build --release --output-format zip && cp /asset-input/target/lambda/photo_asset_management/bootstrap.zip /asset-output/",
-        ],
-        image: new DockerImage("ghcr.io/cargo-lambda/cargo-lambda"),
-        user: "root",
-        outputType: BundlingOutput.ARCHIVED,
-        volumes: [
-          {
-            hostPath: `${process.env["HOME"]}/.cargo/`,
-            containerPath: "/root/.cargo",
-          },
-          {
-            hostPath: `${__dirname}/../../rust-target`,
-            containerPath: "/asset-input/target",
-          },
-        ],
-      },
+    console.log(
+      "RUST: Cross compiling zip from local sources using `cargo lambda`"
+    );
+    execSync("cargo lambda build --release --arm64 --output-format Zip", {
+      cwd: rustSources,
     });
+    const rustZip = resolve(
+      "../../../rust_dev_preview/target/lambda/pam/bootstrap.zip"
+    );
+    // if (!existsSync(rustSources)) {
+    //   throw new Error(
+    //     `No bootstrap.zip in ${rustSources}.
+    //   Please rebuild the crate:
+    //   $ cd ../../../rust_dev_preview/cross_service/photo_asset_management
+    //   $ cargo lambda build --release --arm64 --output-format Zip
+    //   $ cd -
+    //   `.replace(/^\s+/, "")
+    //   );
+    // }
+    return Code.fromAsset(rustZip);
   },
   runtime: Runtime.PROVIDED_AL2,
+  architecture: Architecture.ARM_64,
   handlers: {
-    detectLabels: "detect_labels::handler",
-    download: "download::handler",
-    labels: "labels::handler",
-    upload: "upload::handler",
+    detectLabels: "detect_labels",
+    download: "download",
+    labels: "labels",
+    upload: "upload",
   },
 };
 

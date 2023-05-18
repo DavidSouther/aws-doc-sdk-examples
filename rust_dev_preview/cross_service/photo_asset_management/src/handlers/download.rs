@@ -1,29 +1,17 @@
 use std::collections::HashSet;
 
 use crate::{common::Common, uploader::ZipUpload};
+use anyhow::anyhow;
 use aws_lambda_events::apigw::ApiGatewayProxyRequest;
-
 use aws_sdk_s3::presigning::PresigningConfig;
 use chrono::Duration;
 use futures::{stream, StreamExt};
 use lambda_runtime::LambdaEvent;
-use serde::{Deserialize, Serialize};
-use serde_json::json;
+use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub struct Request {
+pub struct DownloadRequest {
     labels: Vec<String>,
-}
-
-#[derive(Debug, Serialize)]
-pub struct Response {
-    body: String,
-}
-
-impl std::fmt::Display for Response {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", json!(self))
-    }
 }
 
 async fn get_images_for_labels(labels: Vec<String>, common: &Common) -> HashSet<String> {
@@ -105,12 +93,19 @@ async fn do_download(common: &Common, labels: Vec<String>) -> Result<(), anyhow:
     Ok(())
 }
 
-#[tracing::instrument(skip(common, event), fields(req_id = %event.context.request_id))]
+#[tracing::instrument(skip(common))]
 pub async fn handler(
     common: &Common,
-    event: LambdaEvent<ApiGatewayProxyRequest>,
-) -> Result<(), anyhow::Error> {
-    let body = event.payload.body.expect("proxy request has a body");
-    let request: Request = serde_json::from_str(&body).expect("body is valid download request");
-    do_download(common, request.labels).await
+    request: LambdaEvent<ApiGatewayProxyRequest>,
+) -> Result<String, anyhow::Error> {
+    let body: DownloadRequest = serde_json::from_str(
+        request
+            .payload
+            .body
+            .ok_or_else(|| anyhow!("missing request body"))?
+            .as_str(),
+    )?;
+
+    do_download(common, body.labels).await?;
+    Ok("ok".to_string())
 }

@@ -1,21 +1,14 @@
 use std::collections::HashMap;
 
 use anyhow::anyhow;
-use aws_lambda_events::apigw::ApiGatewayProxyResponse;
+use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use aws_sdk_dynamodb::types::AttributeValue;
+use lambda_http::IntoResponse;
 use lambda_runtime::LambdaEvent;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use serde_json::json;
 
-use crate::{apig_response, common::Common};
-
-#[derive(Deserialize)]
-pub struct Request {}
-
-#[derive(Serialize)]
-pub struct Response {
-    body: String,
-}
+use crate::common::Common;
 
 #[derive(Serialize, PartialEq, Eq)]
 struct Label {
@@ -79,12 +72,6 @@ impl Labels {
     }
 }
 
-impl std::fmt::Display for Response {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", json!(self))
-    }
-}
-
 async fn get_labels(
     client: &aws_sdk_dynamodb::Client,
     table: String,
@@ -107,20 +94,21 @@ async fn get_labels(
     Ok(labels)
 }
 
-#[tracing::instrument(skip(common, event), fields(req_id = %event.context.request_id))]
+#[tracing::instrument(skip(common))]
 pub async fn handler(
     common: &Common,
-    event: LambdaEvent<Request>,
-) -> Result<ApiGatewayProxyResponse, anyhow::Error> {
+    _request: LambdaEvent<ApiGatewayProxyRequest>,
+) -> Result<impl Serialize, anyhow::Error> {
     let labels = get_labels(common.dynamodb_client(), common.labels_table().clone()).await?;
 
-    Ok(apig_response!(labels))
+    Ok(json!(labels))
 }
 
 #[cfg(test)]
 mod test {
-    use sdk_examples_test_utils::single_shot_client;
     use serde_json::json;
+
+    use crate::single_shot_client;
 
     use super::{get_labels, Labels};
 

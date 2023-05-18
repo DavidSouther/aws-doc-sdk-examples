@@ -1,21 +1,17 @@
 use std::time::Duration;
 
-use aws_lambda_events::apigw::ApiGatewayProxyResponse;
+use anyhow::anyhow;
+use aws_lambda_events::apigw::ApiGatewayProxyRequest;
 use aws_sdk_s3::presigning::PresigningConfig;
 use lambda_runtime::LambdaEvent;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::{apig_response, common::Common};
+use crate::common::Common;
 
 #[derive(Deserialize)]
-pub struct Request {
+pub struct UploadRequest {
     file_name: String,
-}
-
-#[derive(Debug, Serialize)]
-pub struct Response {
-    body: String,
 }
 
 #[derive(Serialize)]
@@ -23,7 +19,7 @@ struct Url {
     url: String,
 }
 
-impl std::fmt::Display for Response {
+impl std::fmt::Display for Url {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", json!(self))
     }
@@ -45,21 +41,23 @@ async fn make_put_url(common: &Common, file_name: String) -> Result<Url, anyhow:
     })
 }
 
-#[tracing::instrument(skip(common, event), fields(req_id = %event.context.request_id))]
+#[tracing::instrument(skip(common))]
 pub async fn handler(
     common: &Common,
-    event: LambdaEvent<Request>,
-) -> Result<ApiGatewayProxyResponse, anyhow::Error> {
-    let url = make_put_url(common, event.payload.file_name).await?;
-
-    Ok(apig_response!(url))
+    request: LambdaEvent<ApiGatewayProxyRequest>,
+) -> Result<impl Serialize, anyhow::Error> {
+    let body = request
+        .payload
+        .body
+        .ok_or_else(|| anyhow!("missing upload request"))?;
+    let request: UploadRequest = serde_json::from_str(body.as_str())?;
+    let url = make_put_url(common, request.file_name).await?;
+    Ok(format!("{url}"))
 }
 
 #[cfg(test)]
 mod test {
     use serde_json::json;
-
-    use crate::apig_response;
 
     use super::Url;
 
@@ -72,19 +70,6 @@ mod test {
         assert_eq!(
             stringed_url.to_string(),
             r#"{"url":"https://localhost/object"}"#
-        );
-    }
-
-    #[test]
-    fn test_upload_response() {
-        let url = Url {
-            url: "https://localhost/object".to_string(),
-        };
-        let response = apig_response!(url);
-        let response_string = json!(response);
-        assert_eq!(
-            response_string.to_string(),
-            r#"{"body":"{\"url\":\"https://localhost/object\"}","headers":{"access-control-allow-origin":"*"},"multiValueHeaders":{},"statusCode":200}"#
         );
     }
 }
