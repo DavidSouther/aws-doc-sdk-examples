@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-import init, { main } from "aws-wasm";
-import { setCredentials } from "env";
+import init, { main } from "../pkg/aws_wasm.js";
 
 export const initialize = async () => {
   await init();
+  // await setCredentials();
 };
 
 const run = async () => {
@@ -15,6 +15,7 @@ const run = async () => {
   const verbose = document.getElementById("verbose").checked;
   document.getElementById("result").textContent = "";
   try {
+    console.log("calling main", region, verbose);
     const result = await main(region, verbose);
     document.getElementById("result").textContent = String(result);
   } catch (err) {
@@ -24,6 +25,3 @@ const run = async () => {
 
 window.onload = initialize;
 document.getElementById("run").addEventListener("click", run);
-document
-  .getElementById("set-credentials")
-  .addEventListener("click", setCredentials);

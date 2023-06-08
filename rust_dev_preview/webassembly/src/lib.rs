@@ -4,7 +4,11 @@
  */
 
 use async_trait::async_trait;
-use aws_credential_types::{cache::CredentialsCache, provider::ProvideCredentials, Credentials};
+use aws_credential_types::{
+    cache::{CredentialsCache, ProvideCachedCredentials},
+    provider::ProvideCredentials,
+    Credentials,
+};
 use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_async::rt::sleep::{AsyncSleep, Sleep};
 use aws_smithy_client::erase::DynConnector;
@@ -42,16 +46,23 @@ pub fn start() {
 
 #[wasm_bindgen]
 pub async fn main(region: String, verbose: bool) -> Result<String, String> {
-    log!("");
-
     if verbose {
         log!("Lambda client version:   {}", PKG_VERSION);
         log!("Region:                  {}", region);
-        log!("");
     }
 
     let credentials_provider = static_credential_provider();
+    log!("Got credentials provider");
     let credentials = credentials_provider.provide_credentials().await.unwrap();
+    log!("got credentials");
+
+    log!("access key id: {}", credentials.access_key_id());
+    log!("secret access key: {}", credentials.secret_access_key());
+    log!(
+        "session token: {}",
+        credentials.session_token().unwrap_or_else(|| "missing")
+    );
+
     let access_key = credentials.access_key_id();
 
     let shared_config = aws_config::from_env()
@@ -67,14 +78,12 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
         .await;
     let client = Client::new(&shared_config);
 
-    let now = std::time::Duration::new(now() as u64, 0);
-    log!("current date in unix timestamp: {}", now.as_secs());
-
     let resp = client
         .list_functions()
         .send()
         .await
         .map_err(|e| format!("{:?}", e))?;
+
     let functions = resp.functions().unwrap_or_default();
 
     for function in functions {
@@ -99,6 +108,7 @@ impl AsyncSleep for BrowserSleep {
 }
 
 fn static_credential_provider() -> impl ProvideCredentials {
+    log!("Retrieving credentials in static_credential_provider");
     let credentials = serde_wasm_bindgen::from_value::<AwsCredentials>(retrieve_credentials())
         .expect("invalid credentials");
     Credentials::from_keys(
@@ -110,9 +120,12 @@ fn static_credential_provider() -> impl ProvideCredentials {
 
 fn browser_credentials_cache() -> CredentialsCache {
     CredentialsCache::lazy_builder()
+        .time_source()
         .sleep(std::sync::Arc::new(BrowserSleep))
         .into_credentials_cache()
 }
+
+struct BrowserTimeSource;
 
 /// At this moment, there is no standard mechanism to make an outbound
 /// HTTP request from within the guest Wasm module.
