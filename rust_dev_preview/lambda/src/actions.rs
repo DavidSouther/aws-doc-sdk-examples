@@ -8,7 +8,7 @@ use aws_sdk_lambda::{
         update_function_configuration::UpdateFunctionConfigurationOutput,
     },
     primitives::ByteStream,
-    types::{Environment, FunctionCode, State},
+    types::{Environment, FunctionCode, LastUpdateStatus, State},
 };
 use aws_sdk_s3::{
     operation::{delete_bucket::DeleteBucketOutput, delete_object::DeleteObjectOutput},
@@ -16,9 +16,8 @@ use aws_sdk_s3::{
 };
 use aws_smithy_types::Blob;
 use serde::{ser::SerializeMap, Serialize};
-use serde_json::json;
 use std::{path::PathBuf, str::FromStr, time::Duration};
-use tracing::{debug, info, warn};
+use tracing::{debug, error, info, warn};
 
 #[derive(Clone, Copy, Debug, Serialize)]
 pub enum Operation {
@@ -75,9 +74,9 @@ impl Serialize for InvokeArgs {
                 map.serialize_key(&"op".to_string())?;
                 map.serialize_value(&o.to_string())?;
                 map.serialize_key(&"i".to_string())?;
-                map.serialize_value(&i.to_string())?;
+                map.serialize_value(&i)?;
                 map.serialize_key(&"j".to_string())?;
-                map.serialize_value(&j.to_string())?;
+                map.serialize_value(&j)?;
                 map.end()
             }
         }
@@ -238,7 +237,13 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)?;
 
-        self.wait_for_function_active().await;
+        self.lambda_client
+            .publish_version()
+            .function_name(self.lambda_name.clone())
+            .send()
+            .await?;
+
+        self.wait_for_function_active().await?;
 
         Ok(key)
     }
@@ -267,20 +272,59 @@ impl LambdaManager {
         }
     }
 
-    pub async fn wait_for_function_active(&self) {
-        while !self.is_function_active().await {
+    pub async fn wait_for_function_active(&self) -> Result<(), anyhow::Error> {
+        while !self.is_function_active(None).await? {
             info!("Function is not ready, sleeping 1s");
             tokio::time::sleep(Duration::from_secs(1)).await;
         }
+        Ok(())
     }
 
-    async fn is_function_active(&self) -> bool {
+    async fn is_function_active(
+        &self,
+        expected_code_sha256: Option<&str>,
+    ) -> Result<bool, anyhow::Error> {
         match self.get_function().await {
             Ok(func) => {
                 if let Some(config) = func.configuration() {
                     if let Some(state) = config.state() {
-                        info!(?state, "Checking if function is ready");
-                        return matches!(state, State::Active);
+                        info!(?state, "Checking if function is active");
+                        if !matches!(state, State::Active) {
+                            return Ok(false);
+                        }
+                    }
+                    match config.last_update_status() {
+                        Some(last_update_status) => {
+                            info!(?last_update_status, "Checking if function is ready");
+                            match last_update_status {
+                                LastUpdateStatus::Successful => {
+                                    // continue
+                                }
+                                LastUpdateStatus::Failed | LastUpdateStatus::InProgress => {
+                                    return Ok(false);
+                                }
+                                LastUpdateStatus::Unknown(status_variant) => {
+                                    warn!(?status_variant, "LastUpdateStatus unknown");
+                                    return Err(anyhow!(
+                                        "Unknown LastUpdateStatus, fn config is {config:?}"
+                                    ));
+                                }
+                                _ => {
+                                    error!("Unmatched LastUpdateStatus");
+                                    return Err(anyhow!("Unmatched LastUpdateStatus"));
+                                }
+                            }
+                        }
+                        None => {
+                            warn!("Missing last update status");
+                            return Ok(false);
+                        }
+                    };
+                    if expected_code_sha256.is_none() {
+                        return Ok(true);
+                    }
+                    if let Some(code_sha256) = config.code_sha256() {
+                        return Ok(code_sha256 == expected_code_sha256.unwrap_or_default());
                     }
                 }
             }
@@ -288,7 +332,7 @@ impl LambdaManager {
                 warn!(?e, "Could not get function while waiting");
             }
         }
-        false
+        Ok(false)
     }
 
     pub async fn get_function(&self) -> Result<GetFunctionOutput, anyhow::Error> {
@@ -312,8 +356,7 @@ impl LambdaManager {
 
     pub async fn invoke(&self, args: InvokeArgs) -> Result<InvokeOutput, anyhow::Error> {
         info!(?args, "Invoking {}", self.lambda_name);
-        let payload = json!(args);
-        let payload = payload.as_str().unwrap_or_default();
+        let payload = serde_json::to_string(&args)?;
         debug!(?payload, "Sending payload");
         self.lambda_client
             .invoke()
@@ -342,7 +385,13 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)?;
 
-        self.wait_for_function_active().await;
+        self.lambda_client
+            .publish_version()
+            .function_name(self.lambda_name.clone())
+            .send()
+            .await?;
+
+        self.wait_for_function_active().await?;
 
         Ok(update)
     }
@@ -364,7 +413,7 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)?;
 
-        self.wait_for_function_active().await;
+        self.wait_for_function_active().await?;
 
         Ok(updated)
     }
@@ -447,7 +496,7 @@ mod test {
         assert_eq!(json!(InvokeArgs::Increment(5)), 5);
         assert_eq!(
             json!(InvokeArgs::Arithmetic(Operation::Plus, 5, 7)).to_string(),
-            r#"{"i":"5","j":"7","op":"plus"}"#.to_string(),
+            r#"{"i":5,"j":7,"op":"plus"}"#.to_string(),
         );
     }
 }

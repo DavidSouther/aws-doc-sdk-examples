@@ -70,10 +70,10 @@ The steps of the scenario are:
 Each step should use the function created in Service Actions to abstract calling the SDK.
  */
 
-use aws_sdk_lambda::types::Environment;
+use aws_sdk_lambda::{operation::invoke::InvokeOutput, types::Environment};
 use clap::Parser;
-use std::{collections::HashMap, path::PathBuf, str::from_utf8};
-use tracing::{info, warn};
+use std::{collections::HashMap, path::PathBuf};
+use tracing::{debug, info, warn};
 use tracing_subscriber::EnvFilter;
 
 use lambda_code_examples::actions::{
@@ -110,10 +110,36 @@ pub struct Opt {
     // The arithmetic operation
     #[structopt(short, long, default_value = "plus")]
     pub operation: Operation,
+
+    #[structopt(long)]
+    pub cleanup: Option<bool>,
+
+    #[structopt(long)]
+    pub no_cleanup: Option<bool>,
 }
 
 fn code_path(lambda: &str) -> PathBuf {
     PathBuf::from(format!("../target/lambda/{lambda}/bootstrap.zip"))
+}
+
+fn log_invoke_output(invoke: &InvokeOutput) {
+    if let Some(payload) = invoke
+        .payload()
+        .cloned()
+        .map(|b| String::from_utf8(b.into_inner()))
+    {
+        info!(
+            ?payload,
+            "Invoked function configured as arithmetic with increased logging"
+        );
+    } else {
+        info!("Could not extract payload")
+    }
+    if let Some(logs) = invoke.log_result() {
+        debug!(?logs, "Invoked function logs")
+    } else {
+        debug!("Invoked function had no logs")
+    }
 }
 
 async fn main_block(
@@ -139,13 +165,7 @@ async fn main_block(
 
     let arithmetic_args = Arithmetic(opt.operation, opt.num_a, opt.num_b);
     let invoke = manager.invoke(arithmetic_args).await?;
-    if let Some(payload) = invoke
-        .payload()
-        .cloned()
-        .map(|b| String::from_utf8(b.into_inner()))
-    {
-        info!(?payload, "Invoked function configured as arithmetic");
-    }
+    log_invoke_output(&invoke);
 
     let update = manager
         .update_function_configuration(
@@ -157,32 +177,18 @@ async fn main_block(
                 .build(),
         )
         .await?;
-    info!(?update, "Updated function configuration");
+    let updated_environment = update.environment();
+    info!(?updated_environment, "Updated function configuration");
 
     let invoke = manager
         .invoke(Arithmetic(opt.operation, opt.num_a, opt.num_b))
         .await?;
-    if let Some(payload) = invoke
-        .payload()
-        .cloned()
-        .map(|b| String::from_utf8(b.into_inner()))
-    {
-        info!(
-            ?payload,
-            "Invoked function configured as arithmetic with increased logging"
-        );
-    }
+    log_invoke_output(&invoke);
 
     let invoke = manager
         .invoke(Arithmetic(Operation::DividedBy, opt.num_a, 0))
         .await?;
-
-    if let Some(payload) = invoke.payload().map(|b| from_utf8(b.as_ref())) {
-        info!(
-            ?payload,
-            "Invoked function configured as arithmetic triggering divide by zero"
-        );
-    }
+    log_invoke_output(&invoke);
 
     Ok::<(), anyhow::Error>(())
 }
@@ -209,6 +215,10 @@ async fn main() {
         }
     };
 
-    let delete = manager.delete_function(key).await;
-    info!(?delete, "Deleted function & cleaned up resources");
+    if Some(false) == opt.cleanup || Some(true) == opt.no_cleanup {
+        info!("Skipping cleanup")
+    } else {
+        let delete = manager.delete_function(key).await;
+        info!(?delete, "Deleted function & cleaned up resources");
+    }
 }
