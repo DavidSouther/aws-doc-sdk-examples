@@ -2,26 +2,33 @@ use anyhow::anyhow;
 use aws_sdk_iam::operation::delete_role::DeleteRoleOutput;
 use aws_sdk_lambda::{
     operation::{
-        create_function::CreateFunctionOutput, delete_function::DeleteFunctionOutput,
-        get_function::GetFunctionOutput, invoke::InvokeOutput, list_functions::ListFunctionsOutput,
+        delete_function::DeleteFunctionOutput, get_function::GetFunctionOutput,
+        invoke::InvokeOutput, list_functions::ListFunctionsOutput,
         update_function_code::UpdateFunctionCodeOutput,
         update_function_configuration::UpdateFunctionConfigurationOutput,
     },
     primitives::ByteStream,
-    types::{Environment, FunctionCode},
+    types::{Environment, FunctionCode, State},
 };
-use aws_sdk_s3::{operation::delete_bucket::DeleteBucketOutput, types::CreateBucketConfiguration};
+use aws_sdk_s3::{
+    operation::{delete_bucket::DeleteBucketOutput, delete_object::DeleteObjectOutput},
+    types::CreateBucketConfiguration,
+};
 use aws_smithy_types::Blob;
-use serde::Serialize;
+use serde::{ser::SerializeMap, Serialize};
 use serde_json::json;
-use std::{path::PathBuf, str::FromStr};
-use tracing::info;
+use std::{path::PathBuf, str::FromStr, time::Duration};
+use tracing::{debug, info, warn};
 
 #[derive(Clone, Copy, Debug, Serialize)]
 pub enum Operation {
+    #[serde(rename = "plus")]
     Plus,
+    #[serde(rename = "minus")]
     Minus,
+    #[serde(rename = "times")]
     Times,
+    #[serde(rename = "divided-by")]
     DividedBy,
 }
 
@@ -39,10 +46,42 @@ impl FromStr for Operation {
     }
 }
 
-#[derive(Serialize)]
+impl ToString for Operation {
+    fn to_string(&self) -> String {
+        match self {
+            Operation::Plus => "plus".to_string(),
+            Operation::Minus => "minus".to_string(),
+            Operation::Times => "times".to_string(),
+            Operation::DividedBy => "divided-by".to_string(),
+        }
+    }
+}
+
+#[derive(Debug)]
 pub enum InvokeArgs {
     Increment(i32),
     Arithmetic(Operation, i32, i32),
+}
+
+impl Serialize for InvokeArgs {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            InvokeArgs::Increment(i) => serializer.serialize_i32(*i),
+            InvokeArgs::Arithmetic(o, i, j) => {
+                let mut map: S::SerializeMap = serializer.serialize_map(Some(3))?;
+                map.serialize_key(&"op".to_string())?;
+                map.serialize_value(&o.to_string())?;
+                map.serialize_key(&"i".to_string())?;
+                map.serialize_value(&i.to_string())?;
+                map.serialize_key(&"j".to_string())?;
+                map.serialize_value(&j.to_string())?;
+                map.end()
+            }
+        }
+    }
 }
 
 const ROLE_POLICY_DOCUMENT: &str = r#"{
@@ -66,10 +105,10 @@ pub struct LambdaManager {
     own_bucket: bool,
 }
 
-pub struct LambdaName(String);
-pub struct RoleName(String);
-pub struct Bucket(String);
-pub struct OwnBucket(bool);
+pub struct LambdaName(pub String);
+pub struct RoleName(pub String);
+pub struct Bucket(pub String);
+pub struct OwnBucket(pub bool);
 
 impl LambdaManager {
     pub fn new(
@@ -168,15 +207,13 @@ impl LambdaManager {
 }
 
 impl LambdaManager {
-    pub async fn create_function(
-        &self,
-        zip_file: PathBuf,
-    ) -> Result<(String, CreateFunctionOutput), anyhow::Error> {
+    pub async fn create_function(&self, zip_file: PathBuf) -> Result<String, anyhow::Error> {
         let code = self.prepare_function(zip_file, None).await?;
 
         let key = code.s3_key().unwrap().to_string();
 
-        info!("Created execution role for function");
+        self.create_role().await;
+
         let role = self
             .iam_client
             .create_role()
@@ -185,21 +222,73 @@ impl LambdaManager {
             .send()
             .await?;
 
+        info!("Created iam role, waiting 15s for it to become active");
+        tokio::time::sleep(Duration::from_secs(15)).await;
+
         info!("Creating lambda function {}", self.lambda_name);
-        let function = self
+        let _ = self
             .lambda_client
             .create_function()
             .function_name(self.lambda_name.clone())
             .code(code)
             .role(role.role().unwrap().arn().unwrap())
             .runtime(aws_sdk_lambda::types::Runtime::Providedal2)
+            .handler("_unused")
             .send()
             .await
             .map_err(anyhow::Error::from)?;
 
-        // Wait for function to be ready
+        self.wait_for_function_active().await;
 
-        Ok((key, function))
+        Ok(key)
+    }
+
+    async fn create_role(&self) {
+        info!("Creating execution role for function");
+        if let Ok(_response) = self
+            .iam_client
+            .get_role()
+            .role_name(self.role_name.clone())
+            .send()
+            .await
+        {
+            let delete_response = self
+                .iam_client
+                .delete_role()
+                .role_name(self.role_name.clone())
+                .send()
+                .await;
+            match delete_response {
+                Ok(_) => debug!("Deleted role first"),
+                Err(_) => {
+                    warn!("Failed to delete role, will probably fail to create the new role")
+                }
+            }
+        }
+    }
+
+    pub async fn wait_for_function_active(&self) {
+        while !self.is_function_active().await {
+            info!("Function is not ready, sleeping 1s");
+            tokio::time::sleep(Duration::from_secs(1)).await;
+        }
+    }
+
+    async fn is_function_active(&self) -> bool {
+        match self.get_function().await {
+            Ok(func) => {
+                if let Some(config) = func.configuration() {
+                    if let Some(state) = config.state() {
+                        info!(?state, "Checking if function is ready");
+                        return matches!(state, State::Active);
+                    }
+                }
+            }
+            Err(e) => {
+                warn!(?e, "Could not get function while waiting");
+            }
+        }
+        false
     }
 
     pub async fn get_function(&self) -> Result<GetFunctionOutput, anyhow::Error> {
@@ -222,9 +311,10 @@ impl LambdaManager {
     }
 
     pub async fn invoke(&self, args: InvokeArgs) -> Result<InvokeOutput, anyhow::Error> {
+        info!(?args, "Invoking {}", self.lambda_name);
         let payload = json!(args);
         let payload = payload.as_str().unwrap_or_default();
-        info!("Invoking {} with {payload}", self.lambda_name);
+        debug!(?payload, "Sending payload");
         self.lambda_client
             .invoke()
             .function_name(self.lambda_name.clone())
@@ -242,14 +332,19 @@ impl LambdaManager {
         let function_code = self.prepare_function(zip_file, Some(key)).await?;
 
         info!("Updating code for {}", self.lambda_name);
-        self.lambda_client
+        let update = self
+            .lambda_client
             .update_function_code()
             .function_name(self.lambda_name.clone())
             .s3_bucket(self.bucket.clone())
             .s3_key(function_code.s3_key().unwrap().to_string())
             .send()
             .await
-            .map_err(anyhow::Error::from)
+            .map_err(anyhow::Error::from)?;
+
+        self.wait_for_function_active().await;
+
+        Ok(update)
     }
 
     pub async fn update_function_configuration(
@@ -260,21 +355,30 @@ impl LambdaManager {
             ?environment,
             "Updating environment for {}", self.lambda_name
         );
-        self.lambda_client
+        let updated = self
+            .lambda_client
             .update_function_configuration()
             .function_name(self.lambda_name.clone())
             .environment(environment)
             .send()
             .await
-            .map_err(anyhow::Error::from)
+            .map_err(anyhow::Error::from)?;
+
+        self.wait_for_function_active().await;
+
+        Ok(updated)
     }
 
     pub async fn delete_function(
         &self,
+        location: Option<String>,
     ) -> (
         Result<DeleteFunctionOutput, anyhow::Error>,
         Result<DeleteRoleOutput, anyhow::Error>,
-        Option<Result<DeleteBucketOutput, anyhow::Error>>,
+        (
+            Option<Result<DeleteObjectOutput, anyhow::Error>>,
+            Option<Result<DeleteBucketOutput, anyhow::Error>>,
+        ),
     ) {
         info!("Deleting lambda function {}", self.lambda_name);
         let delete_function = self
@@ -294,21 +398,56 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from);
 
+        let delete_object: Option<Result<DeleteObjectOutput, anyhow::Error>> =
+            if let Some(location) = location {
+                info!("Deleting object {location}");
+                Some(
+                    self.s3_client
+                        .delete_object()
+                        .bucket(self.bucket.clone())
+                        .key(location)
+                        .send()
+                        .await
+                        .map_err(anyhow::Error::from),
+                )
+            } else {
+                None
+            };
+
         let delete_bucket = if self.own_bucket {
             info!("Deleting bucket {}", self.bucket);
-            let delete_bucket = self
-                .s3_client
-                .delete_bucket()
-                .bucket(self.bucket.clone())
-                .send()
-                .await
-                .map_err(anyhow::Error::from);
-            Some(delete_bucket)
+            if delete_object.is_none() || delete_object.as_ref().unwrap().is_ok() {
+                Some(
+                    self.s3_client
+                        .delete_bucket()
+                        .bucket(self.bucket.clone())
+                        .send()
+                        .await
+                        .map_err(anyhow::Error::from),
+                )
+            } else {
+                None
+            }
         } else {
             info!("No bucket to clean up");
             None
         };
 
-        (delete_function, delete_role, delete_bucket)
+        (delete_function, delete_role, (delete_object, delete_bucket))
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::{InvokeArgs, Operation};
+    use serde_json::json;
+
+    #[test]
+    fn test_serialize() {
+        assert_eq!(json!(InvokeArgs::Increment(5)), 5);
+        assert_eq!(
+            json!(InvokeArgs::Arithmetic(Operation::Plus, 5, 7)).to_string(),
+            r#"{"i":"5","j":"7","op":"plus"}"#.to_string(),
+        );
     }
 }

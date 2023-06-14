@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use std::str::FromStr;
+
 /*
 The arithmetic handler is more complex:
 1. It accepts a set of actions ['plus', 'minus', 'times', 'divided-by'] and two numbers, and returns the result of the calculation.
@@ -13,59 +15,99 @@ It logs a few things at different levels, such as:
     * WARN~ING~: when a divide by zero error occurs
     * This will be the typical `RUST_LOG` variable.
  */
+use anyhow::anyhow;
+use lambda_runtime::{service_fn, Error, LambdaEvent};
+use serde::Deserialize;
+use serde_json::Value;
+use tracing::{debug, info, warn};
+use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
-async fn main() -> Result<(), anyhow::Error> {
-    Ok(())
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt()
+        .json()
+        .with_env_filter(EnvFilter::from_default_env())
+        .init();
+    let func = service_fn(arithmetic_handler);
+    lambda_runtime::run(func).await
 }
 
-use tracing::log::{debug, info, warn};
+async fn arithmetic_handler(
+    event: LambdaEvent<InvokeArgs>,
+) -> Result<serde_json::Value, anyhow::Error> {
+    let invoke_args = event.payload;
 
-pub struct ArithmeticFunction {
-    pub log_level: String,
+    info!(?invoke_args, "Arithmetic invoked");
+
+    let result = calculate(invoke_args)?;
+
+    Ok(Value::from(result))
 }
 
-impl ArithmeticFunction {
-    pub fn new(log_level: String) -> Self {
-        ArithmeticFunction { log_level }
-    }
+#[derive(Debug, Deserialize)]
+struct InvokeArgs {
+    op: Operation,
+    i: i32,
+    j: i32,
+}
 
-    pub fn calculate(&self, action: &str, num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
-        let result = match action {
-            "plus" => Self::add(num1, num2),
-            "minus" => Self::subtract(num1, num2),
-            "times" => Self::multiply(num1, num2),
-            "divided-by" => Self::divide(num1, num2),
-            _ => Err(anyhow::anyhow!("Invalid action")),
-        }?;
+#[derive(Clone, Copy, Debug, Deserialize)]
+enum Operation {
+    #[serde(rename = "plus")]
+    Plus,
+    #[serde(rename = "minus")]
+    Minus,
+    #[serde(rename = "times")]
+    Times,
+    #[serde(rename = "divided-by")]
+    DividedBy,
+}
 
-        debug!(
-            "Full event data: action={}, num1={}, num2={}, result={}",
-            action, num1, num2, result
-        );
-        info!("The result of the calculation: {}", result);
+impl FromStr for Operation {
+    type Err = anyhow::Error;
 
-        Ok(result)
-    }
-
-    fn add(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
-        Ok(num1 + num2)
-    }
-
-    fn subtract(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
-        Ok(num1 - num2)
-    }
-
-    fn multiply(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
-        Ok(num1 * num2)
-    }
-
-    fn divide(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
-        if num2 == 0 {
-            warn!("Attempted to divide by zero");
-            return Err(anyhow::anyhow!("Cannot divide by zero"));
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "plus" => Ok(Operation::Plus),
+            "minus" => Ok(Operation::Minus),
+            "times" => Ok(Operation::Times),
+            "divided-by" => Ok(Operation::DividedBy),
+            _ => Err(anyhow!("Unknown operation {s}")),
         }
-
-        Ok(num1 / num2)
     }
+}
+
+fn calculate(args: InvokeArgs) -> Result<i32, anyhow::Error> {
+    let result = match args.op {
+        Operation::Plus => add(args.i, args.j),
+        Operation::Minus => subtract(args.i, args.j),
+        Operation::Times => multiply(args.i, args.j),
+        Operation::DividedBy => divide(args.i, args.j),
+    }?;
+
+    debug!(?args, ?result, "Full event data",);
+    info!("The result of the calculation: {}", result);
+
+    Ok(result)
+}
+
+fn add(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
+    Ok(num1 + num2)
+}
+
+fn subtract(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
+    Ok(num1 - num2)
+}
+
+fn multiply(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
+    Ok(num1 * num2)
+}
+
+fn divide(num1: i32, num2: i32) -> Result<i32, anyhow::Error> {
+    if num2 == 0 {
+        warn!("Attempted to divide by zero");
+        return Err(anyhow::anyhow!("Cannot divide by zero"));
+    }
+
+    Ok(num1 / num2)
 }

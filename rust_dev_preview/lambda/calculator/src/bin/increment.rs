@@ -12,6 +12,7 @@ The increment lambda handler is very simple:
 use lambda_runtime::{service_fn, Error, LambdaEvent};
 use serde_json::Value;
 use tracing::info;
+use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -20,8 +21,7 @@ async fn main() -> Result<(), Error> {
         .with_env_filter(EnvFilter::from_default_env())
         .init();
     let func = service_fn(increment_handler);
-    lambda_runtime::run(func).await?;
-    Ok(())
+    lambda_runtime::run(func).await
 }
 
 async fn increment_handler(event: LambdaEvent<Value>) -> Result<Value, Error> {

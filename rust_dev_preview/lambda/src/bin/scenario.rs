@@ -72,8 +72,8 @@ Each step should use the function created in Service Actions to abstract calling
 
 use aws_sdk_lambda::types::Environment;
 use clap::Parser;
-use std::{collections::HashMap, path::PathBuf};
-use tracing::info;
+use std::{collections::HashMap, path::PathBuf, str::from_utf8};
+use tracing::{info, warn};
 use tracing_subscriber::EnvFilter;
 
 use lambda_code_examples::actions::{
@@ -116,70 +116,99 @@ fn code_path(lambda: &str) -> PathBuf {
     PathBuf::from(format!("../target/lambda/{lambda}/bootstrap.zip"))
 }
 
+async fn main_block(
+    opt: &Opt,
+    manager: &LambdaManager,
+    code_location: String,
+) -> Result<(), anyhow::Error> {
+    let invoke = manager.invoke(Increment(opt.inc)).await?;
+    if let Some(payload) = invoke
+        .payload()
+        .cloned()
+        .map(|b| String::from_utf8(b.into_inner()))
+    {
+        info!(?payload, "Invoked function configured as increment");
+    }
+
+    let update_code = manager
+        .update_function_code(code_path("arithmetic"), code_location.clone())
+        .await?;
+
+    let code_sha256 = update_code.code_sha256().unwrap_or("Unknown SHA");
+    info!(?code_sha256, "Updated function code with arithmetic.zip");
+
+    let arithmetic_args = Arithmetic(opt.operation, opt.num_a, opt.num_b);
+    let invoke = manager.invoke(arithmetic_args).await?;
+    if let Some(payload) = invoke
+        .payload()
+        .cloned()
+        .map(|b| String::from_utf8(b.into_inner()))
+    {
+        info!(?payload, "Invoked function configured as arithmetic");
+    }
+
+    let update = manager
+        .update_function_configuration(
+            Environment::builder()
+                .set_variables(Some(HashMap::from([(
+                    "RUST_LOG".to_string(),
+                    "trace".to_string(),
+                )])))
+                .build(),
+        )
+        .await?;
+    info!(?update, "Updated function configuration");
+
+    let invoke = manager
+        .invoke(Arithmetic(opt.operation, opt.num_a, opt.num_b))
+        .await?;
+    if let Some(payload) = invoke
+        .payload()
+        .cloned()
+        .map(|b| String::from_utf8(b.into_inner()))
+    {
+        info!(
+            ?payload,
+            "Invoked function configured as arithmetic with increased logging"
+        );
+    }
+
+    let invoke = manager
+        .invoke(Arithmetic(Operation::DividedBy, opt.num_a, 0))
+        .await?;
+
+    if let Some(payload) = invoke.payload().map(|b| from_utf8(b.as_ref())) {
+        info!(
+            ?payload,
+            "Invoked function configured as arithmetic triggering divide by zero"
+        );
+    }
+
+    Ok::<(), anyhow::Error>(())
+}
+
 #[tokio::main]
-async fn main() -> Result<(), anyhow::Error> {
+async fn main() {
     tracing_subscriber::fmt()
         .with_env_filter(EnvFilter::from_default_env())
         .init();
 
     let opt = Opt::parse();
-    let manager = LambdaManager::load_from_env(opt.lambda_name, opt.bucket).await;
+    let manager = LambdaManager::load_from_env(opt.lambda_name.clone(), opt.bucket.clone()).await;
 
-    let (code_location, function_code) = manager.create_function(code_path("increment")).await?;
-    info!(?function_code, "Created function with increment.zip");
+    let key = match manager.create_function(code_path("increment")).await {
+        Ok(init) => {
+            info!(?init, "Created function, initially with increment.zip");
+            let run_block = main_block(&opt, &manager, init.clone()).await;
+            info!(?run_block, "Finished running example, cleaning up");
+            Some(init)
+        }
+        Err(err) => {
+            warn!(?err, "Error happened when initializing function");
+            None
+        }
+    };
 
-    // Run this block
-    let run_block = async {
-        let invoke = manager.invoke(Increment(opt.inc)).await?;
-        info!(?invoke, "Invoked function configured as increment");
-
-        let update_code = manager
-            .update_function_code(code_path("arithmetic"), code_location.clone())
-            .await?;
-
-        info!(?update_code, "Updated function code with arithmetic.zip");
-
-        let invoke = manager
-            .invoke(Arithmetic(opt.operation, opt.num_a, opt.num_b))
-            .await?;
-        info!(?invoke, "Invoked function configured as arithmetic");
-
-        let update = manager
-            .update_function_configuration(
-                Environment::builder()
-                    .set_variables(Some(HashMap::from([(
-                        "RUST_LOG".to_string(),
-                        "trace".to_string(),
-                    )])))
-                    .build(),
-            )
-            .await?;
-        info!(?update, "Updated function configuration");
-
-        let invoke = manager
-            .invoke(Arithmetic(opt.operation, opt.num_a, opt.num_b))
-            .await?;
-        info!(
-            ?invoke,
-            "Invoked function configured as arithmetic with increased logging"
-        );
-
-        let invoke = manager
-            .invoke(Arithmetic(Operation::DividedBy, opt.num_a, 0))
-            .await?;
-        info!(
-            ?invoke,
-            "Invoked function configured as arithmetic triggering divide by zero"
-        );
-
-        Ok::<(), anyhow::Error>(())
-    }
-    .await;
-
-    info!(?run_block, "Finished running example, cleaning up");
-
-    let delete = manager.delete_function().await;
+    let delete = manager.delete_function(key).await;
     info!(?delete, "Deleted function & cleaned up resources");
-
-    Ok(())
 }

@@ -21,4 +21,5 @@ time = "0.3"
 tracing = "0.1.37"
 serde_json = "1.0.94"
 anyhow = "1.0.71"
+serde = "1.0.164"
 
