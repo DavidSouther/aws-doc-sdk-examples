@@ -19,6 +19,7 @@ use serde::{ser::SerializeMap, Serialize};
 use std::{path::PathBuf, str::FromStr, time::Duration};
 use tracing::{debug, error, info, warn};
 
+/* Operation describes  */
 #[derive(Clone, Copy, Debug, Serialize)]
 pub enum Operation {
     #[serde(rename = "plus")]
@@ -104,6 +105,7 @@ pub struct LambdaManager {
     own_bucket: bool,
 }
 
+// These unit type structs provide nominal typing on top of String parameters for LambdaManager::new
 pub struct LambdaName(pub String);
 pub struct RoleName(pub String);
 pub struct Bucket(pub String);
@@ -130,6 +132,12 @@ impl LambdaManager {
         }
     }
 
+    /**
+     * Load the AWS configuration from the environment.
+     * Look up lambda_name and bucket if none are given, or generate a random name if not present in the environment.
+     * If the bucket name is provided, the caller needs to have created the bucket.
+     * If the bucket name is generated, it will be created.
+     */
     pub async fn load_from_env(lambda_name: Option<String>, bucket: Option<String>) -> Self {
         let sdk_config = aws_config::load_from_env().await;
         let lambda_name = LambdaName(lambda_name.unwrap_or_else(|| {
@@ -176,9 +184,12 @@ impl LambdaManager {
             OwnBucket(own_bucket),
         )
     }
-}
 
-impl LambdaManager {
+    /**
+     * Upload function code from a path to a zip file.
+     * The zip file must have an AL2 linux compatible binary called `bootstrap`.
+     * The easiest way to get create such a zip is to use `cargo lambda build --output-format Zip`.
+     */
     async fn prepare_function(
         &self,
         zip_file: PathBuf,
@@ -203,9 +214,10 @@ impl LambdaManager {
             .s3_key(key)
             .build())
     }
-}
 
-impl LambdaManager {
+    /**
+     * Create a function, uploading from a zip file.
+     */
     pub async fn create_function(&self, zip_file: PathBuf) -> Result<String, anyhow::Error> {
         let code = self.prepare_function(zip_file, None).await?;
 
@@ -237,13 +249,13 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)?;
 
+        self.wait_for_function_ready().await?;
+
         self.lambda_client
             .publish_version()
             .function_name(self.lambda_name.clone())
             .send()
             .await?;
-
-        self.wait_for_function_active().await?;
 
         Ok(key)
     }
@@ -272,15 +284,16 @@ impl LambdaManager {
         }
     }
 
-    pub async fn wait_for_function_active(&self) -> Result<(), anyhow::Error> {
-        while !self.is_function_active(None).await? {
+    pub async fn wait_for_function_ready(&self) -> Result<(), anyhow::Error> {
+        info!("Waiting for function");
+        while !self.is_function_ready(None).await? {
             info!("Function is not ready, sleeping 1s");
             tokio::time::sleep(Duration::from_secs(1)).await;
         }
         Ok(())
     }
 
-    async fn is_function_active(
+    async fn is_function_ready(
         &self,
         expected_code_sha256: Option<&str>,
     ) -> Result<bool, anyhow::Error> {
@@ -385,13 +398,13 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)?;
 
+        self.wait_for_function_ready().await?;
+
         self.lambda_client
             .publish_version()
             .function_name(self.lambda_name.clone())
             .send()
             .await?;
-
-        self.wait_for_function_active().await?;
 
         Ok(update)
     }
@@ -413,7 +426,7 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)?;
 
-        self.wait_for_function_active().await?;
+        self.wait_for_function_ready().await?;
 
         Ok(updated)
     }
@@ -460,6 +473,7 @@ impl LambdaManager {
                         .map_err(anyhow::Error::from),
                 )
             } else {
+                info!(?location, "Skipping delete object");
                 None
             };
 
