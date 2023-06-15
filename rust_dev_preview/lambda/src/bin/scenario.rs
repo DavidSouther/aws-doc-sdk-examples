@@ -6,7 +6,7 @@
 /*
 ## Service actions
 
-Service Actions wrap the SDK call, taking a client and any specific parameters necessary for the call.
+Service actions wrap the SDK call, taking a client and any specific parameters necessary for the call.
 
 * CreateFunction
 * GetFunction
@@ -21,12 +21,12 @@ A scenario runs at a command prompt and prints output to the user on the result 
 
 ## Getting started with functions
 
-Use an SDK to manage Lambda functions: create a function, invoke it, update its code, invoke it again, view its output and logs, and delete it.
+Use an SDK to manage AWS Lambda functions: create a function, invoke it, update its code, invoke it again, view its output and logs, and delete it.
 
-This scenario uses two lambda handlers:
-_Note: Handlers don't use AWS SDK API calls_
+This scenario uses two Lambda handlers:
+_Note: Handlers don't use AWS SDK API calls._
 
-The increment handler is very simple:
+The increment handler is straightforward:
 
 1. It accepts a number, increments it, and returns the new value.
 2. It performs simple logging of the result.
@@ -35,29 +35,29 @@ The arithmetic handler is more complex:
 1. It accepts a set of actions ['plus', 'minus', 'times', 'divided-by'] and two numbers, and returns the result of the calculation.
 2. It uses an environment variable to control log level (such as DEBUG, INFO, WARNING, ERROR).
 It logs a few things at different levels, such as:
-    * DEBUG: full event data
-    * INFO: the result of the calculation
-    * WARN~ING~: when a divide by zero error occurs
+    * DEBUG: Full event data.
+    * INFO: The calculation result.
+    * WARN~ING~: When a divide by zero error occurs.
     * This will be the typical `RUST_LOG` variable.
 
 
 The steps of the scenario are:
 
-1. Create an IAM role that:
+1. Create an AWS Identity and Access Management (IAM) role that meets the following requirements:
     * Has an assume_role policy that grants 'lambda.amazonaws.com' the 'sts:AssumeRole' action.
     * Attaches the 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' managed role.
     * _You must wait for ~10 seconds after the role is created before you can use it!_
-2. Create a function (CreateFunction) for the increment handler by packaging it as a zip and either:
+2. Create a function (CreateFunction) for the increment handler by packaging it as a zip and doing one of the following:
     * Adding it with CreateFunction Code.ZipFile.
     * --or--
-    * Uploading it to S3 and adding it with CreateFunction Code.S3Bucket/S3Key.
+    * Uploading it to Amazon Simple Storage Service (Amazon S3) and adding it with CreateFunction Code.S3Bucket/S3Key.
     * _Note: Zipping the file does not have to be done in code._
     * If you have a waiter, use it to wait until the function is active. Otherwise, call GetFunction until State is Active.
 3. Invoke the function with a number and print the result.
-4. Update the function (UpdateFunctionCode) to the arithmetic handler by packaging it as a zip and either:
-    * Adding it with UpdateFunctionCode ZipFile
+4. Update the function (UpdateFunctionCode) to the arithmetic handler by packaging it as a zip and doing one of the following:
+    * Adding it with UpdateFunctionCode ZipFile.
     * --or--
-    * Uploading it to S3 and adding it with UpdateFunctionCode S3Bucket/S3Key.
+    * Uploading it to Amazon S3 and adding it with UpdateFunctionCode S3Bucket/S3Key.
 5. Call GetFunction until Configuration.LastUpdateStatus is 'Successful' (or 'Failed').
 6. Update the environment variable by calling UpdateFunctionConfiguration and pass it a log level, such as:
     * Environment={'Variables': {'RUST_LOG': 'TRACE'}}
@@ -87,27 +87,27 @@ pub struct Opt {
     #[structopt(short, long)]
     pub region: Option<String>,
 
-    // The bucket to use for the FunctionCode
+    // The bucket to use for the FunctionCode.
     #[structopt(short, long)]
     pub bucket: Option<String>,
 
-    // The name the Lambda function
+    // The name of the Lambda function.
     #[structopt(short, long)]
     pub lambda_name: Option<String>,
 
-    // The number to increment
+    // The number to increment.
     #[structopt(short, long, default_value = "12")]
     pub inc: i32,
 
-    // The left operand
+    // The left operand.
     #[structopt(long, default_value = "19")]
     pub num_a: i32,
 
-    // The right operand
+    // The right operand.
     #[structopt(long, default_value = "23")]
     pub num_b: i32,
 
-    // The arithmetic operation
+    // The arithmetic operation.
     #[structopt(short, long, default_value = "plus")]
     pub operation: Operation,
 
@@ -122,16 +122,11 @@ fn code_path(lambda: &str) -> PathBuf {
     PathBuf::from(format!("../target/lambda/{lambda}/bootstrap.zip"))
 }
 
-fn log_invoke_output(invoke: &InvokeOutput) {
-    if let Some(payload) = invoke
-        .payload()
-        .cloned()
-        .map(|b| String::from_utf8(b.into_inner()))
-    {
-        info!(
-            ?payload,
-            "Invoked function configured as arithmetic with increased logging"
-        );
+// snippet-start:[lambda.rust.scenario.log_invoke_output]
+fn log_invoke_output(invoke: &InvokeOutput, message: &str) {
+    if let Some(payload) = invoke.payload().cloned() {
+        let payload = String::from_utf8(payload.into_inner());
+        info!(?payload, message);
     } else {
         info!("Could not extract payload")
     }
@@ -141,6 +136,7 @@ fn log_invoke_output(invoke: &InvokeOutput) {
         debug!("Invoked function had no logs")
     }
 }
+// snippet-end:[lambda.rust.scenario.log_invoke_output]
 
 async fn main_block(
     opt: &Opt,
@@ -148,13 +144,7 @@ async fn main_block(
     code_location: String,
 ) -> Result<(), anyhow::Error> {
     let invoke = manager.invoke(Increment(opt.inc)).await?;
-    if let Some(payload) = invoke
-        .payload()
-        .cloned()
-        .map(|b| String::from_utf8(b.into_inner()))
-    {
-        info!(?payload, "Invoked function configured as increment");
-    }
+    log_invoke_output(&invoke, "Invoked function configured as increment");
 
     let update_code = manager
         .update_function_code(code_path("arithmetic"), code_location.clone())
@@ -165,7 +155,7 @@ async fn main_block(
 
     let arithmetic_args = Arithmetic(opt.operation, opt.num_a, opt.num_b);
     let invoke = manager.invoke(arithmetic_args).await?;
-    log_invoke_output(&invoke);
+    log_invoke_output(&invoke, "Invoked function configured as arithmetic");
 
     let update = manager
         .update_function_configuration(
@@ -183,12 +173,18 @@ async fn main_block(
     let invoke = manager
         .invoke(Arithmetic(opt.operation, opt.num_a, opt.num_b))
         .await?;
-    log_invoke_output(&invoke);
+    log_invoke_output(
+        &invoke,
+        "Invoked function configured as arithmetic with increased logging",
+    );
 
     let invoke = manager
         .invoke(Arithmetic(Operation::DividedBy, opt.num_a, 0))
         .await?;
-    log_invoke_output(&invoke);
+    log_invoke_output(
+        &invoke,
+        "Invoked function configured as arithmetic with divide by zero",
+    );
 
     Ok::<(), anyhow::Error>(())
 }
@@ -221,7 +217,7 @@ async fn main() {
     if Some(false) == opt.cleanup || Some(true) == opt.no_cleanup {
         info!("Skipping cleanup")
     } else {
-        let delete = manager.delete_function(key).await;
+        let delete = manager.cleanup(key).await;
         info!(?delete, "Deleted function & cleaned up resources");
     }
 }

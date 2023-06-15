@@ -12,7 +12,7 @@ These examples demonstrate how to perform several operations using the developer
 
 ## Running the code examples
 
-### Environment Variables
+### Environment variables
 
 These examples use `tracing_subscriber` with `env_filter` to print information about various information as the example runs. Because the AWS SDK for Rust and many crates used in these examples use `tracing` for structured logging, it is important to have an understanding of the `RUST_LOG` variable.
 
@@ -20,9 +20,9 @@ These examples use `tracing_subscriber` with `env_filter` to print information a
   - `info` will show all common output for the program.
   - `{crate_name}=debug` will show some useful per-action details.
   - `aws_smithy_http_tower::dispatch=trace` will print the full HTTP request of every call to an AWS SDK.
-  - `aws_smithy_http::middleware=trace` will print the full HTTP response of ever call to an AWS SDK.
+  - `aws_smithy_http::middleware=trace` will print the full HTTP response of every call to an AWS SDK.
 
-The AWS SDK for Rust uses Environment Variables to configure some of its behavior.
+The AWS SDK for Rust uses environment variables to configure some of its behavior.
 These variables are documented in the [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/environment-variables.html).
 Some common and useful variables are described here for easy reference.
 
@@ -35,7 +35,7 @@ See [Configuring the AWS CLI - Environment Variables](https://docs.aws.amazon.co
 - `AWS_SECRET_ACCESS_KEY` specifies the secret key associated with the access key. This is essentially the "password" for the access key.
 
 The following environment variables are specific to using the AWS SDK for Rust running in Amazon Elastic Container Service (Amazon ECS).
-See [AWS SDKs and Tools - Container Credentials](https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html) for more information.
+For more information, see [AWS SDKs and Tools - Container Credentials](https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html).
 
 - `AWS_CONTAINER_CREDENTIALS_FULL_URI` specifies the full HTTP URL endpoint for the SDK to use when making a request for credentials.
 - `AWS_CONTAINER_CREDENTIALS_RELATIVE_URI` specifies the relative HTTP URL endpoint for the SDK to use when making a request for credentials.

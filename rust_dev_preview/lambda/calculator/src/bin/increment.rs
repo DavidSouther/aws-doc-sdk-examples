@@ -4,7 +4,7 @@
  */
 
 /*
-The increment lambda handler is very simple:
+The increment Lambda handler is straightforward:
 
 1. It accepts a number, increments it, and returns the new value.
 2. It performs simple logging of the result.

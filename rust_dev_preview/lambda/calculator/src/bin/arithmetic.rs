@@ -10,9 +10,9 @@ The arithmetic handler is more complex:
 1. It accepts a set of actions ['plus', 'minus', 'times', 'divided-by'] and two numbers, and returns the result of the calculation.
 2. It uses an environment variable to control log level (such as DEBUG, INFO, WARNING, ERROR).
 It logs a few things at different levels, such as:
-    * DEBUG: full event data
-    * INFO: the result of the calculation
-    * WARN~ING~: when a divide by zero error occurs
+    * DEBUG: Full event data.
+    * INFO: The calculation result.
+    * WARN~ING~: When a divide by zero error occurs.
     * This will be the typical `RUST_LOG` variable.
  */
 use anyhow::anyhow;

@@ -57,6 +57,9 @@ impl ToString for Operation {
     }
 }
 
+/**
+ * InvokeArgs will be serialized as JSON and sent to the AWS Lambda handler.
+ */
 #[derive(Debug)]
 pub enum InvokeArgs {
     Increment(i32),
@@ -84,6 +87,7 @@ impl Serialize for InvokeArgs {
     }
 }
 
+/** A policy document allowing Lambda to execute this function on the account's behalf. */
 const ROLE_POLICY_DOCUMENT: &str = r#"{
     "Version": "2012-10-17",
     "Statement": [
@@ -95,6 +99,10 @@ const ROLE_POLICY_DOCUMENT: &str = r#"{
     ]
 }"#;
 
+/**
+ * A LambdaManager gathers all the resources necessary to run the Lambda example scenario.
+ * This includes instantiated aws_sdk clients and details of resource names.
+ */
 pub struct LambdaManager {
     iam_client: aws_sdk_iam::Client,
     lambda_client: aws_sdk_lambda::Client,
@@ -185,10 +193,11 @@ impl LambdaManager {
         )
     }
 
+    // snippet-start:[lambda.rust.scenario.prepare_function]
     /**
      * Upload function code from a path to a zip file.
-     * The zip file must have an AL2 linux compatible binary called `bootstrap`.
-     * The easiest way to get create such a zip is to use `cargo lambda build --output-format Zip`.
+     * The zip file must have an AL2 Linux-compatible binary called `bootstrap`.
+     * The easiest way to create such a zip is to use `cargo lambda build --output-format Zip`.
      */
     async fn prepare_function(
         &self,
@@ -214,7 +223,9 @@ impl LambdaManager {
             .s3_key(key)
             .build())
     }
+    // snippet-end:[lambda.rust.scenario.prepare_function]
 
+    // snippet-start:[lambda.rust.scenario.create_function]
     /**
      * Create a function, uploading from a zip file.
      */
@@ -259,7 +270,11 @@ impl LambdaManager {
 
         Ok(key)
     }
+    // snippet-end:[lambda.rust.scenario.create_function]
 
+    /**
+     * Create an IAM execution role for the managed Lambda function.
+     */
     async fn create_role(&self) {
         info!("Creating execution role for function");
         if let Ok(_response) = self
@@ -284,6 +299,9 @@ impl LambdaManager {
         }
     }
 
+    /**
+     * Poll `is_function_ready` with a 1-second delay. It returns when the function is ready or when there's an error checking the function's state.
+     */
     pub async fn wait_for_function_ready(&self) -> Result<(), anyhow::Error> {
         info!("Waiting for function");
         while !self.is_function_ready(None).await? {
@@ -293,6 +311,12 @@ impl LambdaManager {
         Ok(())
     }
 
+    /**
+     * Check if a Lambda function is ready to be invoked.
+     * A Lambda function is ready for this scenario when its state is active and its LastUpdateStatus is Successful.
+     * Additionally, if a sha256 is provided, the function must have that as its current code hash.
+     * Any missing properties or failed requests will be reported as an Err.
+     */
     async fn is_function_ready(
         &self,
         expected_code_sha256: Option<&str>,
@@ -348,6 +372,8 @@ impl LambdaManager {
         Ok(false)
     }
 
+    // snippet-start:[lambda.rust.scenario.get_function]
+    /** Get the Lambda function with this Manager's name. */
     pub async fn get_function(&self) -> Result<GetFunctionOutput, anyhow::Error> {
         info!("Getting lambda function");
         self.lambda_client
@@ -357,7 +383,10 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)
     }
+    // snippet-end:[lambda.rust.scenario.get_function]
 
+    // snippet-start:[lambda.rust.scenario.list_functions]
+    /** List all Lambda functions in the current Region. */
     pub async fn list_functions(&self) -> Result<ListFunctionsOutput, anyhow::Error> {
         info!("Listing lambda functions");
         self.lambda_client
@@ -366,7 +395,10 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)
     }
+    // snippet-end:[lambda.rust.scenario.list_functions]
 
+    // snippet-start:[lambda.rust.scenario.invoke]
+    /** Invoke the lambda function using calculator InvokeArgs. */
     pub async fn invoke(&self, args: InvokeArgs) -> Result<InvokeOutput, anyhow::Error> {
         info!(?args, "Invoking {}", self.lambda_name);
         let payload = serde_json::to_string(&args)?;
@@ -379,7 +411,10 @@ impl LambdaManager {
             .await
             .map_err(anyhow::Error::from)
     }
+    // snippet-end:[lambda.rust.scenario.invoke]
 
+    // snippet-start:[lambda.rust.scenario.update_function_code]
+    /** Given a Path to a zip file, update the function's code and wait for the update to finish. */
     pub async fn update_function_code(
         &self,
         zip_file: PathBuf,
@@ -400,15 +435,12 @@ impl LambdaManager {
 
         self.wait_for_function_ready().await?;
 
-        self.lambda_client
-            .publish_version()
-            .function_name(self.lambda_name.clone())
-            .send()
-            .await?;
-
         Ok(update)
     }
+    // snippet-end:[lambda.rust.scenario.update_function_code]
 
+    // snippet-start:[lambda.rust.scenario.update_function_configuration]
+    /** Update the environment for a function. */
     pub async fn update_function_configuration(
         &self,
         environment: Environment,
@@ -430,17 +462,17 @@ impl LambdaManager {
 
         Ok(updated)
     }
+    // snippet-end:[lambda.rust.scenario.update_function_configuration]
 
+    // snippet-start:[lambda.rust.scenario.delete_function]
+    /** Delete a function and its role, and if possible or necessary, its associated code object and bucket. */
     pub async fn delete_function(
         &self,
         location: Option<String>,
     ) -> (
         Result<DeleteFunctionOutput, anyhow::Error>,
         Result<DeleteRoleOutput, anyhow::Error>,
-        (
-            Option<Result<DeleteObjectOutput, anyhow::Error>>,
-            Option<Result<DeleteBucketOutput, anyhow::Error>>,
-        ),
+        Option<Result<DeleteObjectOutput, anyhow::Error>>,
     ) {
         info!("Deleting lambda function {}", self.lambda_name);
         let delete_function = self
@@ -477,9 +509,26 @@ impl LambdaManager {
                 None
             };
 
+        (delete_function, delete_role, delete_object)
+    }
+    // snippet-end:[lambda.rust.scenario.delete_function]
+
+    pub async fn cleanup(
+        &self,
+        location: Option<String>,
+    ) -> (
+        (
+            Result<DeleteFunctionOutput, anyhow::Error>,
+            Result<DeleteRoleOutput, anyhow::Error>,
+            Option<Result<DeleteObjectOutput, anyhow::Error>>,
+        ),
+        Option<Result<DeleteBucketOutput, anyhow::Error>>,
+    ) {
+        let delete_function = self.delete_function(location).await;
+
         let delete_bucket = if self.own_bucket {
             info!("Deleting bucket {}", self.bucket);
-            if delete_object.is_none() || delete_object.as_ref().unwrap().is_ok() {
+            if delete_function.2.is_none() || delete_function.2.as_ref().unwrap().is_ok() {
                 Some(
                     self.s3_client
                         .delete_bucket()
@@ -496,15 +545,21 @@ impl LambdaManager {
             None
         };
 
-        (delete_function, delete_role, (delete_object, delete_bucket))
+        (delete_function, delete_bucket)
     }
 }
 
+/**
+ * Testing occurs primarily as an integration test running the `scenario` bin successfully.
+ * Each action relies deeply on the internal workings and state of Amazon Simple Storage Service (Amazon S3), Lambda, and IAM working together.
+ * It is therefore infeasible to mock the clients to test the individual actions.
+ */
 #[cfg(test)]
 mod test {
     use super::{InvokeArgs, Operation};
     use serde_json::json;
 
+    /** Make sure that the JSON output of serializing InvokeArgs is what's expected by the calculator. */
     #[test]
     fn test_serialize() {
         assert_eq!(json!(InvokeArgs::Increment(5)), 5);

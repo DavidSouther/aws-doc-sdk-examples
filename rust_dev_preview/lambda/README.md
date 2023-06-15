@@ -29,7 +29,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `rust_dev
 
 <!--custom.prerequisites.start-->
 
-Additionally, to compile Lambda functions written in the Rust programming language, use [Cargo Lambda](https://www.cargo-lambda.info/)
+Additionally, to compile Lambda functions written in the Rust programming language, use [Cargo Lambda](https://www.cargo-lambda.info/).
 
 <!--custom.prerequisites.end-->
 
@@ -39,7 +39,7 @@ Additionally, to compile Lambda functions written in the Rust programming langua
 
 <!--custom.instructions.start-->
 
-Before running the scenario, compile the lambda functions.
+Before running the scenario, compile the Lambda functions.
 
 ```
 cd calculator
