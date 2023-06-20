@@ -127,8 +127,11 @@ pub async fn handler(
 
 #[cfg(test)]
 mod test {
+    use std::collections::HashMap;
+
     use super::prepare_update_expression;
     use aws_config::SdkConfig;
+    use aws_sdk_dynamodb::types::AttributeValue;
 
     #[tokio::test]
     async fn test_prepare_update_statement() {
@@ -141,25 +144,36 @@ mod test {
         let update = client.update_item();
         let update = prepare_update_expression(update, &object, &label);
 
-        // TODO: This test would be better if it could get an UpdateItemInput directly, but that's
-        // hidden inside the SDK. Waiting for smithy-rs to expose it more directly.
-        let update_debug = format!("{:?}", update);
-        let split = update_debug
-            .split(", inner: UpdateItemInputBuilder ")
-            .map(|s| s.to_string())
-            .collect::<Vec<String>>();
-        let update_inner_debug = split.get(1).expect("inner as Debug");
+        assert!(update.get_table_name().is_none());
+        assert_eq!(
+            *update.get_key(),
+            Some(HashMap::from([(
+                "Label".to_string(),
+                AttributeValue::S("label".to_string())
+            )]))
+        );
+        assert_eq!(
+            *update.get_update_expression(),
+            Some(String::from("SET #Count = if_not_exists(#Count, :zero) + :one, Images = list_append(if_not_exists(Images, :empty), :image)"))
+        );
+        assert_eq!(
+            *update.get_expression_attribute_names(),
+            Some(HashMap::from([("#Count".to_string(), "Count".to_string())])),
+        );
 
-        assert!(update_inner_debug.contains("table_name: None"));
-        assert!(update_inner_debug.contains("key: Some({\"Label\": S(\"label\")})"));
-        assert!(update_inner_debug.contains("update_expression: Some(\"SET #Count = if_not_exists(#Count, :zero) + :one, Images = list_append(if_not_exists(Images, :empty), :image)\")"));
-        assert!(update_inner_debug
-            .contains("expression_attribute_names: Some({\"#Count\": \"Count\"})"));
-        assert!(update_inner_debug.contains("\":empty\": L([])"));
-        assert!(update_inner_debug.contains("\":image\": L([S(\"object\")])"));
-        assert!(update_inner_debug.contains("\":one\": N(\"1\")"));
-        assert!(update_inner_debug.contains("\":zero\": N(\"0\")"));
-
-        ()
+        // Example using the inner directly
+        let update_inner = update.inner();
+        assert_eq!(
+            *update_inner.get_expression_attribute_values(),
+            Some(HashMap::from([
+                (":empty".to_string(), AttributeValue::L(vec![])),
+                (
+                    ":image".to_string(),
+                    AttributeValue::L(vec![AttributeValue::S("object".to_string())]),
+                ),
+                (":one".to_string(), AttributeValue::N("1".to_string())),
+                (":zero".to_string(), AttributeValue::N("0".to_string())),
+            ])),
+        );
     }
 }
