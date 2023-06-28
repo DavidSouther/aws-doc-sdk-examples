@@ -48,7 +48,7 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
     codeAsset() {
       return Code.fromInline(`
         exports.handler = async (event) => {
-          console.log(event);
+          console.log("AnalyzeSentiment", event);
           return { translated_text: "Bonjour", source_language: "en" }
         }
     `);
@@ -56,7 +56,6 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
     name: "TranslateText",
   },
   { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
-  { ...BASE_APP_FUNCTION, name: "GetFeedback" },
 ];
 
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {

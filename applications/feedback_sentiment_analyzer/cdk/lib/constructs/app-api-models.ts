@@ -9,6 +9,10 @@ import { Construct } from "constructs";
 export interface PartialModelProps {
   restApi: ModelProps["restApi"];
 }
+const JSON_SCHEMA_STRING = {
+  schema: JsonSchemaVersion.DRAFT4,
+  type: JsonSchemaType.STRING,
+};
 
 export class EnvModel extends Model {
   constructor(scope: Construct, { restApi }: PartialModelProps) {
@@ -18,13 +22,34 @@ export class EnvModel extends Model {
         schema: JsonSchemaVersion.DRAFT4,
         type: JsonSchemaType.OBJECT,
         properties: {
-          COGNITO_SIGN_IN_URL: {
+          COGNITO_SIGN_IN_URL: JSON_SCHEMA_STRING,
+          COGNITO_SIGN_OUT_URL: JSON_SCHEMA_STRING,
+        },
+      },
+    });
+  }
+}
+
+export class GetFeedbackModel extends Model {
+  constructor(scope: Construct, { restApi }: PartialModelProps) {
+    super(scope, "GetFeedbackModel", {
+      restApi,
+      schema: {
+        schema: JsonSchemaVersion.DRAFT4,
+        type: JsonSchemaType.OBJECT,
+        properties: {
+          feedback: {
             schema: JsonSchemaVersion.DRAFT4,
-            type: JsonSchemaType.STRING,
-          },
-          COGNITO_SIGN_OUT_URL: {
-            schema: JsonSchemaVersion.DRAFT4,
-            type: JsonSchemaType.STRING,
+            type: JsonSchemaType.ARRAY,
+            items: {
+              schema: JsonSchemaVersion.DRAFT4,
+              type: JsonSchemaType.OBJECT,
+              properties: {
+                key: JSON_SCHEMA_STRING,
+                text: JSON_SCHEMA_STRING,
+                audioUrl: JSON_SCHEMA_STRING,
+              },
+            },
           },
         },
       },

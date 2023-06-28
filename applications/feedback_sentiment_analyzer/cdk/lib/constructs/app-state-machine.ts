@@ -14,21 +14,12 @@ export class AppStateMachine extends Construct {
     database: AppDatabase
   ) {
     super(scope, id);
-    const {
-      ExtractText,
-      AnalyzeSentiment,
-      TranslateText,
-      SynthesizeAudio,
-      GetFeedback,
-    } = functions;
+    const { ExtractText, AnalyzeSentiment, TranslateText, SynthesizeAudio } =
+      functions;
     if (
-      ![
-        ExtractText,
-        AnalyzeSentiment,
-        TranslateText,
-        SynthesizeAudio,
-        GetFeedback,
-      ].every(Boolean)
+      ![ExtractText, AnalyzeSentiment, TranslateText, SynthesizeAudio].every(
+        Boolean
+      )
     ) {
       throw new Error(`
       Function mismatch. 
@@ -37,7 +28,6 @@ export class AppStateMachine extends Construct {
       AnalyzeSentiment: ${AnalyzeSentiment},
       TranslateText: ${TranslateText},
       SynthesizeAudio: ${SynthesizeAudio},
-      GetFeedback: ${GetFeedback},
       `);
     }
 
@@ -100,7 +90,7 @@ export class AppStateMachine extends Construct {
               Choices: [
                 {
                   Variable: "$.sentiment['Payload']",
-                  StringEquals: "NEGATIVE",
+                  StringEquals: "POSITIVE",
                   Next: "TranslateText",
                 },
               ],

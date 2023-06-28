@@ -23,16 +23,25 @@ import {
 import { RestApiOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
-import { EnvModel, UploadModel } from "./constructs/app-api-models";
+import {
+  EnvModel,
+  GetFeedbackModel,
+  UploadModel,
+} from "./constructs/app-api-models";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Rule } from "aws-cdk-lib/aws-events";
 import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { AppDatabase } from "./constructs/app-database";
+import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Effect, PolicyStatement, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
     const prefix = `fsa-${PREFIX}`;
     super(scope, prefix);
+
+    // Prepare the DDB table
+    const database = new AppDatabase(this);
 
     const api = this.createApi(prefix);
 
@@ -51,13 +60,10 @@ export class AppStack extends Stack {
     });
 
     // Add env lambda and route.
-    this.addEnvLambda(auth, routes, api);
+    this.addApiLambda(auth, routes, api, database);
 
     // Add direct S3 upload route.
     const uploadBucket = this.createUpload(auth, routes, api);
-
-    // Prepare the DDB table
-    const database = new AppDatabase(this);
 
     // Create AWS Lambda functions.
     this.addStepFunctions(prefix, uploadBucket, database);
@@ -70,6 +76,7 @@ export class AppStack extends Stack {
 
   private createApi(prefix: string) {
     // const logGroup = new LogGroup(this, `api-log-group`);
+
     return new RestApi(this, `${prefix}-api`, {
       defaultCorsPreflightOptions: {
         allowOrigins: Cors.ALL_ORIGINS,
@@ -188,7 +195,12 @@ export class AppStack extends Stack {
     return uploadBucket;
   }
 
-  private addEnvLambda(auth: AppAuth, routes: AppRoutes, api: RestApi) {
+  private addApiLambda(
+    auth: AppAuth,
+    routes: AppRoutes,
+    api: RestApi,
+    database: AppDatabase
+  ) {
     const variables = {
       COGNITO_USER_POOL_BASE_URL: auth.userPoolDomain.baseUrl(),
       COGNITO_USER_POOL_ID: auth.userPool.userPoolId,
@@ -201,6 +213,53 @@ export class AppStack extends Stack {
       fn: envLambda.fn,
       model: {
         response: new EnvModel(this, { restApi: api }),
+      },
+    });
+
+    const getFeedbackLambda = new Function(this, "GetFeedback", {
+      handler: "index.handler",
+      runtime: Runtime.NODEJS_18_X,
+      code: Code.fromInline(`
+      const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
+      exports.handler = async (event) => {
+        console.log("GetFeedback", event);
+        const client = new DynamoDBClient(); 
+        const scan = await client.send(new ScanCommand({
+          FilterExpression: "${AppDatabase.INDEX} = :positive",
+          ExpressionAttributeValues: {
+            ":positive": {"S": "POSITIVE"}
+          },
+          ProjectionExpression: "${AppDatabase.INDEX}, translated_text, audio_key",
+          TableName: process.env["COMMENTS_TABLE_NAME"],
+        }));
+        const feedback = scan.Items.map(({${AppDatabase.INDEX}: id, translated_text: text, audio_key: audioUrl}) => ({id, text, audioUrl}));
+        return {
+          statusCode: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({feedback})
+        };
+    }`),
+      environment: {
+        COMMENTS_TABLE_NAME: database.table.tableName,
+      },
+    });
+
+    getFeedbackLambda.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ["dynamodb:Scan"],
+        resources: [database.table.tableArn],
+      })
+    );
+
+    routes.addLambdaRoute({
+      path: "feedback",
+      method: "GET",
+      fn: getFeedbackLambda,
+      model: {
+        response: new GetFeedbackModel(this, { restApi: api }),
       },
     });
   }

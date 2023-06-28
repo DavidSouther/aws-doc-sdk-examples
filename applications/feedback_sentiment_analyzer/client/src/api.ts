@@ -3,6 +3,7 @@ export interface ApiConfig {
 }
 
 export interface Feedback {
+  id: string;
   text: string;
   audioUrl: string;
 }
