@@ -58,12 +58,49 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
   { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
 ];
 
+const RUBY_ROOT =
+  "../../../ruby/cross_service_examples/feedback_sentiment_analyzer/";
+const RUBY_CODE = Code.fromAsset(RUBY_ROOT);
+const BASE_RUBY_FUNCTION: AppFunctionConfig = {
+  ...BASE_APP_FUNCTION,
+  runtime: Runtime.RUBY_3_2,
+  timeout: Duration.seconds(30),
+  codeAsset() {
+    return RUBY_CODE;
+  },
+};
+
+const RUBY_FUNCTIONS: AppFunctionConfig[] = [
+  // The 'name' property must match the examples below in new examples.
+  {
+    ...BASE_RUBY_FUNCTION,
+    name: "ExtractText",
+    handler: "texact_lambda_handler.lambda_handler",
+  },
+  {
+    ...BASE_RUBY_FUNCTION,
+    name: "AnalyzeSentiment",
+    handler: "comprehend_lambda_handler.lambda_handler",
+  },
+  {
+    ...BASE_RUBY_FUNCTION,
+    name: "TranslateText",
+    handler: "translate_lambda_handler.lambda_handler",
+  },
+  {
+    ...BASE_RUBY_FUNCTION,
+    name: "SynthesizeAudio",
+    handler: "polly_lambda_handler.lambda_handler",
+  },
+];
+
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   // These functions are used in a simple pipeline. Each function is called
   // with the previous function's outputs.
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   // Add more languages here. For example
   // javascript: JAVASCRIPT_FUNCTIONS,
+  ruby: RUBY_FUNCTIONS,
 };
 
 export function getFunctions(language: string = ""): AppFunctionConfig[] {

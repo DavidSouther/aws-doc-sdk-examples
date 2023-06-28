@@ -33,7 +33,7 @@ import { Rule } from "aws-cdk-lib/aws-events";
 import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { AppDatabase } from "./constructs/app-database";
 import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
-import { Effect, PolicyStatement, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
@@ -153,6 +153,16 @@ export class AppStack extends Stack {
 
     appLambdas.grantInvokeAll(appStateMachine.stateMachine);
 
+    appLambdas.functions["ExtractText"].fn.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ["textract:DetectDocumentText"],
+        resources: ["*"],
+      })
+    );
+
+    uploadBucket.grantRead(appLambdas.functions["ExtractText"].fn);
+
     // Register Amazon EventBridge rule to trigger state machine.
     new Rule(this, "s3-put-start-step-function", {
       eventPattern: {
@@ -232,7 +242,7 @@ export class AppStack extends Stack {
           ProjectionExpression: "${AppDatabase.INDEX}, translated_text, audio_key",
           TableName: process.env["COMMENTS_TABLE_NAME"],
         }));
-        const feedback = scan.Items.map(({${AppDatabase.INDEX}: id, translated_text: text, audio_key: audioUrl}) => ({id, text, audioUrl}));
+        const feedback = scan.Items.map(({${AppDatabase.INDEX}: id, translated_text: text, audio_key: audioUrl}) => ({id: id.S, text: text.S, audioUrl: audioUrl.S}));
         return {
           statusCode: 200,
           headers: {
