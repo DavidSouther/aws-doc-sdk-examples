@@ -23,7 +23,7 @@ lambda_Hello:
               snippet_tags:
                 - gov2.lambda.Hello
   services:
-    lambda: {ListFunctions}
+    lambda: { ListFunctions }
 lambda_CreateFunction:
   title: Create a &LAM; function using an &AWS; SDK
   title_abbrev: Create a function
@@ -129,10 +129,10 @@ lambda_CreateFunction:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.create_function
-              - lambda.rust.scenario.prepare_function
+                - lambda.rust.scenario.create_function
+                - lambda.rust.scenario.prepare_function
   services:
-    lambda: {CreateFunction}
+    lambda: { CreateFunction }
 lambda_DeleteFunction:
   title: Delete a &LAM; function using an &AWS; SDK
   title_abbrev: Delete a function
@@ -237,9 +237,9 @@ lambda_DeleteFunction:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.delete_function
+                - lambda.rust.scenario.delete_function
   services:
-    lambda: {DeleteFunction}
+    lambda: { DeleteFunction }
 lambda_Invoke:
   title: Invoke a &LAM; function using an &AWS; SDK
   title_abbrev: Invoke a function
@@ -345,10 +345,10 @@ lambda_Invoke:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.invoke
-              - lambda.rust.scenario.log_invoke_output
+                - lambda.rust.scenario.invoke
+                - lambda.rust.scenario.log_invoke_output
   services:
-    lambda: {Invoke}
+    lambda: { Invoke }
 lambda_GetFunction:
   title: Get a &LAM; function using an &AWS; SDK
   title_abbrev: Get a function
@@ -400,7 +400,7 @@ lambda_GetFunction:
             - description:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
-                - ruby.example_code.lambda.GetFunction             
+                - ruby.example_code.lambda.GetFunction
     JavaScript:
       versions:
         - sdk_version: 3
@@ -435,9 +435,9 @@ lambda_GetFunction:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.get_function
+                - lambda.rust.scenario.get_function
   services:
-    lambda: {GetFunction}
+    lambda: { GetFunction }
 lambda_UpdateFunctionCode:
   title: Update &LAM; function code using an &AWS; SDK
   title_abbrev: Update function code
@@ -524,10 +524,10 @@ lambda_UpdateFunctionCode:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.update_function_code
-              - lambda.rust.scenario.prepare_function
+                - lambda.rust.scenario.update_function_code
+                - lambda.rust.scenario.prepare_function
   services:
-    lambda: {UpdateFunctionCode}
+    lambda: { UpdateFunctionCode }
 lambda_UpdateFunctionConfiguration:
   title: Update &LAM; function configuration using an &AWS; SDK
   title_abbrev: Update function configuration
@@ -614,9 +614,9 @@ lambda_UpdateFunctionConfiguration:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.update_function_configuration
+                - lambda.rust.scenario.update_function_configuration
   services:
-    lambda: {UpdateFunctionConfiguration}
+    lambda: { UpdateFunctionConfiguration }
 lambda_ListFunctions:
   title: List &LAM; functions using an &AWS; SDK
   title_abbrev: List functions
@@ -703,9 +703,9 @@ lambda_ListFunctions:
           github: rust_dev_preview/lambda
           excerpts:
             - snippet_tags:
-              - lambda.rust.scenario.list_functions
+                - lambda.rust.scenario.list_functions
   services:
-    lambda: {ListFunctions}
+    lambda: { ListFunctions }
 lambda_Scenario_GettingStartedFunctions:
   title: Get started creating and invoking &LAM; functions using an &AWS; SDK
   title_abbrev: Get started with functions
@@ -749,7 +749,8 @@ lambda_Scenario_GettingStartedFunctions:
         - sdk_version: 2
           github: gov2/lambda
           excerpts:
-            - description: Create an interactive scenario that shows you how to get
+            - description:
+                Create an interactive scenario that shows you how to get
                 started with &LAM; functions.
               snippet_tags:
                 - gov2.lambda.Scenario_GetStartedFunctions
@@ -762,8 +763,7 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - gov2.lambda.handlers.increment
-            - description:
-                Define a second &LAM; handler that performs arithmetic operations.
+            - description: Define a second &LAM; handler that performs arithmetic operations.
               snippet_tags:
                 - gov2.lambda.handlers.arithmetic
     Kotlin:
@@ -894,10 +894,15 @@ lambda_Scenario_GettingStartedFunctions:
         - sdk_version: 1
           github: rust_dev_preview/lambda
           excerpts:
-            - snippet_files:
-              - rust_dev_preview/lambda/Cargo.toml
-              - rust_dev_preview/lambda/src/actions.rs
-              - rust_dev_preview/lambda/src/bin/scenario.rs
+            - description: The Cargo.toml with dependencies used in this scenario.
+              snippet_files:
+                - rust_dev_preview/lambda/Cargo.toml
+            - description: A collection of utilities that streamline calling Lambda for this scenario. This file is src/ations.rs in the crate.
+              snippet_files:
+                - rust_dev_preview/lambda/src/actions.rs
+            - description: A binary to run the scenario from front to end, using command line flags to control some behavior. This file is src/bin/scenario.rs in the crate.
+              snippet_files:
+                - rust_dev_preview/lambda/src/bin/scenario.rs
   services:
     lambda:
       {
