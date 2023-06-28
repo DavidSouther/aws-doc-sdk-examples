@@ -1,6 +1,8 @@
 import { Construct } from "constructs";
 import { AppFunction } from "./app-lambdas";
 import { DefinitionBody, StateMachine } from "aws-cdk-lib/aws-stepfunctions";
+import { AppDatabase } from "./app-database";
+import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export class AppStateMachine extends Construct {
   readonly stateMachine: StateMachine;
@@ -8,19 +10,17 @@ export class AppStateMachine extends Construct {
   constructor(
     scope: Construct,
     id: string,
-    readonly functions: Record<string, AppFunction>
+    readonly functions: Record<string, AppFunction>,
+    database: AppDatabase
   ) {
     super(scope, id);
-    this.stateMachine = this.createStateMachine(functions);
-  }
-
-  private createStateMachine({
-    ExtractText,
-    AnalyzeSentiment,
-    TranslateText,
-    SynthesizeAudio,
-    GetFeedback,
-  }: Record<string, AppFunction>) {
+    const {
+      ExtractText,
+      AnalyzeSentiment,
+      TranslateText,
+      SynthesizeAudio,
+      GetFeedback,
+    } = functions;
     if (
       ![
         ExtractText,
@@ -41,7 +41,7 @@ export class AppStateMachine extends Construct {
       `);
     }
 
-    return new StateMachine(this, "state-machine", {
+    this.stateMachine = new StateMachine(this, "state-machine", {
       definitionBody: DefinitionBody.fromString(
         JSON.stringify({
           Comment:
@@ -54,7 +54,7 @@ export class AppStateMachine extends Construct {
               ResultPath: "$.source_text",
               Parameters: {
                 "Payload.$": "$",
-                FunctionName: `${this.functions["ExtractText"].fn.functionArn}`,
+                FunctionName: this.functions["ExtractText"].fn.functionArn,
               },
               Retry: [
                 {
@@ -77,7 +77,7 @@ export class AppStateMachine extends Construct {
               InputPath: "$.source_text",
               ResultPath: "$.sentiment",
               Parameters: {
-                FunctionName: `${this.functions["AnalyzeSentiment"].fn.functionArn}`,
+                FunctionName: this.functions["AnalyzeSentiment"].fn.functionArn,
                 "Payload.$": "$",
               },
               Retry: [
@@ -104,7 +104,7 @@ export class AppStateMachine extends Construct {
                   Next: "TranslateText",
                 },
               ],
-              Default: "CreateComment",
+              Default: "PutNegativeComment",
             },
             TranslateText: {
               Type: "Task",
@@ -113,7 +113,7 @@ export class AppStateMachine extends Construct {
               ResultPath: "$.translated_text",
               Parameters: {
                 "Payload.$": "$",
-                FunctionName: `${this.functions["TranslateText"].fn.functionArn}`,
+                FunctionName: this.functions["TranslateText"].fn.functionArn,
               },
               Retry: [
                 {
@@ -137,7 +137,7 @@ export class AppStateMachine extends Construct {
               ResultPath: "$.audio_key",
               Parameters: {
                 "Payload.$": "$",
-                FunctionName: `${this.functions["SynthesizeAudio"].fn.functionArn}`,
+                FunctionName: this.functions["SynthesizeAudio"].fn.functionArn,
               },
               Retry: [
                 {
@@ -152,21 +152,37 @@ export class AppStateMachine extends Construct {
                   BackoffRate: 2,
                 },
               ],
-              Next: "CreateComment",
+              Next: "PutPositiveComment",
             },
-            CreateComment: {
+            PutNegativeComment: {
               Type: "Task",
               Resource: "arn:aws:states:::dynamodb:putItem",
               InputPath: "$",
               Parameters: {
-                TableName: "comments",
+                TableName: database.table.tableName,
                 Item: {
-                  comment_key: "$.detail.object.key",
-                  source_text: "$.source_text.Payload",
-                  sentiment: "$.sentiment.Payload",
-                  translated_text: "$.translated_text.Payload.translated_text",
-                  source_language: "$.translated_text.Payload.source_language",
-                  audio_key: "$.audio_key.Payload",
+                  [`${AppDatabase.KEY}.$`]: "$.detail.object.key",
+                  [`${AppDatabase.INDEX}.$`]: "$.sentiment.Payload",
+                  "source_text.$": "$.source_text.Payload",
+                },
+              },
+              End: true,
+            },
+            PutPositiveComment: {
+              Type: "Task",
+              Resource: "arn:aws:states:::dynamodb:putItem",
+              InputPath: "$",
+              Parameters: {
+                TableName: database.table.tableName,
+                Item: {
+                  [`${AppDatabase.KEY}.$`]: "$.detail.object.key",
+                  [`${AppDatabase.INDEX}.$`]: "$.sentiment.Payload",
+                  "source_text.$": "$.source_text.Payload",
+                  "translated_text.$":
+                    "$.translated_text.Payload.translated_text",
+                  "source_language.$":
+                    "$.translated_text.Payload.source_language",
+                  "audio_key.$": "$.audio_key.Payload",
                 },
               },
               End: true,
@@ -175,5 +191,17 @@ export class AppStateMachine extends Construct {
         })
       ),
     });
+
+    this.stateMachine.role.attachInlinePolicy(
+      new Policy(this, "dynamodb-policy", {
+        statements: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ["dynamodb:PutItem"],
+            resources: [database.table.tableArn],
+          }),
+        ],
+      })
+    );
   }
 }

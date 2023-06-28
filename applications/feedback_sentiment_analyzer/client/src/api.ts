@@ -2,7 +2,14 @@ export interface ApiConfig {
   token: string | null;
 }
 
-export type FeedbackResponse = { text: string; audioUrl: string }[];
+export interface Feedback {
+  text: string;
+  audioUrl: string;
+}
+
+export type FeedbackResponse = {
+  feedback: Array<Feedback>;
+};
 
 const request: typeof fetch = async (input, init) => {
   try {

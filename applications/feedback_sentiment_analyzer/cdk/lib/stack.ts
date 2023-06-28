@@ -27,29 +27,50 @@ import { EnvModel, UploadModel } from "./constructs/app-api-models";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Rule } from "aws-cdk-lib/aws-events";
 import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
+import { AppDatabase } from "./constructs/app-database";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
     const prefix = `fsa-${PREFIX}`;
     super(scope, prefix);
 
+    const api = this.createApi(prefix);
+
+    // Create static S3 website behind a CloudFront distribution.
+    const distribution = this.createDistribution(api);
+
+    // Create Cognito user pool and client.
+    const auth = new AppAuth(this, `${prefix}-auth`, {
+      email: APP_EMAIL,
+      callbackDomain: distribution.domainName,
+    });
+
+    // Create API routes.
+    const routes = new AppRoutes(this, `${prefix}-routes`, {
+      api,
+    });
+
+    // Add env lambda and route.
+    this.addEnvLambda(auth, routes, api);
+
+    // Add direct S3 upload route.
+    const uploadBucket = this.createUpload(auth, routes, api);
+
+    // Prepare the DDB table
+    const database = new AppDatabase(this);
+
     // Create AWS Lambda functions.
-    const fnConfigs = getFunctionConfigs(APP_LANG);
-    const appLambdas = new AppLambdas(this, "fn", fnConfigs);
-    
-    // Create state machine.
-    const appStateMachine = new AppStateMachine(
-      this,
-      prefix,
-      appLambdas.functions
-    );
+    this.addStepFunctions(prefix, uploadBucket, database);
 
-    appLambdas.grantInvokeAll(appStateMachine.stateMachine);
+    // Output useful values.
+    new CfnOutput(this, `${prefix}-website-url`, {
+      value: `https://${distribution.domainName}/`,
+    });
+  }
 
-
-    // Create API
+  private createApi(prefix: string) {
     // const logGroup = new LogGroup(this, `api-log-group`);
-    const api = new RestApi(this, `${prefix}-api`, {
+    return new RestApi(this, `${prefix}-api`, {
       defaultCorsPreflightOptions: {
         allowOrigins: Cors.ALL_ORIGINS,
         allowCredentials: true,
@@ -61,13 +82,13 @@ export class AppStack extends Stack {
         // accessLogFormat: AccessLogFormat.jsonWithStandardFields(),
       },
     });
+  }
 
-    // Create static S3 website behind a CloudFront distribution.
+  private createDistribution(api: RestApi) {
     const website = new AppS3Website(this, "client", {
       assetPath: "../client",
     });
 
-    // Create CloudFront distribution
     const s3Origin = new S3Origin(website.bucket);
     const s3OriginConfig = {
       origin: s3Origin,
@@ -104,61 +125,26 @@ export class AppStack extends Stack {
     });
     website.grantDistributionRead(distribution);
 
-    // Create Cognito user pool and client.
-    const auth = new AppAuth(this, `${prefix}-auth`, {
-      email: APP_EMAIL,
-      callbackDomain: distribution.domainName,
-    });
+    return distribution;
+  }
 
-    // Create env lambda.
-    const variables = {
-      COGNITO_USER_POOL_BASE_URL: auth.userPoolDomain.baseUrl(),
-      COGNITO_USER_POOL_ID: auth.userPool.userPoolId,
-    };
+  private addStepFunctions(
+    prefix: string,
+    uploadBucket: Bucket,
+    database: AppDatabase
+  ) {
+    const fnConfigs = getFunctionConfigs(APP_LANG);
+    const appLambdas = new AppLambdas(this, "fn", fnConfigs);
 
-    const envLambda = new AppEnvLambda(this, { variables });
-    auth.userPool.grant(envLambda.fn, "cognito-idp:ListUserPoolClients");
-
-    // Create API routes.
-    const routes = new AppRoutes(this, `${prefix}-routes`, {
-      api,
-    });
-
-    // Create authorizer.
-    const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
+    // Create state machine.
+    const appStateMachine = new AppStateMachine(
       this,
-      "pool-authorizer",
-      { cognitoUserPools: [auth.userPool] }
+      prefix,
+      appLambdas.functions,
+      database
     );
 
-    // Add env route.
-    routes.addLambdaRoute({
-      path: "env",
-      method: "GET",
-      fn: envLambda.fn,
-      model: {
-        response: new EnvModel(this, { restApi: api }),
-      },
-    });
-
-    // Add direct S3 upload route.
-    const uploadBucket = new Bucket(this, "upload-bucket", {
-      enforceSSL: true,
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-      eventBridgeEnabled: true,
-    });
-
-    routes.addDirectS3Route({
-      path: "upload",
-      method: "PUT",
-      bucket: uploadBucket,
-      allowActions: ["s3:PutObject"],
-      authorizer: userPoolAuthorizer,
-      model: {
-        request: new UploadModel(this, { restApi: api }),
-      },
-    });
+    appLambdas.grantInvokeAll(appStateMachine.stateMachine);
 
     // Register Amazon EventBridge rule to trigger state machine.
     new Rule(this, "s3-put-start-step-function", {
@@ -173,10 +159,49 @@ export class AppStack extends Stack {
       },
       targets: [new SfnStateMachine(appStateMachine.stateMachine)],
     });
+  }
 
-    // Output useful values.
-    new CfnOutput(this, `${prefix}-website-url`, {
-      value: `https://${distribution.domainName}/`,
+  private createUpload(auth: AppAuth, routes: AppRoutes, api: RestApi) {
+    const uploadBucket = new Bucket(this, "upload-bucket", {
+      enforceSSL: true,
+      removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      eventBridgeEnabled: true,
+    });
+
+    const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
+      this,
+      "pool-authorizer",
+      { cognitoUserPools: [auth.userPool] }
+    );
+
+    routes.addDirectS3Route({
+      path: "upload",
+      method: "PUT",
+      bucket: uploadBucket,
+      allowActions: ["s3:PutObject"],
+      authorizer: userPoolAuthorizer,
+      model: {
+        request: new UploadModel(this, { restApi: api }),
+      },
+    });
+    return uploadBucket;
+  }
+
+  private addEnvLambda(auth: AppAuth, routes: AppRoutes, api: RestApi) {
+    const variables = {
+      COGNITO_USER_POOL_BASE_URL: auth.userPoolDomain.baseUrl(),
+      COGNITO_USER_POOL_ID: auth.userPool.userPoolId,
+    };
+    const envLambda = new AppEnvLambda(this, { variables });
+    auth.userPool.grant(envLambda.fn, "cognito-idp:ListUserPoolClients");
+    routes.addLambdaRoute({
+      path: "env",
+      method: "GET",
+      fn: envLambda.fn,
+      model: {
+        response: new EnvModel(this, { restApi: api }),
+      },
     });
   }
 }

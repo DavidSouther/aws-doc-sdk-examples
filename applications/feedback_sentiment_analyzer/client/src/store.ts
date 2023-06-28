@@ -21,16 +21,11 @@ export interface User {
   username: string;
 }
 
-export interface Feedback {
-  text: string;
-  audioUrl: string;
-}
-
 export interface Store {
   error: string;
   authStatus: AuthStatus;
   currentUser: User | null;
-  feedback: Feedback[];
+  feedback: API.Feedback[];
   token: string;
   autoLogout: <T>(fn: () => Promise<T>) => Promise<T>;
   checkAuth: () => void;
@@ -79,7 +74,7 @@ export const useStore = create<Store>((set, get) => ({
     return get().autoLogout(() => API.uploadFile(file, { token: get().token }));
   },
   async getFeedback() {
-    const feedback = await get().autoLogout(() => API.getFeedback());
+    const { feedback } = await get().autoLogout(() => API.getFeedback());
     set({ feedback });
   },
 }));

@@ -7,7 +7,8 @@ import {
 } from "@cloudscape-design/components";
 import { Ref, useEffect, useRef } from "react";
 import FileUpload from "./FileUpload";
-import { useStore, Feedback } from "./store";
+import { useStore } from "./store";
+import type { Feedback } from "./api";
 import Audio from "./Audio";
 
 function FeedbackLayout() {
