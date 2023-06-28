@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 use anyhow::anyhow;
 use aws_sdk_iam::operation::delete_role::DeleteRoleOutput;
 use aws_sdk_lambda::{
