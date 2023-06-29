@@ -16,11 +16,11 @@ These examples demonstrate how to perform several operations using the developer
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
-## Examples Layout
+## Examples layout
 
 ### `examples`
 
-Examples show how to use the AWS SDK for Rust using single actions and services. These are actions with individual binaries, as well as `scenario` binaries which run several actions using a single AWS SDK service.
+Examples show how to use the AWS SDK for Rust using single actions and services. These are actions with individual binaries and `scenario` binaries, which run several actions using a single AWS SDK service.
 
 ### `application`
 
@@ -36,7 +36,7 @@ The WebAssembly example shows how to use the AWS SDK for Rust within a WASM runt
 
 ## Running the code examples
 
-### Environment Variables
+### Environment variables
 
 The AWS SDK for Rust uses Environment Variables to configure some of its behavior.
 These variables are documented in the [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/environment-variables.html).
