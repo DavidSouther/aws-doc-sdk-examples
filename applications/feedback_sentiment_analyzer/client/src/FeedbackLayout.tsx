@@ -13,7 +13,6 @@ import Audio from "./Audio";
 
 function FeedbackLayout() {
   const { feedback, authStatus, getFeedback, uploadFile } = useStore();
-  const audioRef: Ref<HTMLAudioElement> = useRef(null);
 
   useEffect(() => {
     getFeedback();
@@ -60,7 +59,14 @@ function FeedbackLayout() {
         cardDefinition={{
           sections: [
             {
-              content: (feedbackItem: Feedback) => <p>{feedbackItem.text}</p>,
+              content: (feedbackItem: Feedback) => (
+                <p>
+                  <img
+                    src={`/upload/${feedbackItem.id}`}
+                    alt={feedbackItem.text}
+                  />
+                </p>
+              ),
             },
             {
               content: (feedbackItem: Feedback) => (
