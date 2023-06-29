@@ -151,9 +151,9 @@ export class AppStateMachine extends Construct {
               Parameters: {
                 TableName: database.table.tableName,
                 Item: {
-                  [`${AppDatabase.KEY}.$`]: "$.detail.object.key",
-                  [`${AppDatabase.INDEX}.$`]: "$.sentiment.Payload",
-                  "source_text.$": "$.source_text.Payload",
+                  [AppDatabase.KEY]: { "S.$": "$.detail.object.key" },
+                  [AppDatabase.INDEX]: { "S.$": "$.sentiment.Payload" },
+                  source_text: { "S.$": "$.source_text.Payload" },
                 },
               },
               End: true,
@@ -165,14 +165,12 @@ export class AppStateMachine extends Construct {
               Parameters: {
                 TableName: database.table.tableName,
                 Item: {
-                  [`${AppDatabase.KEY}.$`]: "$.detail.object.key",
-                  [`${AppDatabase.INDEX}.$`]: "$.sentiment.Payload",
-                  "source_text.$": "$.source_text.Payload",
-                  "translated_text.$":
-                    "$.translated_text.Payload.translated_text",
-                  "source_language.$":
-                    "$.translated_text.Payload.source_language",
-                  "audio_key.$": "$.audio_key.Payload",
+                  [AppDatabase.KEY]: {"S.$": "$.detail.object.key"},
+                  [AppDatabase.INDEX]: {"S.$": "$.sentiment.Payload"},
+                  "source_text": {"S.$": "$.source_text.Payload",
+                  "translated_text": {"S.$":  "$.translated_text.Payload.translated_text"},
+                  "source_language": {"S.$": "$.translated_text.Payload.source_language"},
+                  "audio_key": {"S.$": "$.audio_key.Payload"},
                 },
               },
               End: true,
