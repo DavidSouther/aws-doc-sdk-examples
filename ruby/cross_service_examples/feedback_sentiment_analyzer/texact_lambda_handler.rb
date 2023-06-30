@@ -11,7 +11,7 @@ def lambda_handler(event:, context:)
   logger.info("context:\n #{context.to_s}\n")
 
   # Create an instance of the Textract client
-  client = Aws::Textract::Client.new(region: "us-east-1")
+  client = Aws::Textract::Client.new(region: event['region'])
 
   params = {
     document: {

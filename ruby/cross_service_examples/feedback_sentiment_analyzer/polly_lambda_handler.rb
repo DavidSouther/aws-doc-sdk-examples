@@ -12,7 +12,7 @@ def lambda_handler(event:, context:)
   logger.info("context:\n #{context}")
 
   # Create an instance of the Textract client
-  polly_client = Aws::Polly::Client.new(region: "us-east-1")
+  polly_client = Aws::Polly::Client.new(region: event['region'])
 
 
   resp = polly_client.synthesize_speech({

@@ -33,7 +33,7 @@ import { Rule } from "aws-cdk-lib/aws-events";
 import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { AppDatabase } from "./constructs/app-database";
 import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
-import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Effect, PolicyStatement, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
@@ -161,7 +161,16 @@ export class AppStack extends Stack {
       })
     );
 
+    appLambdas.functions["AnalyzeSentiment"].fn.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ["comprehend:BatchDetectDominantLanguage"],
+        resources: ["*"],
+      })
+    );
+
     uploadBucket.grantRead(appLambdas.functions["ExtractText"].fn);
+    uploadBucket.grantRead(new ServicePrincipal("textract.amazonaws.com"));
 
     // Register Amazon EventBridge rule to trigger state machine.
     new Rule(this, "s3-put-start-step-function", {

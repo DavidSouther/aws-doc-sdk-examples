@@ -9,7 +9,7 @@ def lambda_handler(event:, context:)
   logger.info("event:\n #{event.to_s}\n")
   logger.info("context:\n #{context.to_s}\n")
 
-  rekognition_client = Aws::Comprehend::Client.new(region: 'us-west-2') # Replace with your desired AWS region
+  rekognition_client = Aws::Comprehend::Client.new(region: event['region'])
 
   logger.info("paylaod:\n #{event['Payload']}")
 
