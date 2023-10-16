@@ -6,10 +6,11 @@ Unit tests for aurora_tools.py functions.
 """
 
 import json
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+
 import aurora_tools
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

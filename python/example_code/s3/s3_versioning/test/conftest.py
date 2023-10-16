@@ -4,11 +4,11 @@
 """
 Contains common test fixtures used to run Amazon S3 versioning tests.
 """
+import sys
 from urllib import parse
+
 import pytest
 from botocore.stub import ANY
-
-import sys
 
 # This is needed so Python can find test_tools in the path.
 sys.path.append("../../..")

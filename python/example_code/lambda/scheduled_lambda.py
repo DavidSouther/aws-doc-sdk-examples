@@ -15,9 +15,9 @@ information on AWS Chalice, see https://github.com/aws/chalice.
 import logging
 import sys
 import time
+
 import boto3
 from botocore.exceptions import ClientError
-
 from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.

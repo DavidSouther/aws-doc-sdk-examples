@@ -6,7 +6,9 @@ Stub functions that are used by the Amazon SNS unit tests.
 """
 
 import json
+
 from botocore.stub import ANY
+
 from test_tools.example_stubber import ExampleStubber
 
 

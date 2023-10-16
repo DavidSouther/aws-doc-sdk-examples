@@ -21,7 +21,8 @@
 import os
 import sys
 from optparse import OptionParser
-from git import Repo, TagReference, RemoteProgress, GitCommandError
+
+from git import GitCommandError, RemoteProgress, Repo, TagReference
 
 
 class PushProgressPrinter(RemoteProgress):

@@ -22,13 +22,14 @@ import base64
 import json
 import logging
 import sys
+
 import boto3
 from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 import demo_tools.question as q
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)

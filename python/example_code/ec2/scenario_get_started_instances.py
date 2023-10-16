@@ -22,11 +22,10 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Compute Clou
 """
 
 import logging
-import urllib.request
 import sys
+import urllib.request
 
 import boto3
-
 from elastic_ip import ElasticIpWrapper
 from instance import InstanceWrapper
 from key_pair import KeyPairWrapper
@@ -34,8 +33,8 @@ from security_group import SecurityGroupWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools import demo_func
 import demo_tools.question as q
+from demo_tools import demo_func
 
 logger = logging.getLogger(__name__)
 

@@ -5,8 +5,8 @@ import logging
 import time
 
 import boto3
-from botocore.exceptions import ClientError
 import requests
+from botocore.exceptions import ClientError
 
 log = logging.getLogger(__name__)
 

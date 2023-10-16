@@ -15,9 +15,9 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Relation Database Se
 """
 
 import logging
-from pprint import pp
 import sys
 import uuid
+from pprint import pp
 
 from instance_wrapper import InstanceWrapper
 

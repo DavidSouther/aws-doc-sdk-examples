@@ -8,12 +8,12 @@ Amazon Lookout for Vision dataset code examples used in the service documentatio
 https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/edit-dataset.html
 Shows how to update a Lookout for Vision dataset with a manifest file.
 """
-import logging
 import argparse
+import logging
+
 import boto3
 from botocore.exceptions import ClientError
 from datasets import Datasets
-
 
 logger = logging.getLogger(__name__)
 

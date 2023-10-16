@@ -24,15 +24,16 @@
 # snippet-start:[codepipeline.python.MyCodePipelineFunction.complete]
 
 from __future__ import print_function
-from boto3.session import Session
 
 import json
-import urllib
-import boto3
-import zipfile
 import tempfile
-import botocore
 import traceback
+import urllib
+import zipfile
+
+import boto3
+import botocore
+from boto3.session import Session
 
 print("Loading function")
 

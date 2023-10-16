@@ -11,14 +11,14 @@ that is backed by AWS Lambda functions that call an Amazon Aurora database.
 import argparse
 import logging
 import os
-from pprint import pprint
 import random
 import time
+from pprint import pprint
 from urllib.parse import urljoin
-import requests
-import boto3
 
+import boto3
 import rds_tools.aurora_tools as aurora_tools
+import requests
 from library_api.chalicelib.library_data import Storage
 
 logger = logging.getLogger(__name__)

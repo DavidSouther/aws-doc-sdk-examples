@@ -13,11 +13,10 @@ import hashlib
 import os
 import shutil
 import threading
-import pytest
-
-from botocore.exceptions import ClientError
 
 import file_transfer
+import pytest
+from botocore.exceptions import ClientError
 
 _demo_sse_key = hashlib.sha256("demo_passphrase".encode("utf-8")).digest()
 

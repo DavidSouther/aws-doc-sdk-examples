@@ -20,9 +20,9 @@ do the following:
 11. Get a list of resolved cases for the current day.
 """
 
-from datetime import datetime, timedelta
 import logging
 import sys
+from datetime import datetime, timedelta
 
 import boto3
 from botocore.exceptions import ClientError

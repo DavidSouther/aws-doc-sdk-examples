@@ -10,11 +10,11 @@ Shows how to create and manage datasets. Also, how to create a manifest file and
 upload to an Amazon S3 bucket.
 """
 
+import json
 import logging
+import os
 import time
 from datetime import datetime
-import os
-import json
 
 from botocore.exceptions import ClientError
 

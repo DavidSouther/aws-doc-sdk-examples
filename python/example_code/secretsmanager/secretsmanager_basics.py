@@ -13,8 +13,9 @@ import argparse
 import base64
 import json
 import logging
-from pprint import pprint
 import time
+from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 

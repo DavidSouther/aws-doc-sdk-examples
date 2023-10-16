@@ -13,9 +13,10 @@ to make a request with the URL.
 # snippet-start:[python.example_code.s3.Scenario_GeneratePresignedUrl]
 import argparse
 import logging
+
 import boto3
-from botocore.exceptions import ClientError
 import requests
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 

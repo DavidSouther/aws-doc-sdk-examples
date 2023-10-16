@@ -13,19 +13,13 @@ This file is deployed to AWS Lambda as part of the Chalice deployment.
 import datetime
 import logging
 import os
+
 import boto3
 from botocore.exceptions import ClientError
-from .mysql_helper import Table, Column, ForeignKey
-from .mysql_helper import (
-    create_table,
-    insert,
-    update,
-    query,
-    unpack_query_results,
-    unpack_insert_results,
-    delete,
-)
 
+from .mysql_helper import (Column, ForeignKey, Table, create_table, delete,
+                           insert, query, unpack_insert_results,
+                           unpack_query_results, update)
 
 logger = logging.getLogger(__name__)
 

@@ -6,6 +6,7 @@ Stub functions that are used by the Amazon Keyspaces (for Apache Cassandra) unit
 """
 
 from botocore.stub import ANY
+
 from test_tools.example_stubber import ExampleStubber
 
 

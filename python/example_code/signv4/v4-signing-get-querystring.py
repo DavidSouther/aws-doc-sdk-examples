@@ -17,10 +17,16 @@ maintained as functional code.
 
 # IAM API (CreateUser)
 
+import datetime
+import hashlib
+import hmac
+import os
 # See: http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
 # This version makes a GET request and passes request parameters
 # and authorization information in the query string
-import sys, os, datetime, hashlib, hmac, urllib.parse
+import sys
+import urllib.parse
+
 import requests  # pip install requests
 
 # ************* REQUEST VALUES *************

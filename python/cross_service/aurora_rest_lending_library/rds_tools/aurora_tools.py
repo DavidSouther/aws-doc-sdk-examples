@@ -11,6 +11,7 @@ Shows how to use the AWS SDK for Python (Boto3) to create and delete an Amazon A
 import json
 import logging
 import sys
+
 from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without need for setup.

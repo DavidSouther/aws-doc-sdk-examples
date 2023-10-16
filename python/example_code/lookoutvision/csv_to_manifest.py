@@ -14,12 +14,12 @@ More information: https://docs.aws.amazon.com/lookout-for-vision/latest/develope
 
 # snippet-start:[python.example_code.lookoutvision.Scenario_CSVtoManifest]
 
-from datetime import datetime, timezone
 import argparse
-import logging
 import csv
-import os
 import json
+import logging
+import os
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 

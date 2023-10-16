@@ -1,11 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from io import BytesIO
 import urllib.request
+from io import BytesIO
+
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
 
 
 class MockManager:

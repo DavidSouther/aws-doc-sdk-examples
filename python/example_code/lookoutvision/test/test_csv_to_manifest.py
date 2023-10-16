@@ -1,8 +1,8 @@
-from csv_to_manifest import check_errors, create_manifest_file
+from os import path, remove
 from os.path import exists
-from os import remove
-from os import path
+
 import pytest
+from csv_to_manifest import check_errors, create_manifest_file
 
 """
 Unit tests for csv_to_manifest.py.

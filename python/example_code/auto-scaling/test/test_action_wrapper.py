@@ -6,11 +6,11 @@ Unit tests for action_wrapper.py.
 """
 
 from datetime import datetime
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
 from action_wrapper import AutoScalingWrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

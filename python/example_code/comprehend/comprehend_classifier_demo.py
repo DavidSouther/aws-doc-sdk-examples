@@ -11,16 +11,17 @@ After the classifier is trained, the demo sends a second set of GitHub issues
 to the classifier so they can be labeled.
 """
 
-from io import BytesIO
 import logging
-from pprint import pprint
 import sys
-import boto3
-from botocore.exceptions import ClientError
-import requests
+from io import BytesIO
+from pprint import pprint
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
+from comprehend_classifier import (ClassifierMode, ComprehendClassifier,
+                                   JobInputFormat)
 from comprehend_demo_resources import ComprehendDemoResources
-from comprehend_classifier import ComprehendClassifier, ClassifierMode, JobInputFormat
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")

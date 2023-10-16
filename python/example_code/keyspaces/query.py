@@ -1,17 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from datetime import date
 import json
-from ssl import SSLContext, PROTOCOL_TLSv1_2, CERT_REQUIRED
+from datetime import date
+from ssl import CERT_REQUIRED, PROTOCOL_TLSv1_2, SSLContext
 
-from cassandra.cluster import (
-    Cluster,
-    ExecutionProfile,
-    EXEC_PROFILE_DEFAULT,
-    DCAwareRoundRobinPolicy,
-)
 from cassandra import ConsistencyLevel
+from cassandra.cluster import (EXEC_PROFILE_DEFAULT, Cluster,
+                               DCAwareRoundRobinPolicy, ExecutionProfile)
 from cassandra.query import SimpleStatement
 from cassandra_sigv4.auth import SigV4AuthProvider
 

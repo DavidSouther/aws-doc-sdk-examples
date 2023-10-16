@@ -1,15 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from datetime import datetime
 import time
+from datetime import datetime
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError, WaiterError
-from botocore.stub import ANY
+
 import pytest
 import requests
-
 from auto_scaler import AutoScalerError
+from botocore.exceptions import ClientError, WaiterError
+from botocore.stub import ANY
 from load_balancer import LoadBalancerError
 from parameters import ParameterHelper, ParameterHelperError
 

@@ -20,8 +20,8 @@ import logging
 import sys
 
 import boto3
-from botocore.exceptions import ClientError
 from activities import Activity
+from botocore.exceptions import ClientError
 from state_machines import StateMachine
 
 # Add relative path to include demo_tools in this code example without need for setup.

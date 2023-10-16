@@ -11,15 +11,15 @@ stream.
 """
 
 import logging
-from pprint import pprint
 import sys
 import threading
 import time
-import boto3
+from pprint import pprint
 
+import boto3
 from analyticsv2.analytics_application import KinesisAnalyticsApplicationV2
-from streams.kinesis_stream import KinesisStream
 from streams.dg_anomaly import generate
+from streams.kinesis_stream import KinesisStream
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")

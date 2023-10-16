@@ -1,13 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier:  Apache-2.0
 
+import argparse
+import csv
+import json
+import logging
+import os
 # snippet-start:[rekognition.python.custom_labels_csv_manifest.complete]
 from datetime import datetime, timezone
-import argparse
-import logging
-import csv
-import os
-import json
 
 """
 Purpose

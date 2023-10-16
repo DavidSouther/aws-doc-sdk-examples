@@ -15,8 +15,9 @@ mode lets you compare the performance of the two clients.
 
 # snippet-start:[dynamodb.Python.TryDax.05-scan-test]
 import argparse
-import time
 import sys
+import time
+
 import amazondax
 import boto3
 

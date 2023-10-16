@@ -9,6 +9,7 @@ code examples.
 import contextlib
 import logging
 import time
+
 import pytest
 
 from test_tools.stubber_factory import stubber_factory

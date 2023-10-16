@@ -6,10 +6,10 @@ Unit tests for lambda_chat.py.
 """
 
 import json
-import boto3
-import pytest
 
+import boto3
 import lambda_chat
+import pytest
 
 
 @pytest.mark.parametrize(

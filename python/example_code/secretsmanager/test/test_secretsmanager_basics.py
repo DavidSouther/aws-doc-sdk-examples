@@ -6,10 +6,10 @@ Unit tests for secretsmanager_basics.py
 """
 
 import uuid
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from secretsmanager_basics import SecretsManagerSecret
 
 

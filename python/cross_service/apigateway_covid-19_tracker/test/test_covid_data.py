@@ -1,9 +1,9 @@
 import datetime
+
 import boto3
+import pytest
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import pytest
-
 from chalicelib.covid_data import Storage
 
 

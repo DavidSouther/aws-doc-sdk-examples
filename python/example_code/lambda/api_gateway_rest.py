@@ -22,10 +22,10 @@ import json
 import logging
 import sys
 import time
-import boto3
-from botocore.exceptions import ClientError
-import requests
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
 from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.

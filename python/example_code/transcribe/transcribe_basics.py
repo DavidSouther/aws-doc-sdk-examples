@@ -17,9 +17,10 @@ Lewis Carroll. The original audio source file can be found here:
 import logging
 import sys
 import time
+
 import boto3
-from botocore.exceptions import ClientError
 import requests
+from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")

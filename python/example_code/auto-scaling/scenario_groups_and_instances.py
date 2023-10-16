@@ -20,14 +20,14 @@ do the following:
 9. Stop collecting metrics, terminate all instances, and delete the group.
 """
 
-from datetime import datetime, timedelta, timezone
 import logging
-from pprint import pp
 import sys
-import boto3
-from botocore.exceptions import ClientError
+from datetime import datetime, timedelta, timezone
+from pprint import pp
 
+import boto3
 from action_wrapper import AutoScalingWrapper
+from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without needing to setup.
 sys.path.append("../..")

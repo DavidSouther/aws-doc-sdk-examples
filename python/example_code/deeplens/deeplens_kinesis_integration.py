@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 # snippet-start:[deeplens.python.deeplens_kinesis_integration.test_install]
 
-import DeepLens_Kinesis_Video as dkv
 import time
+
+import DeepLens_Kinesis_Video as dkv
 
 aws_access_key = "Your IAM access key"
 aws_secrete_key = "Your IAM secret key"

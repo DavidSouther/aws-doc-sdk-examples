@@ -16,6 +16,7 @@ Logs written by this handler can be found in Amazon CloudWatch.
 import json
 import logging
 import os
+
 import boto3
 from botocore.exceptions import ClientError
 

@@ -8,17 +8,12 @@ Unit tests for rekognition_image_detection.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from rekognition_image_detection import RekognitionImage
-from rekognition_objects import (
-    RekognitionFace,
-    RekognitionCelebrity,
-    RekognitionLabel,
-    RekognitionModerationLabel,
-    RekognitionText,
-)
+from rekognition_objects import (RekognitionCelebrity, RekognitionFace,
+                                 RekognitionLabel, RekognitionModerationLabel,
+                                 RekognitionText)
 
 TEST_IMAGE = {"Bytes": b"just some bytes"}
 

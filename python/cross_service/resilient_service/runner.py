@@ -12,11 +12,10 @@ more resilient when failures occur.
 
 import argparse
 import logging
-from pprint import pp
 import sys
+from pprint import pp
 
 import requests
-
 from auto_scaler import AutoScaler
 from load_balancer import LoadBalancer
 from parameters import ParameterHelper

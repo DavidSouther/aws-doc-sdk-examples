@@ -6,6 +6,7 @@ Stub functions that are used by the AWS Key Management Service (AWS KMS) unit te
 """
 
 from botocore.stub import ANY
+
 from test_tools.example_stubber import ExampleStubber
 
 

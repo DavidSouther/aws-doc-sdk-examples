@@ -8,7 +8,7 @@ Unit tests for AWS IoT Greengrass code example snippets.
 import importlib
 import os
 import sys
-from unittest.mock import MagicMock, ANY, patch, mock_open, call
+from unittest.mock import ANY, MagicMock, call, mock_open, patch
 
 import pytest
 

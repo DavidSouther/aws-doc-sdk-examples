@@ -7,6 +7,7 @@ unit tests.
 """
 
 from botocore.stub import ANY
+
 from test_tools.example_stubber import ExampleStubber
 
 

@@ -25,12 +25,12 @@
 # snippet-start:[deeplens.python.deeplens_view_output.lambda_function]
 
 import os
-import greengrasssdk
-from threading import Timer
 import time
+from threading import Thread, Timer
+
 import awscam
 import cv2
-from threading import Thread
+import greengrasssdk
 
 # Create an AWS Greengrass core SDK client.
 client = greengrasssdk.client("iot-data")

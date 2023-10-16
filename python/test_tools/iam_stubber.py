@@ -11,6 +11,7 @@ set up stubs and passes all calls through to the Boto 3 client.
 import datetime
 import random
 import string
+
 from botocore.stub import ANY
 
 from test_tools.example_stubber import ExampleStubber

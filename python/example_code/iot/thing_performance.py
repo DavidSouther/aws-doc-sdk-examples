@@ -10,6 +10,12 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
+import argparse
+import json
+import logging
+import time
+
+import psutil
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[thing_performance.py demonstrates how to push CPU and memory usage data to a thing's device shadow in AWS IoT.]
 # snippet-service:[iot]
@@ -24,12 +30,6 @@
 # snippet-sourceauthor:[FThompsonAWS]
 # snippet-start:[iot.python.thing_performance.complete]
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
-
-import json
-import psutil
-import argparse
-import logging
-import time
 
 
 # Configures the argument parser for this program.

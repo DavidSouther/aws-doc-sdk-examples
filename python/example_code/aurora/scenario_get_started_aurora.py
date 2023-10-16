@@ -14,9 +14,9 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Aurora to do the fol
 """
 
 import logging
-from pprint import pp
 import sys
 import uuid
+from pprint import pp
 
 from aurora_wrapper import AuroraWrapper
 

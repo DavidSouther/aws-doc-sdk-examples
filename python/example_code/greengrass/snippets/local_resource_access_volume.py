@@ -11,6 +11,7 @@ that accesses local file system resources.
 # snippet-start:[greengrass.python.local-resource-access-volume.complete]
 import logging
 import os
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")
