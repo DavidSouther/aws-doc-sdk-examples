@@ -16,9 +16,13 @@ import boto3
 import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-from rekognition_objects import (RekognitionCelebrity, RekognitionFace,
-                                 RekognitionLabel, RekognitionModerationLabel,
-                                 RekognitionPerson)
+from rekognition_objects import (
+    RekognitionCelebrity,
+    RekognitionFace,
+    RekognitionLabel,
+    RekognitionModerationLabel,
+    RekognitionPerson,
+)
 from rekognition_video_detection import RekognitionVideo
 
 

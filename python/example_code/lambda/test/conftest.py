@@ -5,8 +5,8 @@
 Contains common test fixtures used to run AWS Lambda tests.
 """
 
+from test_tools.fixtures.common import *
 import sys
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *

@@ -18,6 +18,9 @@ to do the following:
 * Delete the table and keyspace.
 """
 
+from demo_tools.retries import wait
+from demo_tools import demo_func
+import demo_tools.question as q
 import logging
 import os
 import sys
@@ -31,9 +34,6 @@ from query import QueryManager
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools import demo_func
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

@@ -21,6 +21,7 @@ This scenario requires the following resources:
 * A client ID to use for authenticating with Amazon Cognito.
 """
 
+import demo_tools.question as q
 import argparse
 import base64
 import logging
@@ -36,7 +37,6 @@ from pycognito import aws_srp
 
 # Add relative path to include demo_tools in this code example without needing to set up.
 sys.path.append("../..")
-import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
 

@@ -14,6 +14,7 @@ Lewis Carroll. The original audio source file can be found here:
     https://en.wikisource.org/wiki/File:Jabberwocky.ogg
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import logging
 import sys
 import time
@@ -24,7 +25,6 @@ from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 

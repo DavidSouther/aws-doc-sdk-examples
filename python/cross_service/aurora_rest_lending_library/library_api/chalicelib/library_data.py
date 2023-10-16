@@ -17,9 +17,18 @@ import os
 import boto3
 from botocore.exceptions import ClientError
 
-from .mysql_helper import (Column, ForeignKey, Table, create_table, delete,
-                           insert, query, unpack_insert_results,
-                           unpack_query_results, update)
+from .mysql_helper import (
+    Column,
+    ForeignKey,
+    Table,
+    create_table,
+    delete,
+    insert,
+    query,
+    unpack_insert_results,
+    unpack_query_results,
+    update,
+)
 
 logger = logging.getLogger(__name__)
 

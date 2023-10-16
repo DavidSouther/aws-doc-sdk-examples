@@ -9,6 +9,7 @@ Vision projects.
 """
 
 import argparse
+
 # snippet-start:[python.example_code.lookoutvision.Scenario_FindTagInProjects]
 import logging
 

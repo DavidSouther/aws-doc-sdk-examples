@@ -11,9 +11,13 @@ import boto3
 import pytest
 from botocore.exceptions import ClientError
 from rekognition_image_detection import RekognitionImage
-from rekognition_objects import (RekognitionCelebrity, RekognitionFace,
-                                 RekognitionLabel, RekognitionModerationLabel,
-                                 RekognitionText)
+from rekognition_objects import (
+    RekognitionCelebrity,
+    RekognitionFace,
+    RekognitionLabel,
+    RekognitionModerationLabel,
+    RekognitionText,
+)
 
 TEST_IMAGE = {"Bytes": b"just some bytes"}
 

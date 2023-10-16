@@ -26,7 +26,8 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 dynamodb = boto3.resource("dynamodb")
 
-MAX_GET_SIZE = 100  # Amazon DynamoDB rejects a get batch larger than 100 items.
+# Amazon DynamoDB rejects a get batch larger than 100 items.
+MAX_GET_SIZE = 100
 
 # snippet-end:[python.example_code.dynamodb.Batching_imports]
 
@@ -80,7 +81,8 @@ def do_batch_get(batch_keys):
     """
     tries = 0
     max_tries = 5
-    sleepy_time = 1  # Start with 1 second of sleep, then exponentially increase.
+    # Start with 1 second of sleep, then exponentially increase.
+    sleepy_time = 1
     retrieved = {key: [] for key in batch_keys}
     while tries < max_tries:
         response = dynamodb.batch_get_item(RequestItems=batch_keys)
@@ -278,7 +280,8 @@ def usage_demo():
     try:
         with open(movies_file_name) as json_file:
             movie_data = json.load(json_file, parse_float=decimal.Decimal)
-            movie_data = movie_data[:500]  # Only use the first 500 movies for the demo.
+            # Only use the first 500 movies for the demo.
+            movie_data = movie_data[:500]
     except FileNotFoundError:
         print(
             f"The file moviedata.json was not found in the current working directory "

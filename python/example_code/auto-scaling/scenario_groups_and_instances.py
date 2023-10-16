@@ -20,6 +20,8 @@ do the following:
 9. Stop collecting metrics, terminate all instances, and delete the group.
 """
 
+from demo_tools.retries import wait
+import demo_tools.question as q
 import logging
 import sys
 from datetime import datetime, timedelta, timezone
@@ -31,8 +33,6 @@ from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without needing to setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

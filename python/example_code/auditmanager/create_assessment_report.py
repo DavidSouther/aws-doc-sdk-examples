@@ -15,6 +15,7 @@ import urllib.request
 import uuid
 
 import boto3
+
 # snippet-start:[python.example_code.auditmanager.Scenario_CreateAssessmentReport]
 import dateutil.parser
 from botocore.exceptions import ClientError

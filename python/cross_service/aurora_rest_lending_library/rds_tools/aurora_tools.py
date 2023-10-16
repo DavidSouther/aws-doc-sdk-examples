@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) to create and delete an Amazon A
 (Aurora) database cluster and create and delete an AWS Secrets Manager secret.
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import json
 import logging
 import sys
@@ -16,7 +17,6 @@ from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 

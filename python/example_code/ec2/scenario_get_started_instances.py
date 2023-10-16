@@ -21,6 +21,8 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Compute Clou
 * Clean up all of the resources created by this example.
 """
 
+from demo_tools import demo_func
+import demo_tools.question as q
 import logging
 import sys
 import urllib.request
@@ -33,8 +35,6 @@ from security_group import SecurityGroupWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools import demo_func
 
 logger = logging.getLogger(__name__)
 

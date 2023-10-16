@@ -2,8 +2,7 @@ from os import path, remove
 from os.path import exists
 
 import pytest
-from custom_labels_csv_to_manifest import (check_duplicates,
-                                           create_manifest_file)
+from custom_labels_csv_to_manifest import check_duplicates, create_manifest_file
 
 """
 Unit tests for custom_labels_csv_to_manifest.py.

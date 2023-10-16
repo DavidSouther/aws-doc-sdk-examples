@@ -204,14 +204,6 @@ def infinite_infer_run():
 #                                                    *
 # *****************************************************
 """ A sample lambda for cat-dog detection"""
-import json
-import os
-from threading import Event, Thread
-
-import awscam
-import cv2
-import greengrasssdk
-import numpy as np
 
 
 def lambda_handler(event, context):

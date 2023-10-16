@@ -16,6 +16,7 @@ create and use a table that stores data about movies.
 import json
 import logging
 import os
+
 # snippet-start:[python.example_code.dynamodb.helper.Movies.imports]
 from decimal import Decimal
 from io import BytesIO

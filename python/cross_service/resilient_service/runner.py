@@ -10,6 +10,7 @@ how the service responds to failures, and shows ways to restructure the service 
 more resilient when failures occur.
 """
 
+import demo_tools.question as q
 import argparse
 import logging
 import sys
@@ -23,7 +24,6 @@ from recommendation_service import RecommendationService
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
 
 
 # snippet-start:[python.example_code.workflow.ResilientService_Runner]

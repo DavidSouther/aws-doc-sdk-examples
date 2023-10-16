@@ -12,6 +12,7 @@ to run batches of queries against a table that stores data about movies.
 """
 
 import logging
+
 # snippet-start:[python.example_code.dynamodb.helper.PartiQLBatchWrapper.imports]
 from datetime import datetime
 from decimal import Decimal

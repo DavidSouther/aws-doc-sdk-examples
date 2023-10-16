@@ -9,6 +9,7 @@ topic modeling job on sample data. After the job completes, the output is retrie
 from Amazon S3 and extracted from its compressed format.
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import logging
 import sys
 from pprint import pprint
@@ -19,7 +20,6 @@ from comprehend_topic_modeler import ComprehendTopicModeler, JobInputFormat
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 

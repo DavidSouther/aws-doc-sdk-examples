@@ -5,9 +5,9 @@
 Contains common test fixtures used to run unit tests.
 """
 
+from test_tools.fixtures.common import *
 import random
 import sys
 
 # This is needed so that Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *

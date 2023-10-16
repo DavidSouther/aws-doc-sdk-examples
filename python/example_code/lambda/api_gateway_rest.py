@@ -16,6 +16,7 @@ AWS Chalice to more easily create a REST API.
     For more information about AWS Chalice, see https://github.com/aws/chalice.
 """
 
+from demo_tools.retries import wait
 import calendar
 import datetime
 import json
@@ -30,7 +31,6 @@ from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

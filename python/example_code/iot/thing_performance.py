@@ -16,6 +16,7 @@ import logging
 import time
 
 import psutil
+
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[thing_performance.py demonstrates how to push CPU and memory usage data to a thing's device shadow in AWS IoT.]
 # snippet-service:[iot]

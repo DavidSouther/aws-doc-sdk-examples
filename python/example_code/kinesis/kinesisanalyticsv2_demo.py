@@ -10,6 +10,8 @@ an input stream, uses SQL code to transform the data, and writes it to an output
 stream.
 """
 
+from demo_tools.retries import exponential_retry
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import logging
 import sys
 import threading
@@ -23,8 +25,6 @@ from streams.kinesis_stream import KinesisStream
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
-from demo_tools.retries import exponential_retry
 
 logger = logging.getLogger(__name__)
 

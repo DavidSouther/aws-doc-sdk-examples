@@ -11,6 +11,7 @@ to query a table that stores data about movies.
 """
 
 import logging
+
 # snippet-start:[python.example_code.dynamodb.helper.PartiQLWrapper.imports]
 from datetime import datetime
 from decimal import Decimal

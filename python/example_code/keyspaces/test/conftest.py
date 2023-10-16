@@ -5,6 +5,7 @@
 Contains common test fixtures used to run unit tests.
 """
 
+from test_tools.fixtures.common import *
 import sys
 
 import boto3
@@ -14,7 +15,6 @@ from keyspace import KeyspaceWrapper
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:

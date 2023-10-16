@@ -8,9 +8,14 @@ Unit tests for export_datasets.py.
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-from export_datasets import (copy_file, export_datasets, get_dataset_types,
-                             process_json_line, upload_manifest_file,
-                             write_manifest_file)
+from export_datasets import (
+    copy_file,
+    export_datasets,
+    get_dataset_types,
+    process_json_line,
+    upload_manifest_file,
+    write_manifest_file,
+)
 
 
 @pytest.mark.parametrize(

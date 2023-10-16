@@ -22,8 +22,7 @@ import time
 import boto3
 import file_transfer
 from boto3.s3.transfer import TransferConfig
-from botocore.exceptions import (ClientError, NoCredentialsError,
-                                 ParamValidationError)
+from botocore.exceptions import ClientError, NoCredentialsError, ParamValidationError
 
 MB = 1024 * 1024
 # These configuration attributes affect both uploads and downloads.

@@ -11,8 +11,7 @@ This factory is used by the make_stubber fixture found in the set of common fixt
 from test_tools.acm_stubber import AcmStubber
 from test_tools.apigateway_stubber import ApiGatewayStubber
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
-from test_tools.apigatewaymanagementapi_stubber import \
-    ApiGatewayManagementApiStubber
+from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiStubber
 from test_tools.auditmanager_stubber import AuditManagerStubber
 from test_tools.autoscaling_stubber import AutoScalingStubber
 from test_tools.cloudformation_stubber import CloudFormationStubber

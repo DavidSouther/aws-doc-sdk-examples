@@ -15,6 +15,8 @@ previously created activity as a step.
 5. Delete resources created by the example.
 """
 
+from demo_tools.retries import wait
+import demo_tools.question as q
 import json
 import logging
 import sys
@@ -26,8 +28,6 @@ from state_machines import StateMachine
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

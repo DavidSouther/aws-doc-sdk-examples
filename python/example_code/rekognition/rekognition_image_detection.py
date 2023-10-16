@@ -19,10 +19,15 @@ from pprint import pprint
 import boto3
 import requests
 from botocore.exceptions import ClientError
-from rekognition_objects import (RekognitionCelebrity, RekognitionFace,
-                                 RekognitionLabel, RekognitionModerationLabel,
-                                 RekognitionText, show_bounding_boxes,
-                                 show_polygons)
+from rekognition_objects import (
+    RekognitionCelebrity,
+    RekognitionFace,
+    RekognitionLabel,
+    RekognitionModerationLabel,
+    RekognitionText,
+    show_bounding_boxes,
+    show_polygons,
+)
 
 logger = logging.getLogger(__name__)
 

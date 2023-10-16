@@ -11,6 +11,7 @@ and manage custom metrics and alarms.
 import logging
 import random
 import time
+
 # snippet-start:[python.example_code.cloudwatch.imports]
 from datetime import datetime, timedelta
 from pprint import pprint

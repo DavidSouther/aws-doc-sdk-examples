@@ -6,6 +6,7 @@ import csv
 import json
 import logging
 import os
+
 # snippet-start:[rekognition.python.custom_labels_csv_manifest.complete]
 from datetime import datetime, timezone
 

@@ -5,6 +5,7 @@
 Contains common test fixtures used to run unit tests.
 """
 
+from test_tools.fixtures.common import *
 import sys
 from unittest.mock import MagicMock
 
@@ -18,7 +19,6 @@ from security_group import SecurityGroupWrapper
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:

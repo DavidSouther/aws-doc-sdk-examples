@@ -5,6 +5,7 @@
 Contains common test fixtures used to run unit tests.
 """
 
+from test_tools.fixtures.common import *
 import sys
 import uuid
 
@@ -15,7 +16,6 @@ from aurora_wrapper import AuroraWrapper
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ClusterData:

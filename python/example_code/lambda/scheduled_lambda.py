@@ -12,6 +12,7 @@ AWS Chalice to more easily create a scheduled AWS Lambda function. For more
 information on AWS Chalice, see https://github.com/aws/chalice.
 """
 
+from demo_tools.retries import wait
 import logging
 import sys
 import time
@@ -22,7 +23,6 @@ from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
