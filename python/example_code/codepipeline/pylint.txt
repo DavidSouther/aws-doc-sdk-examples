@@ -1,0 +1,24 @@
+************* Module MyCodePipelineFunction
+example_code/codepipeline/MyCodePipelineFunction.py:1:0: C0103: Module name "MyCodePipelineFunction" doesn't conform to snake_case naming style (invalid-name)
+example_code/codepipeline/MyCodePipelineFunction.py:60:4: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/codepipeline/MyCodePipelineFunction.py:60:20: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+example_code/codepipeline/MyCodePipelineFunction.py:87:52: W0622: Redefining built-in 'zip' (redefined-builtin)
+example_code/codepipeline/MyCodePipelineFunction.py:81:15: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+example_code/codepipeline/MyCodePipelineFunction.py:111:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+example_code/codepipeline/MyCodePipelineFunction.py:114:12: W0707: Consider explicitly re-raising using 'raise Exception('Error updating CloudFormation stack "{0}"'.format(stack), e) from e' (raise-missing-from)
+example_code/codepipeline/MyCodePipelineFunction.py:114:12: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/codepipeline/MyCodePipelineFunction.py:115:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+example_code/codepipeline/MyCodePipelineFunction.py:137:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+example_code/codepipeline/MyCodePipelineFunction.py:329:8: W0707: Consider explicitly re-raising using 'raise Exception('UserParameters could not be decoded as JSON') from e' (raise-missing-from)
+example_code/codepipeline/MyCodePipelineFunction.py:329:8: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/codepipeline/MyCodePipelineFunction.py:334:8: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/codepipeline/MyCodePipelineFunction.py:339:8: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/codepipeline/MyCodePipelineFunction.py:344:8: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/codepipeline/MyCodePipelineFunction.py:325:4: W0612: Unused variable 'e' (unused-variable)
+example_code/codepipeline/MyCodePipelineFunction.py:419:11: W0718: Catching too general exception Exception (broad-exception-caught)
+example_code/codepipeline/MyCodePipelineFunction.py:374:26: W0613: Unused argument 'context' (unused-argument)
+example_code/codepipeline/MyCodePipelineFunction.py:31:0: W0611: Unused import urllib (unused-import)
+
+------------------------------------------------------------------
+Your code has been rated at 8.40/10 (previous run: 8.40/10, +0.00)
+

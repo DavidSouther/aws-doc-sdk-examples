@@ -1,0 +1,42 @@
+************* Module conftest
+example_code/ec2/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/ec2/test/conftest.py:24:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+example_code/ec2/test/conftest.py:39:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+example_code/ec2/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:10:0: C0411: standard import "from unittest.mock import MagicMock" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:12:0: C0411: third party import "import boto3" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:13:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:14:0: C0411: third party import "import scenario_get_started_instances" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:15:0: C0411: third party import "from elastic_ip import ElasticIpWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:16:0: C0411: third party import "from instance import InstanceWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:17:0: C0411: third party import "from key_pair import KeyPairWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/ec2/test/conftest.py:18:0: C0411: third party import "from security_group import SecurityGroupWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_associate_elastic_ip
+example_code/ec2/test/test_associate_elastic_ip.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/ec2/test/test_associate_elastic_ip.py:37:30: W0621: Redefining name 'mock_mgr' from outer scope (line 33) (redefined-outer-name)
+example_code/ec2/test/test_associate_elastic_ip.py:54:36: W0621: Redefining name 'mock_mgr' from outer scope (line 33) (redefined-outer-name)
+************* Module test_cleanup
+example_code/ec2/test/test_cleanup.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/ec2/test/test_cleanup.py:54:17: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+example_code/ec2/test/test_cleanup.py:78:23: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+************* Module test_create_and_list_key_pairs
+example_code/ec2/test/test_create_and_list_key_pairs.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/ec2/test/test_create_and_list_key_pairs.py:37:35: W0621: Redefining name 'mock_mgr' from outer scope (line 33) (redefined-outer-name)
+example_code/ec2/test/test_create_and_list_key_pairs.py:58:41: W0621: Redefining name 'mock_mgr' from outer scope (line 33) (redefined-outer-name)
+example_code/ec2/test/test_create_and_list_key_pairs.py:61:48: W0612: Unused variable 'mock_file' (unused-variable)
+************* Module test_create_instance
+example_code/ec2/test/test_create_instance.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/ec2/test/test_create_instance.py:64:25: W0621: Redefining name 'mock_mgr' from outer scope (line 60) (redefined-outer-name)
+example_code/ec2/test/test_create_instance.py:84:31: W0621: Redefining name 'mock_mgr' from outer scope (line 60) (redefined-outer-name)
+************* Module test_create_security_group
+example_code/ec2/test/test_create_security_group.py:12:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/ec2/test/test_create_security_group.py:48:31: W0621: Redefining name 'mock_mgr' from outer scope (line 39) (redefined-outer-name)
+example_code/ec2/test/test_create_security_group.py:66:37: W0621: Redefining name 'mock_mgr' from outer scope (line 39) (redefined-outer-name)
+************* Module test_stop_and_start_instance
+example_code/ec2/test/test_stop_and_start_instance.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/ec2/test/test_stop_and_start_instance.py:57:33: W0621: Redefining name 'mock_mgr' from outer scope (line 53) (redefined-outer-name)
+example_code/ec2/test/test_stop_and_start_instance.py:75:39: W0621: Redefining name 'mock_mgr' from outer scope (line 53) (redefined-outer-name)
+
+------------------------------------------------------------------
+Your code has been rated at 8.79/10 (previous run: 8.79/10, +0.00)
+

@@ -1,0 +1,7 @@
+************* Module conftest
+example_code/glacier/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/glacier/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+
+------------------------------------------------------------------
+Your code has been rated at 9.89/10 (previous run: 9.89/10, +0.00)
+

@@ -1,0 +1,11 @@
+************* Module rek-moderator
+cross_service/rekognition_content_moderation/src/rek-moderator.py:1:0: C0103: Module name "rek-moderator" doesn't conform to snake_case naming style (invalid-name)
+cross_service/rekognition_content_moderation/src/rek-moderator.py:20:0: C0103: Function name "getModerationForUrl" doesn't conform to snake_case naming style (invalid-name)
+cross_service/rekognition_content_moderation/src/rek-moderator.py:51:11: W0718: Catching too general exception Exception (broad-exception-caught)
+cross_service/rekognition_content_moderation/src/rek-moderator.py:35:12: C0103: Variable name "readBytes" doesn't conform to snake_case naming style (invalid-name)
+cross_service/rekognition_content_moderation/src/rek-moderator.py:67:4: C0103: Variable name "moderationResponse" doesn't conform to snake_case naming style (invalid-name)
+cross_service/rekognition_content_moderation/src/rek-moderator.py:55:26: W0613: Unused argument 'context' (unused-argument)
+
+------------------------------------------------------------------
+Your code has been rated at 8.33/10 (previous run: 8.33/10, +0.00)
+

@@ -1,0 +1,23 @@
+************* Module conftest
+example_code/rekognition/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/rekognition/test/conftest.py:95:17: W0621: Redefining name 'make_faces' from outer scope (line 19) (redefined-outer-name)
+example_code/rekognition/test/conftest.py:9:0: C0411: standard import "import random" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rekognition/test/conftest.py:10:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rekognition/test/conftest.py:12:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_custom_labels_csv_to_manifest
+example_code/rekognition/test/test_custom_labels_csv_to_manifest.py:7:0: W0105: String statement has no effect (pointless-string-statement)
+************* Module test_rekognition_collections
+example_code/rekognition/test/test_rekognition_collections.py:177:36: W0613: Unused argument 'make_faces' (unused-argument)
+************* Module test_rekognition_video_detection
+example_code/rekognition/test/test_rekognition_video_detection.py:57:0: R0914: Too many local variables (20/15) (too-many-locals)
+example_code/rekognition/test/test_rekognition_video_detection.py:130:0: R0914: Too many local variables (18/15) (too-many-locals)
+example_code/rekognition/test/test_rekognition_video_detection.py:222:0: R0913: Too many arguments (7/5) (too-many-arguments)
+example_code/rekognition/test/test_rekognition_video_detection.py:222:0: R0914: Too many local variables (16/15) (too-many-locals)
+example_code/rekognition/test/test_rekognition_video_detection.py:273:0: R0913: Too many arguments (6/5) (too-many-arguments)
+example_code/rekognition/test/test_rekognition_video_detection.py:314:0: R0913: Too many arguments (6/5) (too-many-arguments)
+example_code/rekognition/test/test_rekognition_video_detection.py:355:0: R0913: Too many arguments (6/5) (too-many-arguments)
+example_code/rekognition/test/test_rekognition_video_detection.py:402:0: R0913: Too many arguments (6/5) (too-many-arguments)
+
+------------------------------------------------------------------
+Your code has been rated at 9.70/10 (previous run: 9.70/10, +0.00)
+

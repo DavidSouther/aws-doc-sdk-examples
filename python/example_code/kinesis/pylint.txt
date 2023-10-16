@@ -1,0 +1,66 @@
+************* Module analytics_application
+example_code/kinesis/analyticsv2/analytics_application.py:102:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:142:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:183:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:205:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:240:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:273:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:307:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/analyticsv2/analytics_application.py:344:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+************* Module dg_anomaly
+example_code/kinesis/streams/dg_anomaly.py:24:4: C0103: Class constant name "normal" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/kinesis/streams/dg_anomaly.py:25:4: C0103: Class constant name "high" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module dg_anomalyex
+example_code/kinesis/streams/dg_anomalyex.py:25:4: C0103: Class constant name "low" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/kinesis/streams/dg_anomalyex.py:26:4: C0103: Class constant name "normal" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/kinesis/streams/dg_anomalyex.py:27:4: C0103: Class constant name "high" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module dg_hotspots
+example_code/kinesis/streams/dg_hotspots.py:44:0: R0913: Too many arguments (6/5) (too-many-arguments)
+************* Module kinesis_stream
+example_code/kinesis/streams/kinesis_stream.py:78:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/kinesis/streams/kinesis_stream.py:116:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+************* Module conftest
+example_code/kinesis/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/kinesis/test/conftest.py:9:0: C0411: standard import "import random" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/kinesis/test/conftest.py:10:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/kinesis/test/conftest.py:9:0: W0611: Unused import random (unused-import)
+************* Module test_analytics_application
+example_code/kinesis/test/test_analytics_application.py:17:46: W0613: Unused argument 'stub_runner' (unused-argument)
+example_code/kinesis/test/test_analytics_application.py:13:0: W0611: Unused WaiterError imported from botocore.exceptions (unused-import)
+************* Module test_data_generators
+example_code/kinesis/test/test_data_generators.py:70:0: R0913: Too many arguments (6/5) (too-many-arguments)
+************* Module test_kinesis_stream
+example_code/kinesis/test/test_kinesis_stream.py:1:0: R0801: Similar lines in 2 files
+==dg_regexlog:[24:38]
+==dg_stockticker:[26:40]
+    }
+
+
+def generate(stream_name, kinesis_client):
+    while True:
+        data = get_data()
+        print(data)
+        kinesis_client.put_record(
+            StreamName=stream_name, Data=json.dumps(data), PartitionKey="partitionkey"
+        )
+
+
+if __name__ == "__main__":
+    generate(STREAM_NAME, boto3.client("kinesis")) (duplicate-code)
+example_code/kinesis/test/test_kinesis_stream.py:1:0: R0801: Similar lines in 2 files
+==dg_columnlog:[25:35]
+==dg_referrer:[25:35]
+    while True:
+        data = get_data()
+        print(data)
+        kinesis_client.put_record(
+            StreamName=stream_name, Data=json.dumps(data), PartitionKey="partitionkey"
+        )
+
+
+if __name__ == "__main__":
+    generate(STREAM_NAME, boto3.client("kinesis")) (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.64/10 (previous run: 9.64/10, +0.00)
+

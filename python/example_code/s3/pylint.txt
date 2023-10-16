@@ -1,0 +1,96 @@
+************* Module demo_file_transfer
+example_code/s3/file_transfer/demo_file_transfer.py:39:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+example_code/s3/file_transfer/demo_file_transfer.py:64:0: W1404: Implicit string concatenation found in call (implicit-str-concat)
+example_code/s3/file_transfer/demo_file_transfer.py:88:4: R0913: Too many arguments (6/5) (too-many-arguments)
+example_code/s3/file_transfer/demo_file_transfer.py:347:0: W1404: Implicit string concatenation found in call (implicit-str-concat)
+************* Module file_transfer
+example_code/s3/file_transfer/file_transfer.py:51:35: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+example_code/s3/file_transfer/file_transfer.py:25:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+************* Module bucket_wrapper
+example_code/s3/s3_basics/bucket_wrapper.py:96:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/bucket_wrapper.py:158:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/bucket_wrapper.py:197:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/bucket_wrapper.py:250:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/bucket_wrapper.py:312:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+************* Module demo_bucket_basics
+example_code/s3/s3_basics/demo_bucket_basics.py:57:4: C0415: Import outside toplevel (argparse) (import-outside-toplevel)
+example_code/s3/s3_basics/demo_bucket_basics.py:15:0: W0611: Unused import sys (unused-import)
+************* Module object_wrapper
+example_code/s3/s3_basics/object_wrapper.py:47:27: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+example_code/s3/s3_basics/object_wrapper.py:80:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/object_wrapper.py:109:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/object_wrapper.py:193:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/object_wrapper.py:271:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_basics/object_wrapper.py:315:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/s3/s3_basics/object_wrapper.py:324:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+************* Module presigned_url
+example_code/s3/s3_basics/presigned_url.py:73:19: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+example_code/s3/s3_basics/presigned_url.py:77:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/s3/s3_basics/presigned_url.py:79:23: W3101: Missing timeout argument for method 'requests.put' can cause your program to hang indefinitely (missing-timeout)
+************* Module scenario_getting_started
+example_code/s3/s3_basics/scenario_getting_started.py:43:14: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/s3/s3_basics/scenario_getting_started.py:69:18: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/s3/s3_basics/scenario_getting_started.py:26:0: R0915: Too many statements (62/50) (too-many-statements)
+************* Module batch_versioning
+example_code/s3/s3_versioning/batch_versioning.py:221:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/s3/s3_versioning/batch_versioning.py:315:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/s3/s3_versioning/batch_versioning.py:472:0: R0914: Too many local variables (16/15) (too-many-locals)
+example_code/s3/s3_versioning/batch_versioning.py:472:0: R0915: Too many statements (58/50) (too-many-statements)
+************* Module remove_delete_marker
+example_code/s3/s3_versioning/remove_delete_marker.py:100:11: W0718: Catching too general exception Exception (broad-exception-caught)
+example_code/s3/s3_versioning/remove_delete_marker.py:84:16: W0621: Redefining name 'error' from outer scope (line 66) (redefined-outer-name)
+example_code/s3/s3_versioning/remove_delete_marker.py:96:16: W0707: Consider explicitly re-raising using 'raise ValueError(f"The x-amz-delete-marker header is either not present or is not 'true'.") from error' (raise-missing-from)
+example_code/s3/s3_versioning/remove_delete_marker.py:97:20: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/s3/s3_versioning/remove_delete_marker.py:22:26: W0613: Unused argument 'context' (unused-argument)
+************* Module revise_stanza
+example_code/s3/s3_versioning/revise_stanza.py:22:26: W0613: Unused argument 'context' (unused-argument)
+************* Module versioning
+example_code/s3/s3_versioning/versioning.py:232:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/s3/s3_versioning/versioning.py:1:0: R0801: Similar lines in 2 files
+==remove_delete_marker:[104:118]
+==revise_stanza:[87:101]
+    finally:
+        results.append(
+            {
+                "taskId": task_id,
+                "resultCode": result_code,
+                "resultString": result_string,
+            }
+        )
+    return {
+        "invocationSchemaVersion": invocation_schema_version,
+        "treatMissingKeysAs": "PermanentFailure",
+        "invocationId": invocation_id,
+        "results": results,
+    } (duplicate-code)
+example_code/s3/s3_versioning/versioning.py:1:0: R0801: Similar lines in 2 files
+==remove_delete_marker:[33:43]
+==revise_stanza:[32:42]
+    invocation_id = event["invocationId"]
+    invocation_schema_version = event["invocationSchemaVersion"]
+
+    results = []
+    result_code = None
+    result_string = None
+
+    task = event["tasks"][0]
+    task_id = task["taskId"]
+ (duplicate-code)
+example_code/s3/s3_versioning/versioning.py:1:0: R0801: Similar lines in 2 files
+==bucket_wrapper:[474:486]
+==object_wrapper:[358:369]
+    bucket.delete()
+    print(f"Deleted bucket {bucket.name}.")
+    print("Thanks for watching!")
+    print("-" * 88)
+
+
+# snippet-end:[python.example_code.s3.Scenario_ObjectManagement]
+
+
+if __name__ == "__main__":
+    usage_demo() (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.67/10 (previous run: 9.67/10, +0.00)
+

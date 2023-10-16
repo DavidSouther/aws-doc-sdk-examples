@@ -1,0 +1,18 @@
+************* Module conftest
+example_code/iam/test/conftest.py:9:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/iam/test/conftest.py:10:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_account_wrapper
+example_code/iam/test/test_account_wrapper.py:144:43: W0613: Unused argument 'count' (unused-argument)
+************* Module test_policy_wrapper
+example_code/iam/test/test_policy_wrapper.py:56:37: W0613: Unused argument 'make_unique_name' (unused-argument)
+example_code/iam/test/test_policy_wrapper.py:71:45: W0613: Unused argument 'make_unique_name' (unused-argument)
+************* Module test_scenario_create_user_assume_role
+example_code/iam/test/test_scenario_create_user_assume_role.py:31:0: R0914: Too many local variables (20/15) (too-many-locals)
+example_code/iam/test/test_scenario_create_user_assume_role.py:74:15: W0613: Unused argument 'client' (unused-argument)
+example_code/iam/test/test_scenario_create_user_assume_role.py:101:0: R0914: Too many local variables (19/15) (too-many-locals)
+example_code/iam/test/test_scenario_create_user_assume_role.py:120:8: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+example_code/iam/test/test_scenario_create_user_assume_role.py:114:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+
+------------------------------------------------------------------
+Your code has been rated at 9.81/10 (previous run: 9.81/10, +0.00)
+

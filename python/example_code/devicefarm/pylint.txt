@@ -1,0 +1,21 @@
+************* Module test_suite
+example_code/devicefarm/browser_testing/test_suite.py:36:4: W0702: No exception type(s) specified (bare-except)
+example_code/devicefarm/browser_testing/test_suite.py:110:30: W0613: Unused argument 'method' (unused-argument)
+example_code/devicefarm/browser_testing/test_suite.py:75:8: W0201: Attribute 'screenshot_path' defined outside __init__ (attribute-defined-outside-init)
+example_code/devicefarm/browser_testing/test_suite.py:87:8: W0201: Attribute 'driver' defined outside __init__ (attribute-defined-outside-init)
+example_code/devicefarm/browser_testing/test_suite.py:100:8: W0201: Attribute 'session_arn' defined outside __init__ (attribute-defined-outside-init)
+************* Module run_tests
+example_code/devicefarm/device_testing/run_tests.py:50:19: W0621: Redefining name 'filename' from outer scope (line 157) (redefined-outer-name)
+example_code/devicefarm/device_testing/run_tests.py:66:18: W3101: Missing timeout argument for method 'requests.put' can cause your program to hang indefinitely (missing-timeout)
+example_code/devicefarm/device_testing/run_tests.py:71:12: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/devicefarm/device_testing/run_tests.py:79:12: W0719: Raising too general exception: Exception (broad-exception-raised)
+example_code/devicefarm/device_testing/run_tests.py:112:0: C0103: Constant name "state" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/devicefarm/device_testing/run_tests.py:125:0: W0702: No exception type(s) specified (bare-except)
+example_code/devicefarm/device_testing/run_tests.py:117:8: R1723: Unnecessary "else" after "break", remove the "else" and de-indent the code inside it (no-else-break)
+example_code/devicefarm/device_testing/run_tests.py:117:11: R1714: Consider merging these comparisons with 'in' by using 'state in ('COMPLETED', 'ERRORED')'. Use a set instead if elements are hashable. (consider-using-in)
+example_code/devicefarm/device_testing/run_tests.py:127:4: R1722: Consider using 'sys.exit' instead (consider-using-sys-exit)
+example_code/devicefarm/device_testing/run_tests.py:167:29: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+
+------------------------------------------------------------------
+Your code has been rated at 8.88/10 (previous run: 8.88/10, +0.00)
+

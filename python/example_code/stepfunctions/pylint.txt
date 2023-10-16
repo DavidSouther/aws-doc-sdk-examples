@@ -1,0 +1,53 @@
+************* Module conftest
+example_code/stepfunctions/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/stepfunctions/test/conftest.py:21:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+example_code/stepfunctions/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/stepfunctions/test/conftest.py:11:0: C0411: third party import "import boto3" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/stepfunctions/test/conftest.py:12:0: C0411: third party import "import get_started_state_machines" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/stepfunctions/test/conftest.py:13:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/stepfunctions/test/conftest.py:14:0: C0411: third party import "from activities import Activity" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/stepfunctions/test/conftest.py:15:0: C0411: third party import "from state_machines import StateMachine" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_cleanup
+example_code/stepfunctions/test/test_cleanup.py:8:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+example_code/stepfunctions/test/test_cleanup.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/stepfunctions/test/test_cleanup.py:43:17: W0621: Redefining name 'mock_mgr' from outer scope (line 39) (redefined-outer-name)
+example_code/stepfunctions/test/test_cleanup.py:61:23: W0621: Redefining name 'mock_mgr' from outer scope (line 39) (redefined-outer-name)
+************* Module test_find_or_create_activity
+example_code/stepfunctions/test/test_find_or_create_activity.py:11:51: W0613: Unused argument 'input_mocker' (unused-argument)
+example_code/stepfunctions/test/test_find_or_create_activity.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/stepfunctions/test/test_find_or_create_activity.py:44:33: W0621: Redefining name 'mock_mgr' from outer scope (line 39) (redefined-outer-name)
+example_code/stepfunctions/test/test_find_or_create_activity.py:64:39: W0621: Redefining name 'mock_mgr' from outer scope (line 39) (redefined-outer-name)
+************* Module test_find_or_create_state_machine
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:11:0: R0902: Too many instance attributes (10/7) (too-many-instance-attributes)
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:12:51: W0613: Unused argument 'input_mocker' (unused-argument)
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:11:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:61:38: W0621: Redefining name 'mock_mgr' from outer scope (line 56) (redefined-outer-name)
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:87:44: W0621: Redefining name 'mock_mgr' from outer scope (line 56) (redefined-outer-name)
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:91:77: W0612: Unused variable 'mock_file' (unused-variable)
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:4:0: W0611: Unused import json (unused-import)
+************* Module test_finish_state_machine_run
+example_code/stepfunctions/test/test_finish_state_machine_run.py:13:23: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/stepfunctions/test/test_finish_state_machine_run.py:14:22: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/stepfunctions/test/test_finish_state_machine_run.py:11:51: W0613: Unused argument 'input_mocker' (unused-argument)
+example_code/stepfunctions/test/test_finish_state_machine_run.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/stepfunctions/test/test_finish_state_machine_run.py:41:34: W0621: Redefining name 'mock_mgr' from outer scope (line 37) (redefined-outer-name)
+example_code/stepfunctions/test/test_finish_state_machine_run.py:58:40: W0621: Redefining name 'mock_mgr' from outer scope (line 37) (redefined-outer-name)
+************* Module test_get_started_state_machines_integ
+example_code/stepfunctions/test/test_get_started_state_machines_integ.py:12:14: W0613: Unused argument 'monkeypatch' (unused-argument)
+************* Module test_prerequisites
+example_code/stepfunctions/test/test_prerequisites.py:9:51: W0613: Unused argument 'input_mocker' (unused-argument)
+example_code/stepfunctions/test/test_prerequisites.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/stepfunctions/test/test_prerequisites.py:36:23: W0621: Redefining name 'mock_mgr' from outer scope (line 31) (redefined-outer-name)
+example_code/stepfunctions/test/test_prerequisites.py:36:33: W0613: Unused argument 'capsys' (unused-argument)
+example_code/stepfunctions/test/test_prerequisites.py:58:29: W0621: Redefining name 'mock_mgr' from outer scope (line 31) (redefined-outer-name)
+************* Module test_run_state_machine
+example_code/stepfunctions/test/test_run_state_machine.py:10:0: R0902: Too many instance attributes (9/7) (too-many-instance-attributes)
+example_code/stepfunctions/test/test_run_state_machine.py:13:22: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/stepfunctions/test/test_run_state_machine.py:15:23: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/stepfunctions/test/test_run_state_machine.py:10:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/stepfunctions/test/test_run_state_machine.py:52:27: W0621: Redefining name 'mock_mgr' from outer scope (line 48) (redefined-outer-name)
+example_code/stepfunctions/test/test_run_state_machine.py:72:33: W0621: Redefining name 'mock_mgr' from outer scope (line 48) (redefined-outer-name)
+
+------------------------------------------------------------------
+Your code has been rated at 8.31/10 (previous run: 8.31/10, +0.00)
+

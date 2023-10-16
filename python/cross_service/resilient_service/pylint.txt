@@ -1,0 +1,64 @@
+************* Module conftest
+cross_service/resilient_service/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+cross_service/resilient_service/test/conftest.py:24:0: R0902: Too many instance attributes (26/7) (too-many-instance-attributes)
+cross_service/resilient_service/test/conftest.py:25:4: R0913: Too many arguments (7/5) (too-many-arguments)
+cross_service/resilient_service/test/conftest.py:24:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+cross_service/resilient_service/test/conftest.py:89:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+cross_service/resilient_service/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:10:0: C0411: standard import "from datetime import datetime" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:12:0: C0411: third party import "import boto3" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:13:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:14:0: C0411: third party import "import runner" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:15:0: C0411: third party import "from auto_scaler import AutoScaler" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:16:0: C0411: third party import "from load_balancer import LoadBalancer" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:17:0: C0411: third party import "from parameters import ParameterHelper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+cross_service/resilient_service/test/conftest.py:18:0: C0411: third party import "from recommendation_service import RecommendationService" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_demo
+cross_service/resilient_service/test/test_demo.py:17:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+cross_service/resilient_service/test/test_demo.py:202:14: W0621: Redefining name 'mock_mgr' from outer scope (line 198) (redefined-outer-name)
+cross_service/resilient_service/test/test_demo.py:245:0: R0913: Too many arguments (6/5) (too-many-arguments)
+cross_service/resilient_service/test/test_demo.py:245:20: W0621: Redefining name 'mock_mgr' from outer scope (line 198) (redefined-outer-name)
+cross_service/resilient_service/test/test_demo.py:245:30: W0613: Unused argument 'caplog' (unused-argument)
+cross_service/resilient_service/test/test_demo.py:245:45: W0613: Unused argument 'stub_name' (unused-argument)
+cross_service/resilient_service/test/test_demo.py:11:0: W0611: Unused ClientError imported from botocore.exceptions (unused-import)
+************* Module test_deploy
+cross_service/resilient_service/test/test_deploy.py:17:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+cross_service/resilient_service/test/test_deploy.py:188:16: W0621: Redefining name 'mock_mgr' from outer scope (line 184) (redefined-outer-name)
+cross_service/resilient_service/test/test_deploy.py:254:0: R0913: Too many arguments (6/5) (too-many-arguments)
+cross_service/resilient_service/test/test_deploy.py:254:22: W0621: Redefining name 'mock_mgr' from outer scope (line 184) (redefined-outer-name)
+cross_service/resilient_service/test/test_deploy.py:254:32: W0613: Unused argument 'capsys' (unused-argument)
+cross_service/resilient_service/test/test_deploy.py:254:60: W0613: Unused argument 'stub_name' (unused-argument)
+cross_service/resilient_service/test/test_deploy.py:11:0: W0611: Unused ClientError imported from botocore.exceptions (unused-import)
+************* Module test_destroy
+cross_service/resilient_service/test/test_destroy.py:11:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+cross_service/resilient_service/test/test_destroy.py:139:17: W0621: Redefining name 'mock_mgr' from outer scope (line 135) (redefined-outer-name)
+cross_service/resilient_service/test/test_destroy.py:139:27: W0613: Unused argument 'capsys' (unused-argument)
+cross_service/resilient_service/test/test_destroy.py:174:23: W0621: Redefining name 'mock_mgr' from outer scope (line 135) (redefined-outer-name)
+cross_service/resilient_service/test/test_destroy.py:174:33: W0613: Unused argument 'caplog' (unused-argument)
+cross_service/resilient_service/test/test_destroy.py:174:48: W0613: Unused argument 'stub_name' (unused-argument)
+cross_service/resilient_service/test/test_destroy.py:6:0: W0611: Unused ClientError imported from botocore.exceptions (unused-import)
+************* Module test_runner_integ
+cross_service/resilient_service/test/test_runner_integ.py:1:0: R0801: Similar lines in 2 files
+==test_demo:[54:61]
+==test_destroy:[34:41]
+            )
+            runner.add(
+                self.scenario_data.elb.stubber.stub_describe_target_groups,
+                [self.scenario_data.tg_name],
+                [self.scenario_data.tg_arn],
+            )
+            runner.add( (duplicate-code)
+cross_service/resilient_service/test/test_runner_integ.py:1:0: R0801: Similar lines in 2 files
+==conftest:[51:58]
+==test_demo:[128:135]
+            "MinSize": 3,
+            "MaxSize": 3,
+            "DesiredCapacity": 0,
+            "DefaultCooldown": 0,
+            "AvailabilityZones": ["test-zone"],
+            "HealthCheckType": "EC2",
+            "CreatedTime": datetime.now(), (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 8.55/10 (previous run: 8.55/10, +0.00)
+

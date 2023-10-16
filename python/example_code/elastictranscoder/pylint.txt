@@ -1,0 +1,28 @@
+************* Module create_hls_job
+example_code/elastictranscoder/create_hls_job.py:134:8: R1722: Consider using 'sys.exit' instead (consider-using-sys-exit)
+************* Module JobStatusNotificationSample
+example_code/elastictranscoder/JobStatusNotificationSample.py:1:0: C0103: Module name "JobStatusNotificationSample" doesn't conform to snake_case naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:32:0: C0103: Constant name "pipeline_id" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:33:0: C0103: Constant name "input_file" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:37:0: C0103: Constant name "output_file" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:38:0: C0103: Constant name "sqs_queue_name" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:44:0: C0103: Constant name "preset_id" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:46:0: C0103: Constant name "output_file_prefix" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:49:0: C0103: Constant name "monitor_sqs_messages" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:55:31: W0621: Redefining name 'sqs_queue_name' from outer scope (line 38) (redefined-outer-name)
+example_code/elastictranscoder/JobStatusNotificationSample.py:111:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+example_code/elastictranscoder/JobStatusNotificationSample.py:129:8: R1722: Consider using 'sys.exit' instead (consider-using-sys-exit)
+************* Module SqsQueueNotificationWorker
+example_code/elastictranscoder/SqsQueueNotificationWorker.py:1:0: C0103: Module name "SqsQueueNotificationWorker" doesn't conform to snake_case naming style (invalid-name)
+example_code/elastictranscoder/SqsQueueNotificationWorker.py:1:0: R0801: Similar lines in 2 files
+==JobStatusNotificationSample:[109:114]
+==create_hls_job:[41:46]
+    etc_client = boto3.client("elastictranscoder")
+    try:
+        response = etc_client.create_job(
+            PipelineId=pipeline_id,
+            Input={"Key": input_file}, (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.10/10 (previous run: 9.10/10, +0.00)
+

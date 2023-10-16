@@ -1,0 +1,91 @@
+************* Module conftest
+example_code/support/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/support/test/conftest.py:20:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+example_code/support/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/support/test/conftest.py:11:0: C0411: third party import "import boto3" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/support/test/conftest.py:12:0: C0411: third party import "import get_started_support_cases" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/support/test/conftest.py:13:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/support/test/conftest.py:14:0: C0411: third party import "from support_wrapper import SupportWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_add_communication
+example_code/support/test/test_add_communication.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_add_communication.py:32:27: W0621: Redefining name 'mock_mgr' from outer scope (line 28) (redefined-outer-name)
+example_code/support/test/test_add_communication.py:45:33: W0621: Redefining name 'mock_mgr' from outer scope (line 28) (redefined-outer-name)
+************* Module test_create_attachment_set
+example_code/support/test/test_create_attachment_set.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_create_attachment_set.py:27:31: W0621: Redefining name 'mock_mgr' from outer scope (line 23) (redefined-outer-name)
+example_code/support/test/test_create_attachment_set.py:39:23: W0621: Redefining name 'mock_mgr' from outer scope (line 23) (redefined-outer-name)
+************* Module test_create_case
+example_code/support/test/test_create_case.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_create_case.py:36:21: W0621: Redefining name 'mock_mgr' from outer scope (line 32) (redefined-outer-name)
+example_code/support/test/test_create_case.py:48:23: W0621: Redefining name 'mock_mgr' from outer scope (line 32) (redefined-outer-name)
+************* Module test_describe_attachment
+example_code/support/test/test_describe_attachment.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_describe_attachment.py:30:29: W0621: Redefining name 'mock_mgr' from outer scope (line 26) (redefined-outer-name)
+example_code/support/test/test_describe_attachment.py:42:40: W0621: Redefining name 'mock_mgr' from outer scope (line 26) (redefined-outer-name)
+************* Module test_describe_cases
+example_code/support/test/test_describe_cases.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_describe_cases.py:29:33: W0621: Redefining name 'mock_mgr' from outer scope (line 25) (redefined-outer-name)
+example_code/support/test/test_describe_cases.py:45:21: W0621: Redefining name 'mock_mgr' from outer scope (line 25) (redefined-outer-name)
+************* Module test_get_started_support_cases_integ
+example_code/support/test/test_get_started_support_cases_integ.py:11:14: W0613: Unused argument 'monkeypatch' (unused-argument)
+************* Module test_list_communications
+example_code/support/test/test_list_communications.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_list_communications.py:38:29: W0621: Redefining name 'mock_mgr' from outer scope (line 34) (redefined-outer-name)
+example_code/support/test/test_list_communications.py:51:35: W0621: Redefining name 'mock_mgr' from outer scope (line 34) (redefined-outer-name)
+************* Module test_resolve_case
+example_code/support/test/test_resolve_case.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_resolve_case.py:28:22: W0621: Redefining name 'mock_mgr' from outer scope (line 24) (redefined-outer-name)
+example_code/support/test/test_resolve_case.py:39:28: W0621: Redefining name 'mock_mgr' from outer scope (line 24) (redefined-outer-name)
+************* Module test_select_service
+example_code/support/test/test_select_service.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_select_service.py:35:36: W0621: Redefining name 'mock_mgr' from outer scope (line 31) (redefined-outer-name)
+example_code/support/test/test_select_service.py:45:37: W0621: Redefining name 'mock_mgr' from outer scope (line 31) (redefined-outer-name)
+example_code/support/test/test_select_service.py:62:24: W0621: Redefining name 'mock_mgr' from outer scope (line 31) (redefined-outer-name)
+************* Module test_select_severity
+example_code/support/test/test_select_severity.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/support/test/test_select_severity.py:29:37: W0621: Redefining name 'mock_mgr' from outer scope (line 25) (redefined-outer-name)
+example_code/support/test/test_select_severity.py:45:24: W0621: Redefining name 'mock_mgr' from outer scope (line 25) (redefined-outer-name)
+example_code/support/test/test_select_severity.py:1:0: R0801: Similar lines in 2 files
+==test_list_communications:[20:27]
+==test_resolve_case:[12:19]
+        self.scenario_args = [self.case_id]
+        answers = []
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+    def setup_stubs(self, error, stop_on, stubber):
+        with self.stub_runner(error, stop_on) as runner: (duplicate-code)
+example_code/support/test/test_select_severity.py:1:0: R0801: Similar lines in 2 files
+==test_describe_attachment:[13:20]
+==test_list_communications:[21:28]
+        answers = []
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+    def setup_stubs(self, error, stop_on, stubber):
+        with self.stub_runner(error, stop_on) as runner:
+            runner.add( (duplicate-code)
+example_code/support/test/test_select_severity.py:1:0: R0801: Similar lines in 2 files
+==test_create_attachment_set:[11:18]
+==test_describe_cases:[13:20]
+        self.scenario_args = []
+        answers = []
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+    def setup_stubs(self, error, stop_on, stubber):
+        with self.stub_runner(error, stop_on) as runner: (duplicate-code)
+example_code/support/test/test_select_severity.py:1:0: R0801: Similar lines in 2 files
+==test_add_communication:[13:20]
+==test_create_case:[15:22]
+        answers = []
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+    def setup_stubs(self, error, stop_on, stubber):
+        with self.stub_runner(error, stop_on) as runner:
+            runner.add( (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 8.61/10 (previous run: 8.61/10, +0.00)
+

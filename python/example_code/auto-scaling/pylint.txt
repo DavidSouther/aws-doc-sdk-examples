@@ -1,0 +1,25 @@
+************* Module conftest
+example_code/auto-scaling/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/auto-scaling/test/conftest.py:9:0: C0411: standard import "import random" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/auto-scaling/test/conftest.py:10:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/auto-scaling/test/conftest.py:9:0: W0611: Unused import random (unused-import)
+************* Module test_scenario_groups_and_instances
+example_code/auto-scaling/test/test_scenario_groups_and_instances.py:35:0: R0914: Too many local variables (28/15) (too-many-locals)
+example_code/auto-scaling/test/test_scenario_groups_and_instances.py:35:0: R0915: Too many statements (60/50) (too-many-statements)
+example_code/auto-scaling/test/test_scenario_groups_and_instances.py:1:0: R0801: Similar lines in 2 files
+==test_action_wrapper:[216:227]
+==test_scenario_groups_and_instances:[76:86]
+    activities = [
+        {
+            "ActivityId": f"test-id-{index}",
+            "AutoScalingGroupName": "test-group",
+            "Cause": "RunningTest",
+            "StartTime": datetime.now(),
+            "StatusCode": "Testing",
+        }
+        for index in range(3)
+    ] (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.68/10 (previous run: 9.68/10, +0.00)
+

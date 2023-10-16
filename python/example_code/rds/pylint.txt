@@ -1,0 +1,48 @@
+************* Module conftest
+example_code/rds/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/rds/test/conftest.py:21:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+example_code/rds/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rds/test/conftest.py:10:0: C0411: standard import "import uuid" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rds/test/conftest.py:12:0: C0411: third party import "import boto3" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rds/test/conftest.py:13:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rds/test/conftest.py:14:0: C0411: third party import "import scenario_get_started_instances" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/rds/test/conftest.py:15:0: C0411: third party import "from instance_wrapper import InstanceWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_get_started_instances_cleanup
+example_code/rds/test/test_get_started_instances_cleanup.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/rds/test/test_get_started_instances_cleanup.py:40:17: W0621: Redefining name 'mock_mgr' from outer scope (line 36) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_cleanup.py:58:23: W0621: Redefining name 'mock_mgr' from outer scope (line 36) (redefined-outer-name)
+************* Module test_get_started_instances_create_instance
+example_code/rds/test/test_get_started_instances_create_instance.py:8:0: R0902: Too many instance attributes (14/7) (too-many-instance-attributes)
+example_code/rds/test/test_get_started_instances_create_instance.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/rds/test/test_get_started_instances_create_instance.py:83:31: W0621: Redefining name 'mock_mgr' from outer scope (line 79) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_create_instance.py:98:25: W0621: Redefining name 'mock_mgr' from outer scope (line 79) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_create_instance.py:123:31: W0621: Redefining name 'mock_mgr' from outer scope (line 79) (redefined-outer-name)
+************* Module test_get_started_instances_create_parameter_group
+example_code/rds/test/test_get_started_instances_create_parameter_group.py:8:0: R0902: Too many instance attributes (9/7) (too-many-instance-attributes)
+example_code/rds/test/test_get_started_instances_create_parameter_group.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/rds/test/test_get_started_instances_create_parameter_group.py:51:38: W0621: Redefining name 'mock_mgr' from outer scope (line 47) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_create_parameter_group.py:68:32: W0621: Redefining name 'mock_mgr' from outer scope (line 47) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_create_parameter_group.py:92:38: W0621: Redefining name 'mock_mgr' from outer scope (line 47) (redefined-outer-name)
+************* Module test_get_started_instances_create_snapshot
+example_code/rds/test/test_get_started_instances_create_snapshot.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/rds/test/test_get_started_instances_create_snapshot.py:32:25: W0621: Redefining name 'mock_mgr' from outer scope (line 28) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_create_snapshot.py:48:31: W0621: Redefining name 'mock_mgr' from outer scope (line 28) (redefined-outer-name)
+************* Module test_get_started_instances_update_parameters
+example_code/rds/test/test_get_started_instances_update_parameters.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/rds/test/test_get_started_instances_update_parameters.py:50:27: W0621: Redefining name 'mock_mgr' from outer scope (line 46) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_update_parameters.py:68:33: W0621: Redefining name 'mock_mgr' from outer scope (line 46) (redefined-outer-name)
+example_code/rds/test/test_get_started_instances_update_parameters.py:1:0: R0801: Similar lines in 2 files
+==test_get_started_instances_cleanup:[13:21]
+==test_get_started_instances_create_snapshot:[13:21]
+        self.scenario_out = None
+        answers = ["y"]
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+    def setup_stubs(self, error, stop_on, stubber):
+        with self.stub_runner(error, stop_on) as runner:
+            runner.add( (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 8.71/10 (previous run: 8.71/10, +0.00)
+

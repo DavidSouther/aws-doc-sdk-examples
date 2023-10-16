@@ -1,0 +1,15 @@
+************* Module aws_service
+example_code/api-gateway/aws_service/aws_service.py:87:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/api-gateway/aws_service/aws_service.py:102:4: R0913: Too many arguments (8/5) (too-many-arguments)
+example_code/api-gateway/aws_service/aws_service.py:199:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/api-gateway/aws_service/aws_service.py:242:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/api-gateway/aws_service/aws_service.py:287:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/api-gateway/aws_service/aws_service.py:375:4: W3101: Missing timeout argument for method 'requests.post' can cause your program to hang indefinitely (missing-timeout)
+example_code/api-gateway/aws_service/aws_service.py:379:4: W3101: Missing timeout argument for method 'requests.post' can cause your program to hang indefinitely (missing-timeout)
+example_code/api-gateway/aws_service/aws_service.py:387:4: W3101: Missing timeout argument for method 'requests.post' can cause your program to hang indefinitely (missing-timeout)
+example_code/api-gateway/aws_service/aws_service.py:392:15: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+example_code/api-gateway/aws_service/aws_service.py:395:11: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+
+------------------------------------------------------------------
+Your code has been rated at 9.43/10 (previous run: 9.43/10, +0.00)
+

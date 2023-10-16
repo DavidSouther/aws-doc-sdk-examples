@@ -1,0 +1,10 @@
+************* Module analysis
+cross_service/photo_analyzer/api/analysis.py:12:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+************* Module photo
+cross_service/photo_analyzer/api/photo.py:11:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+************* Module report
+cross_service/photo_analyzer/api/report.py:113:12: W0107: Unnecessary pass statement (unnecessary-pass)
+
+------------------------------------------------------------------
+Your code has been rated at 9.80/10 (previous run: 9.80/10, +0.00)
+

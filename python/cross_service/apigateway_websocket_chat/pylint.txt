@@ -1,0 +1,12 @@
+************* Module conftest
+cross_service/apigateway_websocket_chat/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+cross_service/apigateway_websocket_chat/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_lambda_chat
+cross_service/apigateway_websocket_chat/test/test_lambda_chat.py:62:18: W0613: Unused argument 'monkeypatch' (unused-argument)
+cross_service/apigateway_websocket_chat/test/test_lambda_chat.py:144:0: R0913: Too many arguments (9/5) (too-many-arguments)
+************* Module test_websocket_chat
+cross_service/apigateway_websocket_chat/test/test_websocket_chat.py:129:0: R0914: Too many local variables (16/15) (too-many-locals)
+
+------------------------------------------------------------------
+Your code has been rated at 9.74/10 (previous run: 9.74/10, +0.00)
+

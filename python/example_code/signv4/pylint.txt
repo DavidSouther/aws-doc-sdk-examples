@@ -1,0 +1,278 @@
+************* Module v4-signing-get-querystring
+example_code/signv4/v4-signing-get-querystring.py:1:0: C0103: Module name "v4-signing-get-querystring" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:34:0: C0103: Constant name "method" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:35:0: C0103: Constant name "service" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:36:0: C0103: Constant name "host" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:37:0: C0103: Constant name "region" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:38:0: C0103: Constant name "endpoint" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:47:0: C0103: Function name "getSignatureKey" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:47:25: C0103: Argument name "dateStamp" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:47:36: C0103: Argument name "regionName" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:47:48: C0103: Argument name "serviceName" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:48:4: C0103: Variable name "kDate" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:49:4: C0103: Variable name "kRegion" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:50:4: C0103: Variable name "kService" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:51:4: C0103: Variable name "kSigning" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:80:0: C0103: Constant name "canonical_uri" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:88:0: C0103: Constant name "canonical_headers" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:89:0: C0103: Constant name "signed_headers" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:93:0: C0103: Constant name "algorithm" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:99:0: C0103: Constant name "canonical_querystring" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:110:0: C0103: Constant name "payload_hash" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-querystring.py:163:4: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+example_code/signv4/v4-signing-get-querystring.py:166:6: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+************* Module v4-signing-get-authheader
+example_code/signv4/v4-signing-get-authheader.py:1:0: C0103: Module name "v4-signing-get-authheader" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:34:0: C0103: Constant name "method" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:35:0: C0103: Constant name "service" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:36:0: C0103: Constant name "host" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:37:0: C0103: Constant name "region" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:38:0: C0103: Constant name "endpoint" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:39:0: C0103: Constant name "request_parameters" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:48:0: C0103: Function name "getSignatureKey" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:48:25: C0103: Argument name "dateStamp" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:48:36: C0103: Argument name "regionName" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:48:48: C0103: Argument name "serviceName" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:49:4: C0103: Variable name "kDate" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:50:4: C0103: Variable name "kRegion" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:51:4: C0103: Variable name "kService" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:52:4: C0103: Variable name "kSigning" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:77:0: C0103: Constant name "canonical_uri" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:83:0: C0103: Constant name "canonical_querystring" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:95:0: C0103: Constant name "signed_headers" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:99:0: C0103: Constant name "payload_hash" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:120:0: C0103: Constant name "algorithm" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:170:0: C0103: Constant name "request_url" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-authheader.py:174:4: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+example_code/signv4/v4-signing-get-authheader.py:177:6: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+example_code/signv4/v4-signing-get-authheader.py:20:0: W0611: Unused import base64 (unused-import)
+************* Module v4-signing-get-post
+example_code/signv4/v4-signing-get-post.py:1:0: C0103: Module name "v4-signing-get-post" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:35:0: C0103: Constant name "method" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:36:0: C0103: Constant name "service" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:37:0: C0103: Constant name "host" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:38:0: C0103: Constant name "region" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:39:0: C0103: Constant name "endpoint" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:42:0: C0103: Constant name "content_type" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:45:0: C0103: Constant name "amz_target" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:48:0: C0103: Constant name "request_parameters" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:63:0: C0103: Function name "getSignatureKey" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:63:37: C0103: Argument name "regionName" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:63:49: C0103: Argument name "serviceName" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:63:25: W0621: Redefining name 'date_stamp' from outer scope (line 82) (redefined-outer-name)
+example_code/signv4/v4-signing-get-post.py:64:4: C0103: Variable name "kDate" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:65:4: C0103: Variable name "kRegion" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:66:4: C0103: Variable name "kService" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:67:4: C0103: Variable name "kSigning" doesn't conform to snake_case naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:92:0: C0103: Constant name "canonical_uri" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:97:0: C0103: Constant name "canonical_querystring" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:123:0: C0103: Constant name "signed_headers" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:127:0: C0103: Constant name "payload_hash" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:148:0: C0103: Constant name "algorithm" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/signv4/v4-signing-get-post.py:204:4: W3101: Missing timeout argument for method 'requests.post' can cause your program to hang indefinitely (missing-timeout)
+example_code/signv4/v4-signing-get-post.py:207:6: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+example_code/signv4/v4-signing-get-post.py:20:0: W0611: Unused import base64 (unused-import)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-authheader:[136:165]
+==v4-signing-get-post:[164:191]
+signature = hmac.new(
+    signing_key, (string_to_sign).encode("utf-8"), hashlib.sha256
+).hexdigest()
+
+
+# ************* TASK 4: ADD SIGNING INFORMATION TO THE REQUEST *************
+# The signing information can be either in a query string value or in
+# a header named Authorization. This code shows how to use a header.
+# Create authorization header and add to request headers
+authorization_header = (
+    algorithm
+    + " "
+    + "Credential="
+    + access_key
+    + "/"
+    + credential_scope
+    + ", "
+    + "SignedHeaders="
+    + signed_headers
+    + ", "
+    + "Signature="
+    + signature
+)
+
+# The request can include any headers, but MUST include "host", "x-amz-date",
+# and (for this scenario) "Authorization". "host" and "x-amz-date" must
+# be included in the canonical_headers and signed_headers, as noted
+# earlier. Order here is not significant.
+# Python note: The 'host' header is added automatically by the Python 'requests' library. (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-authheader:[101:120]
+==v4-signing-get-post:[129:148]
+canonical_request = (
+    method
+    + "\n"
+    + canonical_uri
+    + "\n"
+    + canonical_querystring
+    + "\n"
+    + canonical_headers
+    + "\n"
+    + signed_headers
+    + "\n"
+    + payload_hash
+)
+
+
+# ************* TASK 2: CREATE THE STRING TO SIGN*************
+# Match the algorithm to the hashing algorithm you use, either SHA-1 or
+# SHA-256 (recommended)
+algorithm = "AWS4-HMAC-SHA256" (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-authheader:[98:119]
+==v4-signing-get-querystring:[109:128]
+payload_hash = hashlib.sha256(("").encode("utf-8")).hexdigest()
+
+# Step 7: Combine elements to create canonical request
+canonical_request = (
+    method
+    + "\n"
+    + canonical_uri
+    + "\n"
+    + canonical_querystring
+    + "\n"
+    + canonical_headers
+    + "\n"
+    + signed_headers
+    + "\n"
+    + payload_hash
+)
+
+
+# ************* TASK 2: CREATE THE STRING TO SIGN*************
+# Match the algorithm to the hashing algorithm you use, either SHA-1 or
+# SHA-256 (recommended) (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-post:[129:147]
+==v4-signing-get-querystring:[112:128]
+canonical_request = (
+    method
+    + "\n"
+    + canonical_uri
+    + "\n"
+    + canonical_querystring
+    + "\n"
+    + canonical_headers
+    + "\n"
+    + signed_headers
+    + "\n"
+    + payload_hash
+)
+
+
+# ************* TASK 2: CREATE THE STRING TO SIGN*************
+# Match the algorithm to the hashing algorithm you use, either SHA-1 or
+# SHA-256 (recommended) (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-authheader:[44:65]
+==v4-signing-get-querystring:[43:64]
+    return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
+
+
+def getSignatureKey(key, dateStamp, regionName, serviceName):
+    kDate = sign(("AWS4" + key).encode("utf-8"), dateStamp)
+    kRegion = sign(kDate, regionName)
+    kService = sign(kRegion, serviceName)
+    kSigning = sign(kService, "aws4_request")
+    return kSigning
+
+
+# Read AWS access key from env. variables or configuration file. Best practice is NOT
+# to embed credentials in code.
+access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+if access_key is None or secret_key is None:
+    print("No access key is available.")
+    sys.exit()
+
+# Create a date for headers and the credential string
+t = datetime.datetime.utcnow() (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-post:[64:81]
+==v4-signing-get-querystring:[48:65]
+    kRegion = sign(kDate, regionName)
+    kService = sign(kRegion, serviceName)
+    kSigning = sign(kService, "aws4_request")
+    return kSigning
+
+
+# Read AWS access key from env. variables or configuration file. Best practice is NOT
+# to embed credentials in code.
+access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+if access_key is None or secret_key is None:
+    print("No access key is available.")
+    sys.exit()
+
+# Create a date for headers and the credential string
+t = datetime.datetime.utcnow()
+amz_date = t.strftime("%Y%m%dT%H%M%SZ")  # Format date as YYYYMMDD'T'HHMMSS'Z' (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-authheader:[49:65]
+==v4-signing-get-post:[64:80]
+    kRegion = sign(kDate, regionName)
+    kService = sign(kRegion, serviceName)
+    kSigning = sign(kService, "aws4_request")
+    return kSigning
+
+
+# Read AWS access key from env. variables or configuration file. Best practice is NOT
+# to embed credentials in code.
+access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+if access_key is None or secret_key is None:
+    print("No access key is available.")
+    sys.exit()
+
+# Create a date for headers and the credential string
+t = datetime.datetime.utcnow() (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-post:[149:161]
+==v4-signing-get-querystring:[128:140]
+string_to_sign = (
+    algorithm
+    + "\n"
+    + amz_date
+    + "\n"
+    + credential_scope
+    + "\n"
+    + hashlib.sha256(canonical_request.encode("utf-8")).hexdigest()
+)
+
+# ************* TASK 3: CALCULATE THE SIGNATURE *************
+# Create the signing key using the function defined above. (duplicate-code)
+example_code/signv4/v4-signing-get-post.py:1:0: R0801: Similar lines in 2 files
+==v4-signing-get-authheader:[125:145]
+==v4-signing-get-querystring:[132:152]
+    + "\n"
+    + credential_scope
+    + "\n"
+    + hashlib.sha256(canonical_request.encode("utf-8")).hexdigest()
+)
+
+# ************* TASK 3: CALCULATE THE SIGNATURE *************
+# Create the signing key
+signing_key = getSignatureKey(secret_key, datestamp, region, service)
+
+# Sign the string_to_sign using the signing_key
+signature = hmac.new(
+    signing_key, (string_to_sign).encode("utf-8"), hashlib.sha256
+).hexdigest()
+
+
+# ************* TASK 4: ADD SIGNING INFORMATION TO THE REQUEST *************
+# The auth information can be either in a query string
+# value or in a header named Authorization. This code shows how to put
+# everything into a query string. (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 4.84/10 (previous run: 4.84/10, +0.00)
+

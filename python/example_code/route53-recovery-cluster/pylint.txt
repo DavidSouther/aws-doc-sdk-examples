@@ -1,0 +1,9 @@
+************* Module routing_control_states
+example_code/route53-recovery-cluster/routing_control_states.py:91:15: W0718: Catching too general exception Exception (broad-exception-caught)
+example_code/route53-recovery-cluster/routing_control_states.py:67:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+example_code/route53-recovery-cluster/routing_control_states.py:117:14: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/route53-recovery-cluster/routing_control_states.py:132:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+
+------------------------------------------------------------------
+Your code has been rated at 9.13/10 (previous run: 9.13/10, +0.00)
+

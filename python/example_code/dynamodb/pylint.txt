@@ -1,0 +1,316 @@
+************* Module scenario_getting_started_movies
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:92:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:129:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:214:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:241:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:270:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:378:24: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:384:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:385:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:381:20: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:402:0: R0914: Too many local variables (17/15) (too-many-locals)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:476:12: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:498:16: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:535:29: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:402:0: R0915: Too many statements (64/50) (too-many-statements)
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:553:11: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module update_and_query
+example_code/dynamodb/GettingStarted/update_and_query.py:43:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/update_and_query.py:76:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/GettingStarted/update_and_query.py:140:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+example_code/dynamodb/GettingStarted/update_and_query.py:257:8: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/GettingStarted/update_and_query.py:181:0: R0915: Too many statements (56/50) (too-many-statements)
+example_code/dynamodb/GettingStarted/update_and_query.py:283:11: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module 01-create-table
+example_code/dynamodb/TryDax/01-create-table.py:1:0: C0103: Module name "01-create-table" doesn't conform to snake_case naming style (invalid-name)
+example_code/dynamodb/TryDax/01-create-table.py:47:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+************* Module 02-write-data
+example_code/dynamodb/TryDax/02-write-data.py:1:0: C0103: Module name "02-write-data" doesn't conform to snake_case naming style (invalid-name)
+example_code/dynamodb/TryDax/02-write-data.py:44:4: C0103: Constant name "write_key_count" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/dynamodb/TryDax/02-write-data.py:45:4: C0103: Constant name "write_item_size" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module 03-getitem-test
+example_code/dynamodb/TryDax/03-getitem-test.py:1:0: C0103: Module name "03-getitem-test" doesn't conform to snake_case naming style (invalid-name)
+example_code/dynamodb/TryDax/03-getitem-test.py:64:4: C0103: Constant name "test_key_count" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/dynamodb/TryDax/03-getitem-test.py:65:4: C0103: Constant name "test_iterations" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module 04-query-test
+example_code/dynamodb/TryDax/04-query-test.py:1:0: C0103: Module name "04-query-test" doesn't conform to snake_case naming style (invalid-name)
+example_code/dynamodb/TryDax/04-query-test.py:68:4: C0103: Constant name "test_partition_key" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/dynamodb/TryDax/04-query-test.py:70:4: C0103: Constant name "test_iterations" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module 05-scan-test
+example_code/dynamodb/TryDax/05-scan-test.py:1:0: C0103: Module name "05-scan-test" doesn't conform to snake_case naming style (invalid-name)
+example_code/dynamodb/TryDax/05-scan-test.py:59:4: C0103: Constant name "test_iterations" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module 06-delete-table
+example_code/dynamodb/TryDax/06-delete-table.py:1:0: C0103: Module name "06-delete-table" doesn't conform to snake_case naming style (invalid-name)
+************* Module dynamo_batching
+example_code/dynamodb/batching/dynamo_batching.py:44:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/batching/dynamo_batching.py:95:32: R1728: Consider using a generator instead 'sum(len(batch_key['Keys']) for batch_key in batch_keys.values())' (consider-using-generator)
+example_code/dynamodb/batching/dynamo_batching.py:161:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/batching/dynamo_batching.py:268:0: R0914: Too many local variables (19/15) (too-many-locals)
+example_code/dynamodb/batching/dynamo_batching.py:281:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/dynamodb/batching/dynamo_batching.py:324:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/batching/dynamo_batching.py:347:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/batching/dynamo_batching.py:268:0: R0915: Too many statements (56/50) (too-many-statements)
+************* Module scenario_partiql_batch
+example_code/dynamodb/partiql/scenario_partiql_batch.py:59:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:31:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:89:17: W0621: Redefining name 'scaffold' from outer scope (line 187) (redefined-outer-name)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:102:21: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:110:21: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:118:21: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:136:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:148:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:160:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:167:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_batch.py:190:11: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module scenario_partiql_single
+example_code/dynamodb/partiql/scenario_partiql_single.py:57:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+example_code/dynamodb/partiql/scenario_partiql_single.py:30:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/dynamodb/partiql/scenario_partiql_single.py:84:17: W0621: Redefining name 'scaffold' from outer scope (line 153) (redefined-outer-name)
+example_code/dynamodb/partiql/scenario_partiql_single.py:126:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+example_code/dynamodb/partiql/scenario_partiql_single.py:156:11: W0718: Catching too general exception Exception (broad-exception-caught)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scaffold:[37:55]
+==scenario_getting_started_movies:[91:109]
+        try:
+            self.table = self.dyn_resource.create_table(
+                TableName=table_name,
+                KeySchema=[
+                    {"AttributeName": "year", "KeyType": "HASH"},  # Partition key
+                    {"AttributeName": "title", "KeyType": "RANGE"},  # Sort key
+                ],
+                AttributeDefinitions=[
+                    {"AttributeName": "year", "AttributeType": "N"},
+                    {"AttributeName": "title", "AttributeType": "S"},
+                ],
+                ProvisionedThroughput={
+                    "ReadCapacityUnits": 10,
+                    "WriteCapacityUnits": 10,
+                },
+            )
+            self.table.wait_until_exists()
+        except ClientError as err: (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_getting_started_movies:[245:270]
+==update_and_query:[47:76]
+                ReturnValues="UPDATED_NEW",
+            )
+        except ClientError as err:
+            logger.error(
+                "Couldn't update movie %s in table %s. Here's why: %s: %s",
+                title,
+                self.table.name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return response["Attributes"]
+
+    # snippet-end:[python.example_code.dynamodb.UpdateItem.UpdateExpression.Arithmetic]
+
+    # snippet-start:[python.example_code.dynamodb.UpdateItem.ConditionalExpression]
+    def remove_actors(self, title, year, actor_threshold):
+        """
+        Removes an actor from a movie, but only when the number of actors is greater
+        than a specified threshold. If the movie does not list more than the threshold,
+        no actors are removed.
+
+        :param title: The title of the movie to update.
+        :param year: The release year of the movie to update.
+        :param actor_threshold: The threshold of actors to check.
+        :return: The movie data after the update.
+        """
+        try: (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==03-getitem-test:[46:63]
+==04-query-test:[50:67]
+                print(".", end="")
+                sys.stdout.flush()
+    print()
+    end = time.perf_counter()
+    return start, end
+
+
+if __name__ == "__main__":
+    # pylint: disable=not-context-manager
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "endpoint_url",
+        nargs="?",
+        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.",
+    )
+    args = parser.parse_args()
+ (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_partiql_batch:[172:187]
+==scenario_partiql_single:[138:153]
+    print("Success!")
+    print("-" * 88)
+
+    print(f"Deleting table '{table_name}'...")
+    scaffold.delete_table()
+    print("-" * 88)
+
+    print("\nThanks for watching!")
+    print("-" * 88)
+
+
+if __name__ == "__main__":
+    try:
+        dyn_res = boto3.resource("dynamodb")
+        scaffold = Scaffold(dyn_res) (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_partiql_batch:[74:92]
+==scenario_partiql_single:[70:87]
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+            raise
+        else:
+            return output
+
+    # snippet-end:[python.example_code.dynamodb.BatchExecuteStatement]
+
+
+# snippet-end:[python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_full]
+
+
+# snippet-start:[python.example_code.dynamodb.Scenario_PartiQLBatch]
+def run_scenario(scaffold, wrapper, table_name):
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+    print("-" * 88) (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scaffold:[78:85]
+==scenario_getting_started_movies:[352:375]
+        except ClientError as err:
+            logger.error(
+                "Couldn't delete table. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.dynamodb.DeleteTable]
+
+
+# snippet-end:[python.example_code.dynamodb.helper.Movies.class_full]
+
+
+# snippet-start:[python.example_code.dynamodb.helper.get_sample_movie_data]
+def get_sample_movie_data(movie_file_name):
+    """
+    Gets sample movie data, either from a local file or by first downloading it from
+    the Amazon DynamoDB developer guide.
+
+    :param movie_file_name: The local file name where the movie data is stored in JSON format.
+    :return: The movie data as a dict.
+    """ (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scaffold:[58:70]
+==scenario_getting_started_movies:[109:116]
+                logger.error(
+                    "Couldn't create table %s. Here's why: %s: %s",
+                    table_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+                raise
+
+    def delete_table(self):
+        """
+        Deletes a table, if one was created for the demo.
+        """ (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_getting_started_movies:[252:270]
+==update_and_query:[94:115]
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return response["Attributes"]
+
+    # snippet-end:[python.example_code.dynamodb.UpdateItem.UpdateExpression]
+
+    # snippet-start:[python.example_code.dynamodb.Query]
+    def query_movies(self, year):
+        """
+        Queries for movies that were released in the specified year.
+
+        :param year: The year to query.
+        :return: The list of movies that were released in the specified year.
+        """
+        try: (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_getting_started_movies:[218:225]
+==update_and_query:[52:59]
+                title,
+                self.table.name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else: (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_getting_started_movies:[334:350]
+==update_and_query:[128:150]
+            logger.error(
+                "Couldn't delete movie %s. Here's why: %s: %s",
+                title,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.dynamodb.DeleteItem]
+
+    # snippet-start:[python.example_code.dynamodb.DeleteTable]
+    def delete_table(self):
+        """
+        Deletes the table.
+        """
+        try: (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_getting_started_movies:[275:293]
+==update_and_query:[170:181]
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return response["Items"]
+
+    # snippet-end:[python.example_code.dynamodb.Query]
+
+    # snippet-start:[python.example_code.dynamodb.Scan]
+    def scan_movies(self, year_range):
+        """
+        Scans for movies that were released in a range of years.
+        Uses a projection expression to return a subset of data for each movie.
+
+        :param year_range: The range of years to retrieve.
+        :return: The list of movies released in the specified years.
+        """ (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==scenario_getting_started_movies:[195:213]
+==update_and_query:[52:58]
+                title,
+                self.table.name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise (duplicate-code)
+example_code/dynamodb/partiql/scenario_partiql_single.py:1:0: R0801: Similar lines in 2 files
+==03-getitem-test:[35:41]
+==05-scan-test:[34:40]
+    if dyn_resource is None:
+        dyn_resource = boto3.resource("dynamodb")
+
+    table = dyn_resource.Table("TryDaxTable")
+    start = time.perf_counter()
+    for _ in range(iterations): (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.10/10 (previous run: 9.10/10, +0.00)
+

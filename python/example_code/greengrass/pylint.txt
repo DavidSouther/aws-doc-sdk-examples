@@ -1,0 +1,102 @@
+************* Module connector_cloudwatch_metrics_usage
+example_code/greengrass/snippets/connector_cloudwatch_metrics_usage.py:19:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_cloudwatch_metrics_usage.py:48:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_cloudwatch_metrics_usage.py:48:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_image_classification_usage
+example_code/greengrass/snippets/connector_image_classification_usage.py:62:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_image_classification_usage.py:62:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_kinesis_firehose_usage
+example_code/greengrass/snippets/connector_kinesis_firehose_usage.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_kinesis_firehose_usage.py:37:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_kinesis_firehose_usage.py:37:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_modbus_rtu_usage
+example_code/greengrass/snippets/connector_modbus_rtu_usage.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_modbus_rtu_usage.py:42:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_modbus_rtu_usage.py:42:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_raspberrypi_gpio_usage
+example_code/greengrass/snippets/connector_raspberrypi_gpio_usage.py:31:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_raspberrypi_gpio_usage.py:31:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_serial_stream_usage
+example_code/greengrass/snippets/connector_serial_stream_usage.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_serial_stream_usage.py:34:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_serial_stream_usage.py:34:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_servicenow_metricsbase_integration_usage
+example_code/greengrass/snippets/connector_servicenow_metricsbase_integration_usage.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_servicenow_metricsbase_integration_usage.py:42:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_servicenow_metricsbase_integration_usage.py:42:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_sns_usage
+example_code/greengrass/snippets/connector_sns_usage.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_sns_usage.py:34:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_sns_usage.py:34:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_splunk_integration_usage
+example_code/greengrass/snippets/connector_splunk_integration_usage.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_splunk_integration_usage.py:34:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_splunk_integration_usage.py:34:28: W0613: Unused argument 'context' (unused-argument)
+************* Module connector_twilio_notifications_usage
+example_code/greengrass/snippets/connector_twilio_notifications_usage.py:17:0: C0103: Constant name "txt_input_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/connector_twilio_notifications_usage.py:40:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/connector_twilio_notifications_usage.py:40:28: W0613: Unused argument 'context' (unused-argument)
+************* Module getting_started_connectors
+example_code/greengrass/snippets/getting_started_connectors.py:18:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/getting_started_connectors.py:35:28: W0613: Unused argument 'context' (unused-argument)
+************* Module local_resource_access_volume
+example_code/greengrass/snippets/local_resource_access_volume.py:18:0: C0103: Constant name "volume_path" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/local_resource_access_volume.py:36:11: W0718: Catching too general exception Exception (broad-exception-caught)
+example_code/greengrass/snippets/local_resource_access_volume.py:31:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/greengrass/snippets/local_resource_access_volume.py:33:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/greengrass/snippets/local_resource_access_volume.py:21:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/local_resource_access_volume.py:21:28: W0613: Unused argument 'context' (unused-argument)
+************* Module secret_resource_access
+example_code/greengrass/snippets/secret_resource_access.py:16:0: C0103: Constant name "secret_name" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/secret_resource_access.py:17:0: C0103: Constant name "send_topic" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/secret_resource_access.py:20:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/secret_resource_access.py:20:28: W0613: Unused argument 'context' (unused-argument)
+************* Module secret_resource_access_default_value
+example_code/greengrass/snippets/secret_resource_access_default_value.py:15:0: C0103: Constant name "secret_name" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/secret_resource_access_default_value.py:18:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/secret_resource_access_default_value.py:18:28: W0613: Unused argument 'context' (unused-argument)
+example_code/greengrass/snippets/secret_resource_access_default_value.py:20:4: W0612: Unused variable 'secret' (unused-variable)
+************* Module secret_resource_access_staging_label
+example_code/greengrass/snippets/secret_resource_access_staging_label.py:15:0: C0103: Constant name "secret_name" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/secret_resource_access_staging_label.py:16:0: C0103: Constant name "secret_version" doesn't conform to UPPER_CASE naming style (invalid-name)
+example_code/greengrass/snippets/secret_resource_access_staging_label.py:20:21: W0613: Unused argument 'event' (unused-argument)
+example_code/greengrass/snippets/secret_resource_access_staging_label.py:20:28: W0613: Unused argument 'context' (unused-argument)
+example_code/greengrass/snippets/secret_resource_access_staging_label.py:24:4: W0612: Unused variable 'secret' (unused-variable)
+************* Module test_greengrass_snippets
+example_code/greengrass/test/test_greengrass_snippets.py:61:12: C0415: Import outside toplevel (snippets.connector_image_classification_usage) (import-outside-toplevel)
+example_code/greengrass/test/test_greengrass_snippets.py:1:0: R0801: Similar lines in 2 files
+==connector_kinesis_firehose_usage:[23:38]
+==connector_servicenow_metricsbase_integration_usage:[28:43]
+    }
+
+
+def publish_basic_message():
+    message = create_request()
+    print(f"Message to publish: {message}")
+    iot_client.publish(topic=send_topic, payload=json.dumps(message))
+
+
+publish_basic_message()
+
+
+# In this example, the required AWS Lambda handler is never called.
+def function_handler(event, context):
+    return (duplicate-code)
+example_code/greengrass/test/test_greengrass_snippets.py:1:0: R0801: Similar lines in 2 files
+==connector_kinesis_firehose_usage:[27:38]
+==connector_splunk_integration_usage:[24:35]
+    message = create_request()
+    print(f"Message to publish: {message}")
+    iot_client.publish(topic=send_topic, payload=json.dumps(message))
+
+
+publish_basic_message()
+
+
+# In this example, the required AWS Lambda handler is never called.
+def function_handler(event, context):
+    return (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 7.98/10 (previous run: 7.98/10, +0.00)
+

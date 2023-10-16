@@ -1,0 +1,19 @@
+************* Module conftest
+cross_service/textract_explorer/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+cross_service/textract_explorer/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_textract_wrapper
+cross_service/textract_explorer/test/test_textract_wrapper.py:27:18: W0613: Unused argument 'monkeypatch' (unused-argument)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:20: C0103: Argument name "Fileobj" doesn't conform to snake_case naming style (invalid-name)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:29: C0103: Argument name "Bucket" doesn't conform to snake_case naming style (invalid-name)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:37: C0103: Argument name "Key" doesn't conform to snake_case naming style (invalid-name)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:42: C0103: Argument name "ExtraArgs" doesn't conform to snake_case naming style (invalid-name)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:53: C0103: Argument name "Callback" doesn't conform to snake_case naming style (invalid-name)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:63: C0103: Argument name "Config" doesn't conform to snake_case naming style (invalid-name)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:4: R0913: Too many arguments (6/5) (too-many-arguments)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:42: W0613: Unused argument 'ExtraArgs' (unused-argument)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:53: W0613: Unused argument 'Callback' (unused-argument)
+cross_service/textract_explorer/test/test_textract_wrapper.py:91:63: W0613: Unused argument 'Config' (unused-argument)
+
+------------------------------------------------------------------
+Your code has been rated at 9.07/10 (previous run: 9.04/10, +0.03)
+

@@ -1,0 +1,17 @@
+************* Module app
+cross_service/aurora_rest_lending_library/library_api/app.py:31:4: W0603: Using the global statement (global-statement)
+cross_service/aurora_rest_lending_library/library_api/app.py:39:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+cross_service/aurora_rest_lending_library/library_api/app.py:42:12: W0707: Consider explicitly re-raising using 'raise RequestTimeoutError(err) from err' (raise-missing-from)
+************* Module aurora_tools
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:24:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:55:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:95:0: R0913: Too many arguments (8/5) (too-many-arguments)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:120:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:12:0: C0411: standard import "import json" should be placed before "from demo_tools.custom_waiter import CustomWaiter, WaitState" (wrong-import-order)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:13:0: C0411: standard import "import logging" should be placed before "from demo_tools.custom_waiter import CustomWaiter, WaitState" (wrong-import-order)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:14:0: C0411: standard import "import sys" should be placed before "from demo_tools.custom_waiter import CustomWaiter, WaitState" (wrong-import-order)
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:16:0: C0411: third party import "from botocore.exceptions import ClientError" should be placed before "from demo_tools.custom_waiter import CustomWaiter, WaitState" (wrong-import-order)
+
+------------------------------------------------------------------
+Your code has been rated at 8.85/10 (previous run: 8.85/10, +0.00)
+

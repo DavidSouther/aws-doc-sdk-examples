@@ -1,0 +1,135 @@
+************* Module test.conftest
+example_code/lookoutvision/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/lookoutvision/test/conftest.py:9:0: C0411: standard import "import random" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/lookoutvision/test/conftest.py:10:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/lookoutvision/test/conftest.py:9:0: W0611: Unused import random (unused-import)
+************* Module test.test_csv_to_manifest
+example_code/lookoutvision/test/test_csv_to_manifest.py:7:0: W0105: String statement has no effect (pointless-string-statement)
+************* Module test.test_datasets
+example_code/lookoutvision/test/test_datasets.py:83:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+example_code/lookoutvision/test/test_datasets.py:147:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+************* Module test.test_export_datasets
+example_code/lookoutvision/test/test_export_datasets.py:31:0: R0914: Too many local variables (22/15) (too-many-locals)
+example_code/lookoutvision/test/test_export_datasets.py:179:0: R0914: Too many local variables (16/15) (too-many-locals)
+example_code/lookoutvision/test/test_export_datasets.py:223:0: R0914: Too many local variables (21/15) (too-many-locals)
+************* Module test.test_find_running_models
+example_code/lookoutvision/test/test_find_running_models.py:26:0: R0914: Too many local variables (23/15) (too-many-locals)
+example_code/lookoutvision/test/test_find_running_models.py:85:0: R0914: Too many local variables (27/15) (too-many-locals)
+example_code/lookoutvision/test/test_find_running_models.py:11:0: W0611: Unused import models (unused-import)
+example_code/lookoutvision/test/test_find_running_models.py:13:0: W0611: Unused Session imported from boto3.session (unused-import)
+************* Module test.test_hello
+example_code/lookoutvision/test/test_hello.py:25:4: W0612: Unused variable 'model_version' (unused-variable)
+example_code/lookoutvision/test/test_hello.py:26:4: W0612: Unused variable 'dataset' (unused-variable)
+************* Module test.test_inference
+example_code/lookoutvision/test/test_inference.py:8:0: W4901: Deprecated module 'imghdr' (deprecated-module)
+example_code/lookoutvision/test/test_inference.py:58:26: W0613: Unused argument 'make_stubber' (unused-argument)
+example_code/lookoutvision/test/test_inference.py:74:34: W0613: Unused argument 'make_stubber' (unused-argument)
+example_code/lookoutvision/test/test_inference.py:90:33: W0613: Unused argument 'make_stubber' (unused-argument)
+example_code/lookoutvision/test/test_inference.py:119:28: W0613: Unused argument 'make_stubber' (unused-argument)
+************* Module test.test_models
+example_code/lookoutvision/test/test_models.py:48:0: R0914: Too many local variables (18/15) (too-many-locals)
+************* Module test.test_projects
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_running_models:[47:62]
+==test.test_models:[65:80]
+            project_name,
+            model_version,
+            model_arn,
+            status,
+            {
+                "description": description,
+                "message": message,
+                "created": created,
+                "trained": trained,
+                "recall": recall,
+                "precision": precision,
+                "f1": f1,
+                "out_bucket": out_buck,
+                "out_folder": out_folder,
+            }, (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_tag:[32:42]
+==test.test_hosting:[77:87]
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(lookoutvision_stubber.stub_list_projects, [project_name])
+        runner.add(
+            lookoutvision_stubber.stub_list_models, project_name, [model_version]
+        )
+        runner.add(
+            lookoutvision_stubber.stub_describe_model,
+            project_name,
+            model_version,
+            model_arn, (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_running_models:[34:43]
+==test.test_models:[55:64]
+    message = "Test message!"
+    created = datetime.datetime.now()
+    trained = created + datetime.timedelta(minutes=10)
+    recall = 0.3
+    precision = 0.5
+    f1 = 0.7
+    out_buck = "doc-example-bucket"
+    out_folder = "test-folder"
+ (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_hello:[19:27]
+==test.test_projects:[67:75]
+    lookoutvision_client = boto3.client("lookoutvision")
+    lookoutvision_stubber = make_stubber(lookoutvision_client)
+    project_name = "test-project"
+    project_arn = "test-arn"
+    created = datetime.datetime.now()
+    model_version = "test-model"
+    dataset = {"DatasetType": "testing", "StatusMessage": "nicely tested"}
+ (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_running_models:[45:51]
+==test.test_hosting:[82:88]
+        runner.add(
+            lookoutvision_stubber.stub_describe_model,
+            project_name,
+            model_version,
+            model_arn,
+            status, (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_running_models:[120:126]
+==test.test_hello:[27:34]
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(
+            lookoutvision_stubber.stub_list_projects,
+            [project_name],
+            [{"arn": project_arn, "created": created}],
+        ) (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_hosting:[35:45]
+==test.test_models:[43:52]
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "TestException"])
+def test_describe_model(make_stubber, error_code):
+    lookoutvision_client = boto3.client("lookoutvision")
+    lookoutvision_stubber = make_stubber(lookoutvision_client)
+    project_name = "test-project_name"
+    model_version = "test-model" (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_tag:[24:29]
+==test.test_hosting:[70:75]
+    lookoutvision_client = boto3.client("lookoutvision")
+    lookoutvision_stubber = make_stubber(lookoutvision_client)
+    project_name = "test-project"
+    model_version = "test-model"
+    model_arn = "test-arn" (duplicate-code)
+example_code/lookoutvision/test/test_projects.py:1:0: R0801: Similar lines in 2 files
+==test.test_find_running_models:[45:50]
+==test.test_find_tag:[37:42]
+        runner.add(
+            lookoutvision_stubber.stub_describe_model,
+            project_name,
+            model_version,
+            model_arn, (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.49/10 (previous run: 9.49/10, +0.00)
+

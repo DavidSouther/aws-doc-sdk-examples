@@ -1,0 +1,56 @@
+************* Module conftest
+example_code/aurora/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/aurora/test/conftest.py:21:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+example_code/aurora/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/aurora/test/conftest.py:10:0: C0411: standard import "import uuid" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/aurora/test/conftest.py:12:0: C0411: third party import "import boto3" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/aurora/test/conftest.py:13:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/aurora/test/conftest.py:14:0: C0411: third party import "import scenario_get_started_aurora" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/aurora/test/conftest.py:15:0: C0411: third party import "from aurora_wrapper import AuroraWrapper" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_get_started_aurora_cleanup
+example_code/aurora/test/test_get_started_aurora_cleanup.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/aurora/test/test_get_started_aurora_cleanup.py:49:17: W0621: Redefining name 'mock_mgr' from outer scope (line 45) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_cleanup.py:69:23: W0621: Redefining name 'mock_mgr' from outer scope (line 45) (redefined-outer-name)
+************* Module test_get_started_aurora_create_cluster
+example_code/aurora/test/test_get_started_aurora_create_cluster.py:8:0: R0902: Too many instance attributes (12/7) (too-many-instance-attributes)
+example_code/aurora/test/test_get_started_aurora_create_cluster.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/aurora/test/test_get_started_aurora_create_cluster.py:68:31: W0621: Redefining name 'mock_mgr' from outer scope (line 64) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_cluster.py:81:34: W0621: Redefining name 'mock_mgr' from outer scope (line 64) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_cluster.py:103:30: W0621: Redefining name 'mock_mgr' from outer scope (line 64) (redefined-outer-name)
+************* Module test_get_started_aurora_create_instance
+example_code/aurora/test/test_get_started_aurora_create_instance.py:8:0: R0902: Too many instance attributes (10/7) (too-many-instance-attributes)
+example_code/aurora/test/test_get_started_aurora_create_instance.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/aurora/test/test_get_started_aurora_create_instance.py:60:32: W0621: Redefining name 'mock_mgr' from outer scope (line 56) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_instance.py:73:25: W0621: Redefining name 'mock_mgr' from outer scope (line 56) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_instance.py:95:31: W0621: Redefining name 'mock_mgr' from outer scope (line 56) (redefined-outer-name)
+************* Module test_get_started_aurora_create_parameter_group
+example_code/aurora/test/test_get_started_aurora_create_parameter_group.py:8:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+example_code/aurora/test/test_get_started_aurora_create_parameter_group.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/aurora/test/test_get_started_aurora_create_parameter_group.py:54:39: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_parameter_group.py:71:42: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_parameter_group.py:95:48: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+************* Module test_get_started_aurora_create_snapshot
+example_code/aurora/test/test_get_started_aurora_create_snapshot.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/aurora/test/test_get_started_aurora_create_snapshot.py:34:25: W0621: Redefining name 'mock_mgr' from outer scope (line 30) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_create_snapshot.py:50:31: W0621: Redefining name 'mock_mgr' from outer scope (line 30) (redefined-outer-name)
+************* Module test_get_started_aurora_display_connection
+example_code/aurora/test/test_get_started_aurora_display_connection.py:4:0: W0611: Unused import pytest (unused-import)
+************* Module test_get_started_aurora_set_user_parameters
+example_code/aurora/test/test_get_started_aurora_set_user_parameters.py:8:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+example_code/aurora/test/test_get_started_aurora_set_user_parameters.py:54:29: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_set_user_parameters.py:72:35: W0621: Redefining name 'mock_mgr' from outer scope (line 50) (redefined-outer-name)
+example_code/aurora/test/test_get_started_aurora_set_user_parameters.py:1:0: R0801: Similar lines in 2 files
+==test_get_started_aurora_cleanup:[14:22]
+==test_get_started_aurora_create_snapshot:[13:21]
+        self.scenario_out = None
+        answers = ["y"]
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+    def setup_stubs(self, error, stop_on, stubber):
+        with self.stub_runner(error, stop_on) as runner:
+            runner.add( (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 8.71/10 (previous run: 8.71/10, +0.00)
+

@@ -1,0 +1,67 @@
+************* Module conftest
+example_code/sts/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+example_code/sts/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+example_code/sts/test/conftest.py:11:0: C0411: third party import "import pytest" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_session_token
+example_code/sts/test/test_session_token.py:8:0: W0611: Unused import json (unused-import)
+example_code/sts/test/test_session_token.py:13:0: W0611: Unused import pytest (unused-import)
+example_code/sts/test/test_session_token.py:14:0: W0611: Unused import requests (unused-import)
+example_code/sts/test/test_session_token.py:16:0: W0611: Unused ClientError imported from botocore.exceptions (unused-import)
+example_code/sts/test/test_session_token.py:1:0: R0801: Similar lines in 2 files
+==test_assume_role_mfa:[126:140]
+==test_session_token:[80:94]
+    iam_stubber.stub_list_user_policies(
+        user_name, [pol.policy_name for pol in user_policies]
+    )
+    for pol in user_policies:
+        iam_stubber.stub_delete_user_policy(user_name, pol.policy_name)
+    iam_stubber.stub_list_access_keys(user_name, user_key_ids)
+    for key_id in user_key_ids:
+        iam_stubber.stub_delete_access_key(user_name, key_id)
+    iam_stubber.stub_list_mfa_devices(user_name, mfa_serials)
+    for mfa_serial in mfa_serials:
+        iam_stubber.stub_deactivate_mfa_device(user_name, mfa_serial)
+        iam_stubber.stub_delete_virtual_mfa_device(mfa_serial)
+    iam_stubber.stub_delete_user(user_name)
+ (duplicate-code)
+example_code/sts/test/test_session_token.py:1:0: R0801: Similar lines in 2 files
+==test_assume_role_mfa:[81:93]
+==test_session_token:[52:64]
+    mfa_serial_number = "arn:aws:iam::123456789012:mfa/test-mfa"
+    mfa_totp = "123456"
+    buckets = [unittest.mock.MagicMock(), unittest.mock.MagicMock()]
+    for b in buckets:
+        b.name = "test-bucket"
+
+    monkeypatch.setattr(
+        boto3,
+        "resource",
+        lambda x, aws_access_key_id, aws_secret_access_key, aws_session_token: s3,
+    )
+ (duplicate-code)
+example_code/sts/test/test_session_token.py:1:0: R0801: Similar lines in 2 files
+==test_assume_role_mfa:[31:40]
+==test_session_token:[30:39]
+    monkeypatch.setattr(webbrowser, "open", lambda x: None)
+    monkeypatch.setattr("builtins.input", lambda x: mock_code)
+
+    iam_stubber.stub_create_user(unique_names["user"])
+    iam_stubber.stub_create_virtual_mfa_device(mock_mfa)
+    iam_stubber.stub_enable_mfa_device(
+        unique_names["user"], mock_mfa.serial_number, mock_code, mock_code
+    )
+    iam_stubber.stub_create_access_key(unique_names["user"]) (duplicate-code)
+example_code/sts/test/test_session_token.py:1:0: R0801: Similar lines in 2 files
+==test_assume_role_mfa:[22:29]
+==test_session_token:[21:28]
+    mock_mfa = unittest.mock.MagicMock(
+        device_name=unique_names["mfa"],
+        serial_number="test-serial-number",
+        qr_code_png=b"png",
+    )
+    mock_code = "123456"
+ (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.44/10 (previous run: 9.44/10, +0.00)
+

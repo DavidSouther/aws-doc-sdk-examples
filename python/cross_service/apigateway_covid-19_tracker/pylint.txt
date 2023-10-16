@@ -1,0 +1,16 @@
+************* Module chalicelib.covid_data
+cross_service/apigateway_covid-19_tracker/chalicelib/covid_data.py:124:29: W0613: Unused argument 'state' (unused-argument)
+cross_service/apigateway_covid-19_tracker/chalicelib/covid_data.py:145:30: W0613: Unused argument 'state' (unused-argument)
+************* Module conftest
+cross_service/apigateway_covid-19_tracker/test/conftest.py:8:0: W0401: Wildcard import test_tools.fixtures.common (wildcard-import)
+cross_service/apigateway_covid-19_tracker/test/conftest.py:9:0: C0411: standard import "import sys" should be placed before "from test_tools.fixtures.common import *" (wrong-import-order)
+************* Module test_app
+cross_service/apigateway_covid-19_tracker/test/test_app.py:39:8: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+cross_service/apigateway_covid-19_tracker/test/test_app.py:83:8: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+cross_service/apigateway_covid-19_tracker/test/test_app.py:10:0: W0611: Unused import chalicelib (unused-import)
+************* Module test_covid_data
+cross_service/apigateway_covid-19_tracker/test/test_covid_data.py:15:11: W0212: Access to a protected member _table of a client class (protected-access)
+
+------------------------------------------------------------------
+Your code has been rated at 9.57/10 (previous run: 9.57/10, +0.00)
+

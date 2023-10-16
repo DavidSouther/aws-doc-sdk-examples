@@ -1,0 +1,6 @@
+************* Module test-texttract-comprehend
+cross_service/textract_comprehend_notebook/test-texttract-comprehend.py:1:0: C0103: Module name "test-texttract-comprehend" doesn't conform to snake_case naming style (invalid-name)
+
+------------------------------------------------------------------
+Your code has been rated at 9.62/10 (previous run: 9.62/10, +0.00)
+
