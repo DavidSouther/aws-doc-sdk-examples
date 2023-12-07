@@ -67,7 +67,8 @@ sns_DeleteTopic:
 
 def test_parse():
     meta = yaml.safe_load(GOOD_SINGLE_CPP)
-    parsed = parse("test_cpp.yaml", meta, DOC_GEN)
+    parsed, errors = parse("test_cpp.yaml", meta, DOC_GEN)
+    assert len(errors) == 0
     assert parsed == [
         Example(
             file="test_cpp.yaml",
@@ -118,7 +119,8 @@ cross_DeleteTopic:
 
 def test_parse_cross():
     meta = yaml.safe_load(CROSS_META)
-    actual = parse("cross.yaml", meta, DOC_GEN)
+    actual, errors = parse("cross.yaml", meta, DOC_GEN)
+    assert len(errors) == 0
     assert actual == [
         Example(
             file="cross.yaml",
@@ -159,7 +161,8 @@ autogluon_tabular_with_sagemaker_pipelines:
 
 def test_parse_curated():
     meta = yaml.safe_load(CURATED)
-    actual = parse("curated.yaml", meta, DOC_GEN)
+    actual, errors = parse("curated.yaml", meta, DOC_GEN)
+    assert len(errors) == 0
     assert actual == [
         Example(
             id="autogluon_tabular_with_sagemaker_pipelines",
@@ -180,7 +183,8 @@ def test_parse_curated():
 
 
 def test_verify_load_successful():
-    examples = load("valid_metadata.yaml", DOC_GEN)
+    examples, errors = load("valid_metadata.yaml", DOC_GEN)
+    assert len(errors) == 0
     assert examples == [
         Example(
             file="valid_metadata.yaml",
@@ -370,7 +374,7 @@ def test_verify_load_successful():
     ],
 )
 def test_common_errors(filename, expected_errors):
-    actual = load(filename, DOC_GEN)
+    _, actual = load(filename, DOC_GEN)
     assert expected_errors == actual._errors
 
 

@@ -19,23 +19,20 @@ class SdkApiRef:
     name: str
     link_template: Optional[str]
 
-    def from_yaml(yaml: dict[str, str] | None, errors: MetadataErrors) -> Self | None:
+    def from_yaml(yaml: dict[str, str] | None, errors: MetadataErrors) -> Self:
         if yaml is None:
             return None
         uid = yaml.get("uid")
         name = check_mapping(yaml.get("name"), "api_ref.name")
         link_template = yaml.get("link_template")
 
-        e = len(errors)
-
         if not uid:
             errors.append(metadata_errors.MissingField(field="api_ref.uid"))
         if isinstance(name, MetadataParseError):
             errors.append(name)
+            name = ""
 
-        if e == len(errors):
-            return SdkApiRef(uid, name, link_template)
-        return None
+        return SdkApiRef(uid, name, link_template)
 
 
 @dataclass
@@ -57,7 +54,7 @@ class SdkVersion:
     title_override: Optional[SdkTitleOverride] = field(default=None)
 
     @staticmethod
-    def from_yaml(version: int, yaml: dict[str, any]) -> Self | MetadataErrors:
+    def from_yaml(version: int, yaml: dict[str, any]) -> (Self, MetadataErrors):
         errors = MetadataErrors()
         long = check_mapping(yaml.get("long"), "long")
         short = check_mapping(yaml.get("short"), "short")
@@ -91,23 +88,25 @@ class SdkVersion:
 
         if isinstance(long, MetadataParseError):
             errors.append(long)
+            long = ""
         if isinstance(short, MetadataParseError):
             errors.append(short)
+            short = ""
         api_ref = SdkApiRef.from_yaml(yaml.get("api_ref"), errors)
 
-        if len(errors) > 0:
-            return errors
-
-        return SdkVersion(
-            version=version,
-            long=long,
-            short=short,
-            expanded=expanded,
-            guide=guide,
-            api_ref=api_ref,
-            caveat=caveat,
-            bookmark=bookmark,
-            title_override=title_override,
+        return (
+            SdkVersion(
+                version=version,
+                long=long,
+                short=short,
+                expanded=expanded,
+                guide=guide,
+                api_ref=api_ref,
+                caveat=caveat,
+                bookmark=bookmark,
+                title_override=title_override,
+            ),
+            errors,
         )
 
 
@@ -119,12 +118,13 @@ class Sdk:
     property: str
 
     @staticmethod
-    def from_yaml(name: str, yaml: dict[str, any]) -> Self | MetadataErrors:
+    def from_yaml(name: str, yaml: dict[str, any]) -> (Self, MetadataErrors):
         errors = MetadataErrors()
         property = yaml.get("property")
         guide = check_mapping(yaml.get("guide"), "guide")
         if isinstance(guide, MetadataParseError):
             errors.append(guide)
+            guide = ""
 
         versions = []
         sdk_versions = yaml.get("sdk", {})
@@ -137,13 +137,10 @@ class Sdk:
             else:
                 versions.append(sdk_version)
 
-        if len(errors) > 0:
-            return errors
-
-        return Sdk(name=name, versions=versions, guide=guide, property=property)
+        return Sdk(name=name, versions=versions, guide=guide, property=property), errors
 
 
-def parse(file: str, yaml: dict[str, any]) -> dict[str, Sdk]:
+def parse(file: str, yaml: dict[str, any]) -> (dict[str, Sdk], MetadataErrors):
     sdks = {}
     errors = MetadataErrors()
 
@@ -157,7 +154,7 @@ def parse(file: str, yaml: dict[str, any]) -> dict[str, Sdk]:
                 error.id = name
             errors.extend(sdk)
 
-    return sdks if len(errors) == 0 else errors
+    return sdks, errors
 
 
 if __name__ == "__main__":

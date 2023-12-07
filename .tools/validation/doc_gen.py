@@ -20,7 +20,7 @@ class DocGen:
     snippets: dict[str, Snippet] = field(default_factory=dict)
 
     @staticmethod
-    def from_root(root: Path) -> Self | MetadataErrors:
+    def from_root(root: Path) -> (Self, MetadataErrors):
         errors = MetadataErrors()
 
         with open(root / "sdks.yaml", encoding="utf-8") as file:
@@ -30,12 +30,9 @@ class DocGen:
 
         with open(root / "services.yaml", encoding="utf-8") as file:
             meta = yaml.safe_load(file)
-            parsed = parse_services("services.yaml", meta)
-            services = errors.maybe_extend(parsed)
+            services, service_errors = parse_services("services.yaml", meta)
+            errors.extend(service_errors)
 
         snippets = {}
 
-        if len(errors) > 0:
-            return errors
-
-        return DocGen(sdks=sdks, services=services, snippets=snippets)
+        return DocGen(sdks=sdks, services=services, snippets=snippets), errors

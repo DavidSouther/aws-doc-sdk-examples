@@ -22,7 +22,6 @@ The script scans code files and does the following:
 
 import os
 import re
-import argparse
 import logging
 import sys
 from dataclasses import dataclass, field
@@ -54,7 +53,6 @@ def check_files(root: Path, errors: MetadataErrors):
         verify_no_deny_list_words(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
-        verify_snippet_start_end(file_contents, file_path, errors)
 
     print(f"{file_count} files scanned in {root}.\n")
 
@@ -180,78 +178,11 @@ def verify_no_secret_keys(
         errors.append(PossibleSecretKey(file=str(file_location), word=word))
 
 
-@dataclass
-class SnippetParseError(MetadataParseError):
-    tag: str = field(default="")
-
-
-@dataclass
-class DuplicateSnippetTagInFile(SnippetParseError):
-    def message(self):
-        return f"Duplicate tag {self.tag}"
-
-
-@dataclass
-class SnippetNoMatchingStart(SnippetParseError):
-    def message(self):
-        return f"No matching start for {self.tag}"
-
-
-@dataclass
-class SnippetNoMatchingEnd(SnippetParseError):
-    def message(self):
-        return f"No matching end for {self.tag}"
-
-
-# TODO move this to snippets
-def verify_snippet_start_end(
-    file_contents: str, file_location: Path, errors: MetadataErrors
-):
-    """Scan the file contents for snippet-start and snippet-end tags and verify
-    that they are in matched pairs. Log errors and return the count of errors."""
-    snippet_start = "snippet" + "-start:["
-    snippet_end = "snippet" + "-end:["
-    snippet_tags = set()
-    for word in file_contents.split():
-        if snippet_start in word:
-            tag = word.split("[")[1]
-            if tag in snippet_tags:
-                errors.append(DuplicateSnippetTagInFile(file=file_location, tag=tag))
-            else:
-                snippet_tags.add(tag)
-        elif snippet_end in word:
-            tag = word.split("[")[1]
-            if tag in snippet_tags:
-                snippet_tags.remove(tag)
-            else:
-                errors.append(SnippetNoMatchingStart(file=file_location, tag=tag))
-
-    for tag in snippet_tags:
-        errors.append(SnippetNoMatchingEnd(file=file_location, tag=tag))
-
-
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--quiet",
-        action="store_true",
-        help="Suppresses output of filenames while parsing. " "The default is False.",
-    )
-    parser.add_argument(
-        "--root",
-        help="The root path from which to search for files "
-        "to check. The default is the current working "
-        "folder.",
-    )
-    args = parser.parse_args()
-
-    root_path = Path(
-        os.path.abspath(".") if not args.root else os.path.abspath(args.root)
-    )
-
+    root_path = Path(__file__).parent.parent.parent
     print("----------\n\nRun Tests\n")
     errors = MetadataErrors()
-    check_files(root_path, args.quiet, errors)
+    check_files(root_path, errors)
     verify_sample_files(root_path, errors)
     error_count = len(errors)
     if error_count > 0:
