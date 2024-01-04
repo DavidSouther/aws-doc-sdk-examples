@@ -2,13 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from dataclasses import dataclass
-from metadata_errors import MetadataErrors, MetadataError
 from typing import Optional
 from pathlib import Path
 from shutil import copyfile, rmtree
-import validator_config
 
-from file_utils import get_files
+from sdk_examples.file_utils import get_files
+from sdk_examples.metadata_errors import MetadataErrors, MetadataError
 
 SNIPPET_START = "snippet-start:["
 SNIPPET_END = "snippet-end:["

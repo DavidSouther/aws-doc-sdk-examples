@@ -5,6 +5,7 @@ mypy-extensions==1.0.0
 pathspec==0.11.2
 PyYAML==6.0.1
 requests==2.31.0
-sdk_examples>=0.1.0
 types-PyYAML==6.0.12.12
 yamale==4.0.4
+
+../sdk_examples/dist/sdk_examples-0.1.0-py3-none-any.whl

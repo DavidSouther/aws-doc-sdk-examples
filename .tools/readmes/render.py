@@ -17,7 +17,7 @@ class MissingMetadataError(Exception):
 
 
 class Renderer:
-    def __init__(self, scanner, sdk_ver, safe, svc_folder=None):
+    def __init__(self, doc_gen, language, service, sdk_ver, safe, svc_folder=None):
         env = Environment(
             autoescape=select_autoescape(
                 disabled_extensions=("jinja2",), default_for_string=True
@@ -28,7 +28,9 @@ class Renderer:
         )
         self.template = env.get_template("service_readme.jinja2")
         self.template.globals["now"] = datetime.datetime.utcnow
-        self.scanner = scanner
+        self.doc_gen = doc_gen
+        self.language = language
+        self.service = service
         self.sdk_ver = int(sdk_ver)
         self.lang_config = config.language[self.scanner.lang_name][self.sdk_ver].copy()
         service_info = {
@@ -40,10 +42,10 @@ class Renderer:
         else:
             if (
                 "service_folder_overrides" in self.lang_config
-                and scanner.svc_name in self.lang_config["service_folder_overrides"]
+                and self.service in self.lang_config["service_folder_overrides"]
             ):
                 overrides = self.lang_config["service_folder_overrides"]
-                self.lang_config["service_folder"] = overrides[scanner.svc_name]
+                self.lang_config["service_folder"] = overrides[self.service]
             elif "service_folder" in self.lang_config:
                 svc_folder_tmpl = env.from_string(self.lang_config["service_folder"])
                 self.lang_config["service_folder"] = svc_folder_tmpl.render(
@@ -63,11 +65,11 @@ class Renderer:
         return url if url.startswith("http") else f"{config.doc_base_url}/{url}"
 
     def _transform_sdk(self):
-        pre_sdk = self.scanner.sdk()["sdk"][self.sdk_ver]
+        pre_sdk = self.doc_gen.sdk().versions[self.sdk_ver]
         if "expanded" not in pre_sdk or "guide" not in pre_sdk:
             logger.error(
                 "%s %s entry in sdks.yaml does not have required entity expansions or guide URL defined.",
-                self.scanner.lang_name,
+                self.language,
                 self.sdk_ver,
             )
             raise MissingMetadataError
@@ -80,7 +82,7 @@ class Renderer:
         return post_sdk
 
     def _transform_service(self):
-        pre_svc = self.scanner.service()
+        pre_svc = self.doc_gen.services[self.service]
         if (
             "expanded" not in pre_svc
             or "blurb" not in pre_svc
@@ -107,18 +109,51 @@ class Renderer:
         post_actions = []
         for _, pre in pre_actions.items():
             api = ""
-            if self.scanner.svc_name in pre["services"]:
-                api = next(iter(pre["services"][self.scanner.svc_name]))
+            if self.service in pre["services"]:
+                api = next(iter(pre["services"][self.service]))
             action = {
                 "title_abbrev": pre["title_abbrev"],
                 "synopsis": pre["synopsis"],
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], api
-                ),
+                "file": self.snippet(pre, api),
                 "api": api,
             }
             post_actions.append(action)
         return sorted(post_actions, key=itemgetter("title_abbrev"))
+
+    def snippet(self, example, api_name):
+        sdk_ver = self.sdk_ver
+        readme_folder = self.lang_config["service_folder"]
+        github = None
+        tag = None
+        tag_path = None
+        for ex_ver in example["languages"][self.lang_name]["versions"]:
+            if ex_ver["sdk_version"] == sdk_ver:
+                github = ex_ver.get("github")
+                if github is not None:
+                    if "excerpts" in ex_ver:
+                        excerpt = ex_ver["excerpts"][0]
+                        if "snippet_tags" in excerpt:
+                            tags = excerpt.get("snippet_tags", [])
+                            for t in tags:
+                                if api_name in t:
+                                    tag = t
+                            if tag is None:
+                                tag = next(iter(tags), None)
+                        elif "snippet_files" in excerpt:
+                            snippet_files = excerpt["snippet_files"]
+                            # TODO: Find the best (or all?) snippet files, not the first.
+                            tag_path = snippet_files[0]
+                    elif "block_content" in ex_ver:
+                        tag_path = github
+        if github is not None and tag_path is None:
+            snippet = self.snippets.get(tag, None)
+            if snippet is not None:
+                tag_path = os.path.relpath(snippet.path, readme_folder).replace(
+                    "\\", "/"
+                )
+                if api_name != "":
+                    tag_path += f"#L{snippet.line}"
+        return tag_path
 
     def _transform_scenarios(self):
         pre_scenarios = self.scanner.scenarios()

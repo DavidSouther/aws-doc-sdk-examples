@@ -27,8 +27,13 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from file_utils import get_files
-from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
+from sdk_examples.file_utils import get_files
+from sdk_examples.metadata_errors import (
+    MetadataErrors,
+    MetadataParseError,
+    DuplicateItemException,
+)
+
 import validator_config
 
 logger = logging.getLogger(__name__)

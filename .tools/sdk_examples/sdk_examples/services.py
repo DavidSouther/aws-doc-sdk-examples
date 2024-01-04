@@ -1,10 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from typing import Self, Optional
 from dataclasses import dataclass, field
-import metadata_errors
-from metadata_errors import MetadataErrors, check_mapping
+from pathlib import Path
+from typing import Self, Optional
+from sdk_examples import metadata_errors
 
 
 @dataclass
@@ -27,20 +27,20 @@ class Service:
     tags: dict[str, set[str]] = field(default_factory=dict)
 
     @staticmethod
-    def from_yaml(name: str, yaml: dict[str, any]) -> (Self, MetadataErrors):
-        errors = MetadataErrors()
+    def from_yaml(
+        name: str, yaml: dict[str, any]
+    ) -> Self | metadata_errors.MetadataErrors:
+        errors = metadata_errors.MetadataErrors()
 
-        long = check_mapping(yaml.get("long"), "long")
-        short = check_mapping(yaml.get("short"), "short")
+        long = metadata_errors.check_mapping(yaml.get("long"), "long")
+        short = metadata_errors.check_mapping(yaml.get("short"), "short")
         sort = yaml.get("sort")
         version = yaml.get("version")
 
         if isinstance(long, metadata_errors.MetadataParseError):
             errors.append(long)
-            long = ""
         if isinstance(short, metadata_errors.MetadataParseError):
             errors.append(short)
-            short = ""
         if sort is None:
             errors.append(metadata_errors.MissingField(field="sort"))
         if version is None:
@@ -65,27 +65,28 @@ class Service:
         for tag in tags:
             tags[tag] = set(tags[tag].keys())
 
-        for error in errors:
-            error.id = name
+        if len(errors) > 0:
+            for error in errors:
+                error.id = name
+            return errors
 
-        return (
-            Service(
-                long=long,
-                short=short,
-                sort=sort,
-                api_ref=api_ref,
-                blurb=blurb,
-                bundle=bundle,
-                caveat=caveat,
-                guide=guide,
-                tags=tags,
-                version=version,
-            ),
-            errors,
+        return Service(
+            long=long,
+            short=short,
+            sort=sort,
+            api_ref=api_ref,
+            blurb=blurb,
+            bundle=bundle,
+            caveat=caveat,
+            guide=guide,
+            tags=tags,
+            version=version,
         )
 
 
-def parse(filename: str, yaml: dict[str, any]) -> (dict[str, Service], MetadataErrors):
+def parse(
+    filename: str, yaml: dict[str, any]
+) -> dict[str, Service] | metadata_errors.MetadataErrors:
     errors = metadata_errors.MetadataErrors()
     services = {}
     for name in yaml:
@@ -93,18 +94,23 @@ def parse(filename: str, yaml: dict[str, any]) -> (dict[str, Service], MetadataE
         if meta is None:
             errors.append(metadata_errors.MissingServiceBody(file=filename, id=name))
         else:
-            service, service_errors = Service.from_yaml(name, meta)
-            for error in service_errors:
-                error.file = filename
-            errors.extend(service_errors)
-            services[name] = service
+            service = Service.from_yaml(name, meta)
+            if isinstance(service, metadata_errors.MetadataErrors):
+                for error in service:
+                    error.file = filename
+                errors.extend(service)
+            else:
+                services[name] = service
 
-    return services, errors
+    return services if len(errors) == 0 else errors
 
+
+CANONICAL_LOCATION = (
+    Path(__file__).parent.parent.parent / ".doc_gen" / "metadata" / "services.yaml"
+)
 
 if __name__ == "__main__":
     import yaml
-    from pathlib import Path
 
     path = (
         Path(__file__).parent.parent.parent / ".doc_gen" / "metadata" / "services.yaml"

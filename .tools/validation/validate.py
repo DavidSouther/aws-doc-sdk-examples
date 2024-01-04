@@ -8,12 +8,13 @@ from pathlib import Path
 from sys import exit
 from typing import Optional
 
-from doc_gen import DocGen
-from metadata import parse as parse_metadata, Example
-from metadata_errors import MetadataErrors, MetadataError
+from sdk_examples.doc_gen import DocGen
+from sdk_examples.metadata import parse as parse_metadata, Example
+from sdk_examples.metadata_errors import MetadataErrors, MetadataError
+from sdk_examples.snippets import collect_snippets, Snippet
+
 from metadata_validator import validate_metadata
 from project_validator import check_files, verify_sample_files
-from snippets import collect_snippets, Snippet
 
 
 def validate_zexii(metadata_path: Path, errors: MetadataErrors) -> list[Example]:

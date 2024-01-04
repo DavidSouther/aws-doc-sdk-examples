@@ -8,7 +8,7 @@ This script contains tests that verify the project_validator script works as exp
 import pytest
 
 import project_validator
-from metadata_errors import MetadataErrors
+from sdk_examples.metadata_errors import MetadataErrors
 
 
 @pytest.mark.parametrize(

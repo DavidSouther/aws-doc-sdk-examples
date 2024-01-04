@@ -16,3 +16,21 @@ all have some notion of "do something on S service in K language/SDK"
 `sdk_examples` provides a convenient entry point, `load`, which will review a folder structure for `.doc_gen` SoS metadata and embedded SOS snippet sections.
 
 This can then be used further for validation, reviewing snippets, etc.
+
+## Installation
+
+### Local
+
+```
+cd .tools/validate
+python3 -m pip install -e ../sdk_examples
+```
+
+### Global
+
+```
+cd .tools/sdk_examples
+python3 -m pip install ./
+```
+
+(Maybe we'll publish it to Pypy at some point?)

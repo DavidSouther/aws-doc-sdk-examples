@@ -31,11 +31,10 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    keywords="aws docs, code examples",
-    package_dir={"": "src"},  # Optional
-    packages=find_packages(where="src"),  # Required
+    keywords="aws docs, aws code examples",
+    packages=["sdk_examples"],
     python_requires=">=3.7, <4",
-    project_urls={  # Optional
+    project_urls={
         "Bug Reports": "https://github.com/awsdocs/aws-doc-sdk-examples/issues",
     },
 )

@@ -7,10 +7,10 @@ from typing import Self
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from metadata_errors import MetadataErrors
-from sdks import Sdk, parse as parse_sdks
-from services import Service, parse as parse_services
-from snippets import Snippet
+from sdk_examples.metadata_errors import MetadataErrors
+from sdk_examples.sdks import Sdk, parse as parse_sdks
+from sdk_examples.services import Service, parse as parse_services
+from sdk_examples.snippets import Snippet
 
 
 @dataclass

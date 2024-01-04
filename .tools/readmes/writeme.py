@@ -4,23 +4,27 @@
 import argparse
 import config
 import logging
-from scanner import Scanner
+
+from pathlib import Path
+
+from sdk_examples.doc_gen import DocGen
+
 from render import Renderer
 
 
 def main():
-    scanner = Scanner(".doc_gen/metadata")
-    sdks = scanner.sdks()
+    doc_gen = DocGen(Path(__path__).parent.parent.parent)
+
     lang_vers = []
-    for sdk in sdks:
-        vers = ", ".join([str(v) for v in sdks[sdk]["sdk"]])
+    for sdk in doc_gen.sdks:
+        vers = ", ".join([str(v) for v in doc_gen.sdks[sdk].versions])
         lang_vers.append(f"{sdk}: {vers}")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "language",
         metavar="sdk_language",
-        choices=scanner.sdks(),
+        choices=[doc_gen.sdks[s].name for s in doc_gen.sdks],
         help="The language of the SDK. Choose from: %(choices)s.",
     )
     parser.add_argument(
@@ -30,8 +34,8 @@ def main():
     parser.add_argument(
         "service",
         metavar="service",
-        choices=scanner.services(),
-        help=f"The targeted service. Choose from: %(choices)s.",
+        choices=[doc_gen.services[s].name for s in doc_gen.services],
+        help="The targeted service. Choose from: %(choices)s.",
     )
     parser.add_argument(
         "--svc_folder",
@@ -49,12 +53,12 @@ def main():
     )
     args = parser.parse_args()
 
-    if int(args.sdk_version) not in sdks[args.language]["sdk"]:
+    if int(args.sdk_version) not in doc_gen.sdks[args.language].versions:
         parser.print_usage()
         print(
             f"writeme.py: error: argument sdk_verion: invalid choice for "
             f"{args.language}: {args.sdk_version} (for {args.language}, choose from "
-            f"{', '.join([str(v) for v in sdks[args.language]['sdk']])})"
+            f"{', '.join([str(v) for v in doc_gen.sdks[args.language].versions])})"
         )
         return
 
@@ -62,10 +66,13 @@ def main():
         logging.basicConfig(level=logging.DEBUG)
 
     try:
-        scanner.lang_name = args.language
-        scanner.svc_name = args.service
         renderer = Renderer(
-            scanner, args.sdk_version, args.safe, svc_folder=args.svc_folder
+            doc_gen,
+            args.language,
+            args.service,
+            args.sdk_version,
+            args.safe,
+            svc_folder=args.svc_folder,
         )
         renderer.render()
     except Exception as err:

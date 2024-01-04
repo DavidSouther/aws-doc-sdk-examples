@@ -9,8 +9,8 @@ import pytest
 import yaml
 from pathlib import Path
 
-import metadata_errors
-from sdks import parse, Sdk, SdkVersion, SdkApiRef, SdkTitleOverride
+import sds_examples.metadata_errors
+from sdk_examples.sdks import parse, Sdk, SdkVersion, SdkApiRef, SdkTitleOverride
 
 
 def load(path: Path) -> list[Sdk] | metadata_errors.MetadataErrors:

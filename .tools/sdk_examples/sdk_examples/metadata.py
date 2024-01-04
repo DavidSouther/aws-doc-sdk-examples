@@ -1,15 +1,18 @@
-#!/usr/bin/env python3
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 from dataclasses import dataclass, field
 from typing import Optional, Self
 from os.path import splitext
-import metadata_errors
-from doc_gen import DocGen
-from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
-from metadata_validator import StringExtension
+
+from sdk_examples import metadata_errors
+from sdk_examples.doc_gen import DocGen
+from sdk_examples.metadata_errors import (
+    MetadataErrors,
+    MetadataParseError,
+    DuplicateItemException,
+)
+from sdk_examples.metadata_validator import StringExtension
 
 
 @dataclass
@@ -62,7 +65,7 @@ class Version:
     more_info: list[Url] = field(default_factory=list)
 
     @staticmethod
-    def from_yaml(yaml: dict[str, any], doc_gen: DocGen) -> (Self, MetadataParseError):
+    def from_yaml(yaml: dict[str, any], doc_gen: DocGen) -> Self | MetadataParseError:
         errors = MetadataErrors()
 
         sdk_version = int(yaml.get("sdk_version", 0))
@@ -109,17 +112,17 @@ class Version:
         if add_services and block_content is not None:
             errors.append(metadata_errors.APIExampleCannotAddService())
 
-        return (
-            Version(
-                sdk_version,
-                block_content,
-                excerpts,
-                github,
-                add_services,
-                sdkguide,
-                more_info,
-            ),
-            errors,
+        if len(errors) > 0:
+            return errors
+
+        return Version(
+            sdk_version,
+            block_content,
+            excerpts,
+            github,
+            add_services,
+            sdkguide,
+            more_info,
         )
 
 
@@ -141,14 +144,18 @@ class Language:
 
         versions: list[Version] = []
         for version in yaml_versions:
-            version, version_errors = Version.from_yaml(version, doc_gen)
-            errors.extend(version_errors)
-            versions.append(version)
+            version = Version.from_yaml(version, doc_gen)
+            if isinstance(version, Version):
+                versions.append(version)
+            else:
+                for error in version:
+                    error.language = name
+                    errors.append(error)
 
-        for error in errors:
-            error.language = name
+        if len(errors) > 0:
+            return errors
 
-        return Language(name, versions), errors
+        return Language(name, versions)
 
 
 @dataclass
@@ -174,7 +181,7 @@ class Example:
     source_key: Optional[str] = field(default=None)
 
     @staticmethod
-    def from_yaml(yaml: any, doc_gen: DocGen) -> (Self, MetadataErrors):
+    def from_yaml(yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
         errors = MetadataErrors()
 
         title = get_with_valid_entities("title", yaml, errors)
@@ -210,22 +217,22 @@ class Example:
             except DuplicateItemException:
                 pass
 
-        return (
-            Example(
-                id="",
-                file="",
-                title=title,
-                title_abbrev=title_abbrev,
-                category=category,
-                guide_topic=guide_topic,
-                languages=languages,
-                service_main=service_main,
-                services=services,
-                synopsis=synopsis,
-                synopsis_list=synopsis_list,
-                source_key=source_key,
-            ),
-            errors,
+        if len(errors) > 0:
+            return errors
+
+        return Example(
+            id="",
+            file="",
+            title=title,
+            title_abbrev=title_abbrev,
+            category=category,
+            guide_topic=guide_topic,
+            languages=languages,
+            service_main=service_main,
+            services=services,
+            synopsis=synopsis,
+            synopsis_list=synopsis_list,
+            source_key=source_key,
         )
 
 
@@ -280,22 +287,24 @@ def idFormat(id: str, doc_gen: DocGen) -> bool:
 
 def parse(
     file: str, yaml: dict[str, any], doc_gen: DocGen
-) -> (list[Example], MetadataErrors):
+) -> list[Example] | MetadataErrors:
     examples: list[Example] = []
     errors = MetadataErrors()
     for id in yaml:
         if not idFormat(id, doc_gen):
             errors.append(metadata_errors.NameFormat(file=file, id=id))
-        example, example_errors = Example.from_yaml(yaml[id], doc_gen)
-        for error in example_errors:
-            error.file = file
-            error.id = id
-        errors.extend(example_errors)
-        example.file = file
-        example.id = id
-        examples.append(example)
+        example = Example.from_yaml(yaml[id], doc_gen)
+        if isinstance(example, Example):
+            example.file = file
+            example.id = id
+            examples.append(example)
+        else:
+            for error in example:
+                error.file = file
+                error.id = id
+                errors.append(error)
 
-    return examples, errors
+    return examples if len(errors) == 0 else errors
 
 
 if __name__ == "__main__":

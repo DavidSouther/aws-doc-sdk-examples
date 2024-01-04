@@ -9,15 +9,14 @@ import os
 import sys
 from pathlib import Path
 from render import Renderer
-from scanner import Scanner
 
 
 def main():
-    scanner = Scanner(".doc_gen/metadata")
-    sdks = scanner.sdks()
+    doc_gen = DocGen(Path(__path__).parent.parent.parent)
+
     lang_vers = []
-    for sdk in sdks:
-        for v in sdks[sdk]["sdk"]:
+    for sdk in doc_gen.sdks:
+        for v in doc_gen.sdks[sdk].versions:
             lang_vers.append(f"{sdk}:{v}")
 
     parser = argparse.ArgumentParser()
@@ -30,7 +29,7 @@ def main():
     )
     parser.add_argument(
         "--services",
-        choices={**scanner.services(), "all": {}},
+        choices={**doc_gen.services, "all": {}},
         nargs="+",
         help="The targeted service. Choose from: %(choices)s.",
         default=["all"],
@@ -59,7 +58,7 @@ def main():
         args.languages = lang_vers
 
     if "all" in args.services:
-        args.services = [*scanner.services().keys()]
+        args.services = [*doc_gen.services().keys()]
 
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
@@ -74,14 +73,15 @@ def main():
 
     for language_and_version in args.languages:
         (language, version) = language_and_version.split(":")
-        if int(version) not in sdks[language]["sdk"]:
+        if int(version) not in doc_gen.sdks[language].versions:
             logging.debug(f"Skipping {language}:{version}")
         else:
             for service in args.services:
                 try:
-                    scanner.set_example(language, service)
                     logging.debug(f"Rendering {language}:{version}:{service}")
-                    renderer = Renderer(scanner, int(version), args.safe)
+                    renderer = Renderer(
+                        doc_gen, language, service, int(version), args.safe
+                    )
 
                     readme_filename, readme_text = renderer.render()
                     if args.dry_run:
