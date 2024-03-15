@@ -7,7 +7,9 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'mediapackage: {ListChannels: '''', ListOriginEndpoints: ''''}'
+prompt: >-
+  "mediapackage: {ListChannels: '', ListOriginEndpoints: ''} Entities: EMPlong
+  EMP"
 ---
-- [Listing MediaPackage Channels](https://docs.aws.amazon.com/mediapackage/latest/apidocs/channels-channels-list.html)
-- [Listing MediaPackage Origin Endpoints](https://docs.aws.amazon.com/mediapackage/latest/apidocs/originendpoints-originendpoints-list.html)
+- [Creating a &EMPlong; channel](&EMPlong;/latest/APIReference/API_ListChannels.html)
+- [Listing &EMP; origin endpoints](&EMP;/latest/APIReference/API_ListOriginEndpoints.html)

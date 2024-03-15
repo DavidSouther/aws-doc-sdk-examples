@@ -8,14 +8,16 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  migration-hub: {ListApplications: '', ListMigrationTasks: '',
+  "migration-hub: {ListApplications: '', ListMigrationTasks: '',
   ListCreatedArtifacts: '', ImportMigrationTask: '', DeleteProgressUpdateStream:
-  '', DescribeApplicationState: '', DescribeMigrationTask: ''}
+  '', DescribeApplicationState: '', DescribeMigrationTask: ''} "
 ---
-- [Listing Applications with Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_ListApplications.html)
-- [Listing Migration Tasks with Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_ListMigrationTasks.html)
-- [Listing Created Artifacts in Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_ListCreatedArtifacts.html)
-- [Importing a Migration Task to Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_ImportMigrationTask.html)
-- [Deleting a Progress Update Stream in Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_DeleteProgressUpdateStream.html)
-- [Describing Application State with Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_DescribeApplicationState.html)
-- [Describing a Migration Task in Migration Hub](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_DescribeMigrationTask.html)
+Here is a markdown list with generated titles for each action and a URL linking to the API reference:
+
+- [Managing &MigHubShort; Applications](#)
+- [Listing &MigHubShort; Migration Tasks](#)
+- [Viewing &MigHubShort; Created Artifacts](#) 
+- [Importing a &MigHubShort; Migration Task](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_ImportMigrationTask.html)
+- [Deleting a &MigHubShort; Progress Stream](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_DeleteProgressUpdateStream.html)
+- [Describing &MigHubShort; Application State](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_DescribeApplicationState.html)
+- [Getting Details on a &MigHubShort; Migration Task](https://docs.aws.amazon.com/migration-hub/latest/APIReference/API_DescribeMigrationTask.html)

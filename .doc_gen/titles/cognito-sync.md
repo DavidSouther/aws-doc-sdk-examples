@@ -7,15 +7,15 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'cognito-sync:'
+prompt: '"cognito-sync: "'
 ---
-**Amazon Cognito Sync**
-
-1. [Listing Datasets for an Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/API_ListDatasets.html)
-2. [Describing an Identity Pool Dataset](https://docs.aws.amazon.com/cognito/latest/developerguide/API_DescribeDataset.html)
-3. [Creating a Dataset in an Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/API_CreateDataset.html)
-4. [Deleting a Dataset from an Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/API_DeleteDataset.html)
-5. [Updating Records in an Identity Pool Dataset](https://docs.aws.amazon.com/cognito/latest/developerguide/API_UpdateRecords.html)
-6. [Retrieving Records from an Identity Pool Dataset](https://docs.aws.amazon.com/cognito/latest/developerguide/API_GetRecords.html)
-7. [Subscribing to an Identity Pool Dataset](https://docs.aws.amazon.com/cognito/latest/developerguide/API_SubscribeToDataset.html)
-8. [Unsubscribing from an Identity Pool Dataset](https://docs.aws.amazon.com/cognito/latest/developerguide/API_UnsubscribeFromDataset.html)
+- [Subscribing to dataset events in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_SubscribeToDataset.html)
+- [Unsubscribing from dataset events in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_UnsubscribeFromDataset.html)
+- [Updating records in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_UpdateRecords.html)
+- [Getting identities for a dataset in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_ListIdentities.html)
+- [Listing datasets for an identity in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_ListDatasets.html)
+- [Getting dataset metadata in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_DescribeDataset.html)
+- [Deleting datasets in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_DeleteDataset.html)
+- [Creating datasets in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_CreateDataset.html)
+- [Getting bulkpublish details in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_GetBulkPublishDetails.html)
+- [Initiating a bulkpublish job in &cognito-sync;](https://docs.aws.amazon.com/cognitosync/latest/APIReference/API_BulkPublish.html)

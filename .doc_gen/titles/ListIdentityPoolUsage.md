@@ -7,8 +7,6 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'ListIdentityPoolUsage:'
+prompt: '"ListIdentityPoolUsage: "'
 ---
-Here is a markdown list with a title for the ListIdentityPoolUsage action and a URL link to the API reference:
-
-- [Viewing Identity Pool Usage in AWS Cognito Identity Pools](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_ListIdentityPoolUsage.html)
+- [Listing &IdentityPoollong; usage in Amazon Cognito Identity](#https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_ListIdentityPoolUsage.html)

@@ -7,8 +7,9 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'apigatewaymanagementapi:'
+prompt: '"apigatewaymanagementapi: "'
 ---
-1. [Deleting Data from a WebSocket Connection](https://docs.aws.amazon.com/apigatewaymanagementapi/latest/APIReference/API_DeleteConnection.html)
-2. [Getting Information about a WebSocket Connection](https://docs.aws.amazon.com/apigatewaymanagementapi/latest/APIReference/API_GetConnection.html)
-3. [Sending Data to a WebSocket Connection](https://docs.aws.amazon.com/apigatewaymanagementapi/latest/APIReference/API_PostToConnection.html)
+Here are some potential titles for the API Gateway Management API actions, in the requested format:
+
+- [Managing &AGMAPIlong; Connections](&AGMAPIlong;_https://docs.aws.amazon.com/apigateway/latest/apigatewaymanagementapi/api-gateway-management-api-operations.html#DeleteConnection)
+- [Sending &AGMAPIlong; Data](&AGMAPIlong;_https://docs.aws.amazon.com/apigateway/latest/apigatewaymanagementapi/api-gateway-management-api-operations.html#PostToConnection)

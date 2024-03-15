@@ -8,26 +8,27 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  rds: {DescribeDBInstances: '', CreateDBInstance: '', DeleteDBInstance: '',
+  "rds: {DescribeDBInstances: '', CreateDBInstance: '', DeleteDBInstance: '',
   DescribeAccountAttributes: '', ModifyDBInstance: '', RebootDBInstance: '',
   DescribeDBParameterGroups: '', CreateDBParameterGroup: '',
   DeleteDBParameterGroup: '', DescribeDBParameters: '', ModifyDBParameterGroup:
   '', CreateDBSnapshot: '', DescribeDBSnapshots: '', DescribeDBEngineVersions:
   '', DescribeOrderableDBInstanceOptions: '', GenerateRDSAuthToken: ''}
+  Entities: RDSlong RDS"
 ---
-- [Managing Database Instances in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBInstances.html)
-- [Provisioning a New Database Instance in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html)
-- [Decommissioning a Database Instance in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBInstance.html)
-- [Viewing Account Attributes in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeAccountAttributes.html)
-- [Modifying Database Instance Properties in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyDBInstance.html)
-- [Rebooting a Database Instance in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_RebootDBInstance.html)
-- [Listing Database Parameter Groups in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBParameterGroups.html)
-- [Creating a Database Parameter Group in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html)
-- [Deleting a Database Parameter Group in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBParameterGroup.html)
-- [Viewing Database Parameter Details in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBParameters.html)
-- [Modifying a Database Parameter Group in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyDBParameterGroup.html)
-- [Creating a Database Snapshot in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBSnapshot.html)
-- [Listing Database Snapshots in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBSnapshots.html)
-- [Viewing Database Engine Versions in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBEngineVersions.html)
-- [Listing Orderable Database Instance Options in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeOrderableDBInstanceOptions.html)
-- [Generating an Authentication Token for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_GenerateRDSAuthToken.html)
+- [Describing &RDS; instances](&RDSlong; DescribeDBInstances: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBInstances.html')
+- [Creating an &RDS; instance](&RDSlong; CreateDBInstance: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html')
+- [Deleting an &RDS; instance](&RDSlong; DeleteDBInstance: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBInstance.html')
+- [Describing &RDS; account attributes](&RDSlong; DescribeAccountAttributes: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeAccountAttributes.html')
+- [Modifying an &RDS; instance](&RDSlong; ModifyDBInstance: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyDBInstance.html')
+- [Rebooting an &RDS; instance](&RDSlong; RebootDBInstance: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_RebootDBInstance.html')
+- [Describing &RDS; parameter groups](&RDSlong; DescribeDBParameterGroups: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBParameterGroups.html')
+- [Creating an &RDS; parameter group](&RDSlong; CreateDBParameterGroup: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html')
+- [Deleting an &RDS; parameter group](&RDSlong; DeleteDBParameterGroup: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBParameterGroup.html')
+- [Describing &RDS; parameters](&RDSlong; DescribeDBParameters: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBParameters.html')
+- [Modifying an &RDS; parameter group](&RDSlong; ModifyDBParameterGroup: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyDBParameterGroup.html')
+- [Creating an &RDS; snapshot](&RDSlong; CreateDBSnapshot: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBSnapshot.html')
+- [Describing &RDS; snapshots](&RDSlong; DescribeDBSnapshots: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBSnapshots.html')
+- [Describing &RDS; engine versions](&RDSlong; DescribeDBEngineVersions: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBEngineVersions.html')
+- [Describing orderable &RDS; instance options](&RDSlong; DescribeOrderableDBInstanceOptions: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeOrderableDBInstanceOptions.html')
+- [Generating an &RDS; auth token](&RDSlong; GenerateRDSAuthToken: 'https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_GenerateRDSAuthToken.html')

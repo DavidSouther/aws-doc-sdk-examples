@@ -7,13 +7,12 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'route-53:'
+prompt: '"route-53: "'
 ---
-Here is a markdown list with generated titles for Route 53 actions as URLs that link to the API reference pages:
+Here is a list of titles for Route 53 actions with URLs:
 
-- [Managing DNS Records in Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html)
-- [Creating a Hosted Zone in Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html)
-- [Deleting a Hosted Zone from Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteHostedZone.html)
-- [Retrieving Hosted Zone Details in Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetHostedZone.html)
-- [Listing Hosted Zones in Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListHostedZones.html)
-- [Updating Hosted Zone Comments in Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/APIReference/API_UpdateHostedZoneComment.html)
+- [Creating a &hostedzone;](&url;https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html)
+- [Listing &resourcerecordsets;](&url;https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListResourceRecordSets.html)  
+- [Changing &resourcerecordsets;](&url;https://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html)
+- [Getting a &trafficpolicy;](&url;https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetTrafficPolicy.html)
+- [Creating a &trafficpolicyinstance;](&url;https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateTrafficPolicyInstance.html)

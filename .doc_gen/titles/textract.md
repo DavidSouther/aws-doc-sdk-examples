@@ -8,13 +8,12 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  textract: {AnalyzeDocument: '', DetectDocumentText: '', StartDocumentAnalysis:
-  '', StartDocumentTextDetection: '', GetDocumentAnalysis: ''}
+  "textract: {AnalyzeDocument: '', DetectDocumentText: '',
+  StartDocumentAnalysis: '', StartDocumentTextDetection: '',
+  GetDocumentAnalysis: ''} Entities: TEXTRACTlong TEXTRACT"
 ---
-textract:
-
-- [Analyzing Documents with Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/analysis.html)
-- [Detecting Text in Documents with Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/detection.html)
-- [Initiating Asynchronous Document Analysis with Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/start-document-analysis.html)
-- [Initiating Asynchronous Text Detection with Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/start-document-text-detection.html)
-- [Getting Asynchronous Document Analysis Results with Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/get-document-analysis.html)
+1. [Analyzing document in &TEXTRACTlong;](https://docs.aws.amazon.com/textract/latest/APIReference/API_AnalyzeDocument.html)
+2. [Detecting text in document with &TEXTRACT;](https://docs.aws.amazon.com/textract/latest/APIReference/API_DetectDocumentText.html)
+3. [Starting document analysis in &TEXTRACTlong;](https://docs.aws.amazon.com/textract/latest/APIReference/API_StartDocumentAnalysis.html)
+4. [Starting text detection for document in &TEXTRACT;](https://docs.aws.amazon.com/textract/latest/APIReference/API_StartDocumentTextDetection.html)
+5. [Getting document analysis in &TEXTRACTlong;](https://docs.aws.amazon.com/textract/latest/APIReference/API_GetDocumentAnalysis.html)

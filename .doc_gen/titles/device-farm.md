@@ -8,18 +8,18 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  device-farm: {CreateTestGridUrl: '', GetTestGridSession: '', CreateUpload: '',
-  GetUpload: '', ScheduleRun: '', GetRun: '', StopRun: '', ListJobs: '',
-  ListSuites: '', ListTests: '', ListArtifacts: ''}
+  "device-farm: {CreateTestGridUrl: '', GetTestGridSession: '', CreateUpload:
+  '', GetUpload: '', ScheduleRun: '', GetRun: '', StopRun: '', ListJobs: '',
+  ListSuites: '', ListTests: '', ListArtifacts: ''} "
 ---
-- [Creating a Device Farm Test Grid](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_CreateTestGridUrl.html)
-- [Getting a Device Farm Test Grid Session](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_GetTestGridSession.html)
-- [Creating a Device Farm Upload](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_CreateUpload.html)
-- [Getting a Device Farm Upload](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_GetUpload.html)
-- [Scheduling a Device Farm Run](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ScheduleRun.html)
-- [Getting a Device Farm Run](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_GetRun.html)
-- [Stopping a Device Farm Run](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_StopRun.html)
-- [Listing Device Farm Jobs](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListJobs.html)
-- [Listing Device Farm Suites](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListSuites.html)
-- [Listing Device Farm Tests](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListTests.html)
-- [Listing Device Farm Artifacts](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListArtifacts.html)
+- [Creating a test grid URL in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_CreateTestGridUrl.html)
+- [Getting a test grid session in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_GetTestGridSession.html)
+- [Creating an upload in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_CreateUpload.html)
+- [Getting an upload in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_GetUpload.html)
+- [Scheduling a run in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ScheduleRun.html)
+- [Getting a run in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_GetRun.html)
+- [Stopping a run in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_StopRun.html)
+- [Listing jobs in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListJobs.html)
+- [Listing suites in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListSuites.html)
+- [Listing tests in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListTests.html)
+- [Listing artifacts in &DeviceFarm;](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_ListArtifacts.html)

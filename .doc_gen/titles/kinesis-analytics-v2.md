@@ -8,20 +8,20 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  kinesis-analytics-v2: {CreateApplication: '', DeleteApplication: '',
+  "kinesis-analytics-v2: {CreateApplication: '', DeleteApplication: '',
   DescribeApplication: '', DescribeApplicationSnapshot: '', DiscoverInputSchema:
   '', AddApplicationInput: '', AddApplicationOutput: '', UpdateApplication: '',
-  StartApplication: '', StopApplication: ''}
+  StartApplication: '', StopApplication: ''} "
 ---
-kinesis-analytics-v2:
+Here is a markdown list with titled URLs for each action of the kinesis-analytics-v2 service:
 
-1. [Creating an Application for Kinesis Analytics V2](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_CreateApplication.html)
-2. [Deleting a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_DeleteApplication.html)
-3. [Describing a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_DescribeApplication.html)
-4. [Describing a Kinesis Analytics V2 Application Snapshot](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_DescribeApplicationSnapshot.html)
-5. [Discovering Input Schema for Kinesis Analytics V2](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_DiscoverInputSchema.html)
-6. [Adding Input to a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_AddApplicationInput.html)
-7. [Adding Output to a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_AddApplicationOutput.html)
-8. [Updating a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_UpdateApplication.html)
-9. [Starting a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_StartApplication.html)
-10. [Stopping a Kinesis Analytics V2 Application](https://docs.aws.amazon.com/kinesisanalyticsv2/latest/APIReference/API_StopApplication.html)
+- [Creating an &KinesisAnalyticsV2; Application](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_CreateApplication.html)
+- [Deleting an &KinesisAnalyticsV2; Application](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_DeleteApplication.html)
+- [Describing an &KinesisAnalyticsV2; Application](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_DescribeApplication.html)
+- [Describing an &KinesisAnalyticsV2; Application Snapshot](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_DescribeApplicationSnapshot.html)
+- [Discovering an &KinesisAnalyticsV2; Input Schema](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_DiscoverInputSchema.html)
+- [Adding an &KinesisAnalyticsV2; Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_AddApplicationInput.html)
+- [Adding an &KinesisAnalyticsV2; Application Output](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_AddApplicationOutput.html)
+- [Updating an &KinesisAnalyticsV2; Application](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_UpdateApplication.html)
+- [Starting an &KinesisAnalyticsV2; Application](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_StartApplication.html)
+- [Stopping an &KinesisAnalyticsV2; Application](https://docs.aws.amazon.com/kinesisanalytics/latest/apiv2/API_StopApplication.html)

@@ -8,23 +8,27 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  auditmanager: {AssociateAssessmentReportEvidenceFolder: '',
+  "auditmanager: {AssociateAssessmentReportEvidenceFolder: '',
   BatchDisassociateAssessmentReportEvidence: '', CreateAssessmentReport: '',
   DisassociateAssessmentReportEvidenceFolder: '', GetAssessment: '',
   GetAssessmentReportUrl: '', GetEvidenceFoldersByAssessment: '',
   GetEvidenceByEvidenceFolder: '', ListAssessmentReports: '', CreateControl: '',
-  CreateAssessmentFramework: '', ListControls: '', GetControl: ''}
+  CreateAssessmentFramework: '', ListControls: '', GetControl: ''} Entities:
+  AMlong AM"
 ---
-- [Associating an Evidence Folder with an Assessment Report in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_AssociateAssessmentReportEvidenceFolder.html)
-- [Batch Disassociating Evidence from an Assessment Report in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_BatchDisassociateAssessmentReportEvidence.html)
-- [Creating an Assessment Report in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_CreateAssessmentReport.html)
-- [Disassociating an Evidence Folder from an Assessment Report in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DisassociateAssessmentReportEvidenceFolder.html)
-- [Getting an Assessment in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetAssessment.html)
-- [Getting an Assessment Report URL in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetAssessmentReportUrl.html)
-- [Getting Evidence Folders for an Assessment in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetEvidenceFoldersByAssessment.html)
-- [Getting Evidence by Evidence Folder in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetEvidenceByEvidenceFolder.html)
-- [Listing Assessment Reports in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_ListAssessmentReports.html)
-- [Creating a Control in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_CreateControl.html)
-- [Creating an Assessment Framework in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_CreateAssessmentFramework.html)
-- [Listing Controls in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_ListControls.html)
-- [Getting a Control in AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetControl.html)
+- &AMlong; Controls: [Creating a Control](&AMlong;_CreateControl.html)
+- &AMlong; Assessment Frameworks: [Creating an Assessment Framework](&AMlong;_CreateAssessmentFramework.html)
+- &AMlong; Assessment Reports: 
+  - [Associating an Assessment Report Evidence Folder](&AMlong;_AssociateAssessmentReportEvidenceFolder.html)
+  - [Batch Disassociating Assessment Report Evidence](&AMlong;_BatchDisassociateAssessmentReportEvidence.html)
+  - [Creating an Assessment Report](&AMlong;_CreateAssessmentReport.html)
+  - [Disassociating an Assessment Report Evidence Folder](&AMlong;_DisassociateAssessmentReportEvidenceFolder.html)
+  - [Getting an Assessment Report URL](&AMlong;_GetAssessmentReportUrl.html)
+  - [Listing Assessment Reports](&AMlong;_ListAssessmentReports.html)
+- &AMlong; Assessments:
+  - [Getting an Assessment](&AMlong;_GetAssessment.html)
+- &AMlong; Evidence:
+  - [Getting Evidence Folders by Assessment](&AMlong;_GetEvidenceFoldersByAssessment.html)  
+  - [Getting Evidence by Evidence Folder](&AMlong;_GetEvidenceByEvidenceFolder.html)
+- &AMlong; Controls: [Listing Controls](&AMlong;_ListControls.html)
+- &AMlong; Controls: [Getting a Control](&AMlong;_GetControl.html)

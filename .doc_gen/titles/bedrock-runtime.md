@@ -7,17 +7,16 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'bedrock-runtime:'
+prompt: '"bedrock-runtime: "'
 ---
-Here is a markdown list with titles for the actions in the bedrock-runtime service, with URLs pointing to the corresponding API reference pages:
+Here is a markdown list with titles for the bedrock-runtime actions, with URLs pointing to the API reference pages:
 
-- [Initiating a Bedrock Runtime Instance](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_InitiateBedrock.html)
-- [Monitoring Bedrock Runtime Status](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_MonitorBedrock.html)
-- [Configuring Bedrock Runtime Settings](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_ConfigureBedrock.html)
-- [Deploying Applications on Bedrock Runtime](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_DeployToBedrock.html)
-- [Managing Bedrock Runtime Resources](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_ManageBedrock.html)
-- [Scaling Bedrock Runtime Capacity](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_ScaleBedrock.html)
-- [Integrating Bedrock Runtime with Other Services](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_IntegrateBedrock.html)
-- [Securing Bedrock Runtime Instances](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_SecureBedrock.html)
-- [Monitoring and Logging Bedrock Runtime](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_MonitorBedrock.html)
-- [Troubleshooting Bedrock Runtime Issues](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_TroubleshootBedrock.html)
+- [Working with &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_WorkingWithFunctions.html)
+- [Invoking a &bedrock-runtime; Function](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_InvokingFunction.html)
+- [Monitoring &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_MonitoringFunctions.html)
+- [Securing &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_SecuringFunctions.html)
+- [Deploying &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_DeployingFunctions.html)
+- [Scaling &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_ScalingFunctions.html)
+- [Logging &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_LoggingFunctions.html)
+- [Debugging &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_DebuggingFunctions.html)
+- [Testing &bedrock-runtime; Functions](https://docs.aws.amazon.com/bedrock-runtime/latest/APIReference/API_TestingFunctions.html)

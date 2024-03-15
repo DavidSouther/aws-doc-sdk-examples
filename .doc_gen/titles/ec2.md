@@ -8,7 +8,7 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  ec2: {DescribeIamInstanceProfileAssociations: '',
+  "ec2: {DescribeIamInstanceProfileAssociations: '',
   ReplaceIamInstanceProfileAssociation: '', RebootInstances: '',
   CreateLaunchTemplate: '', DeleteLaunchTemplate: '', DescribeAvailabilityZones:
   '', DescribeInstances: '', DescribeVpcs: '', DescribeSubnets: '',
@@ -20,30 +20,28 @@ prompt: >-
   TerminateInstances: '', DescribeRegions: '', DescribeInstanceStatus: '',
   MonitorInstances: '', UnmonitorInstances: '', DescribeImages: '',
   DescribeInstanceTypes: '', DescribeAddresses: '', CreateTags: '',
-  CreateRouteTable: '', CreateSubnet: '', CreateVpc: ''}
+  CreateRouteTable: '', CreateSubnet: '', CreateVpc: ''} Entities: EC2long EC2"
 ---
-- [Managing IAM Instance Profile Associations in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeIamInstanceProfileAssociations.html)
-- [Replacing IAM Instance Profile Associations in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_ReplaceIamInstanceProfileAssociation.html)
-- [Rebooting Amazon EC2 Instances](https://docs.aws.amazon.com/ec2/latest/APIReference/API_RebootInstances.html)
-- [Creating Launch Templates in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_CreateLaunchTemplate.html)
-- [Deleting Launch Templates in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DeleteLaunchTemplate.html)
-- [Viewing Availability Zones in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeAvailabilityZones.html)
-- [Viewing Amazon EC2 Instances](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeInstances.html)
-- [Viewing VPCs in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeVpcs.html)
-- [Viewing Subnets in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeSubnets.html)
-- [Viewing Security Groups in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeSecurityGroups.html)
-- [Creating Key Pairs in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_CreateKeyPair.html)
-- [Viewing Key Pairs in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DescribeKeyPairs.html)
-- [Creating Security Groups in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_CreateSecurityGroup.html)
-- [Launching Amazon EC2 Instances](https://docs.aws.amazon.com/ec2/latest/APIReference/API_RunInstances.html)
-- [Starting Amazon EC2 Instances](https://docs.aws.amazon.com/ec2/latest/APIReference/API_StartInstances.html)
-- [Stopping Amazon EC2 Instances](https://docs.aws.amazon.com/ec2/latest/APIReference/API_StopInstances.html)
-- [Allocating Elastic IP Addresses in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_AllocateAddress.html)
-- [Associating Elastic IP Addresses in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_AssociateAddress.html)
-- [Disassociating Elastic IP Addresses in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DisassociateAddress.html)
-- [Releasing Elastic IP Addresses in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_ReleaseAddress.html)
-- [Authorizing Security Group Ingress in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_AuthorizeSecurityGroupIngress.html)
-- [Deleting Key Pairs in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DeleteKeyPair.html)
-- [Deleting Security Groups in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DeleteSecurityGroup.html)
-- [Deleting Snapshots in Amazon EC2](https://docs.aws.amazon.com/ec2/latest/APIReference/API_DeleteSnapshot.html)
-- [Viewing Snapshots in Amazon EC2](https://docs.aws.amazon
+- [Describing &EC2long; IAM Instance Profile Associations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeIamInstanceProfileAssociations.html)
+- [Replacing an &EC2long; IAM Instance Profile Association](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ReplaceIamInstanceProfileAssociation.html)
+- [Rebooting &EC2; Instances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RebootInstances.html)
+- [Creating an &EC2long; Launch Template](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html)
+- [Deleting an &EC2long; Launch Template](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteLaunchTemplate.html)
+- [Describing &EC2; Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeAvailabilityZones.html)
+- [Describing &EC2; Instances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html)
+- [Describing &EC2; VPCs](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html)
+- [Describing &EC2; Subnets](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSubnets.html)
+- [Describing &EC2; Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSecurityGroups.html)
+- [Creating an &EC2; Key Pair](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateKeyPair.html)
+- [Describing &EC2; Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeKeyPairs.html)
+- [Creating an &EC2; Security Group](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html)
+- [Running &EC2; Instances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html)
+- [Starting &EC2; Instances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_StartInstances.html)
+- [Stopping &EC2; Instances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_StopInstances.html)
+- [Allocating an &EC2; Address](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AllocateAddress.html)
+- [Associating an &EC2; Address](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AssociateAddress.html)
+- [Disassociating an &EC2; Address](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DisassociateAddress.html)
+- [Releasing an &EC2; Address](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ReleaseAddress.html)
+- [Authorizing &EC2; Security Group Ingress](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AuthorizeSecurityGroupIngress.html)
+- [Deleting an &EC2; Key Pair](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteKeyPair.html)
+- [Deleting an &EC2; Security Group](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API

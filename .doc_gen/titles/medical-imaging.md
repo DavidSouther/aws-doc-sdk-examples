@@ -8,28 +8,35 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  medical-imaging: {ListDatastores: '', CreateDatastore: '', DeleteDatastore:
+  "medical-imaging: {ListDatastores: '', CreateDatastore: '', DeleteDatastore:
   '', GetDatastore: '', StartDICOMImportJob: '', GetDICOMImportJob: '',
   ListDICOMImportJobs: '', SearchImageSets: '', GetImageSet: '',
   GetImageSetMetadata: '', GetImageFrame: '', ListImageSetVersions: '',
   UpdateImageSetMetadata: '', CopyImageSet: '', DeleteImageSet: '', TagResource:
-  '', UntagResource: '', ListTagsForResource: ''}
+  '', UntagResource: '', ListTagsForResource: ''} Entities: AHIlong AHI"
 ---
-- [Viewing Available Datastores in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_ListDatastores.html)
-- [Creating a New Datastore in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_CreateDatastore.html)
-- [Deleting a Datastore in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_DeleteDatastore.html)
-- [Getting Datastore Details in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_GetDatastore.html)
-- [Starting a DICOM Import Job in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_StartDICOMImportJob.html)
-- [Getting Details of a DICOM Import Job in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_GetDICOMImportJob.html)
-- [Listing DICOM Import Jobs in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_ListDICOMImportJobs.html)
-- [Searching Image Sets in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_SearchImageSets.html)
-- [Getting an Image Set in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_GetImageSet.html)
-- [Getting Metadata for an Image Set in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_GetImageSetMetadata.html)
-- [Getting an Image Frame in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_GetImageFrame.html)
-- [Listing Versions of an Image Set in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_ListImageSetVersions.html)
-- [Updating Metadata for an Image Set in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_UpdateImageSetMetadata.html)
-- [Copying an Image Set in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_CopyImageSet.html)
-- [Deleting an Image Set in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_DeleteImageSet.html)
-- [Tagging a Resource in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_TagResource.html)
-- [Untagging a Resource in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_UntagResource.html)
-- [Listing Tags for a Resource in AWS Medical Imaging](https://docs.aws.amazon.com/medical-imaging/latest/APIReference/API_ListTagsForResource.html)
+- &AHIlong; managing datastores
+    - [Listing &AHIlong; datastores](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_ListDatastores.html)
+    - [Creating a &AHIlong; datastore](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_CreateDatastore.html)
+    - [Deleting a &AHIlong; datastore](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_DeleteDatastore.html)
+    - [Getting a &AHIlong; datastore](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_GetDatastore.html)
+
+- &AHI; DICOM import jobs
+    - [Starting a &AHI; DICOM import job](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_StartDICOMImportJob.html)
+    - [Getting a &AHI; DICOM import job](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_GetDICOMImportJob.html)
+    - [Listing &AHI; DICOM import jobs](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_ListDICOMImportJobs.html)
+
+- &AHI; image sets  
+    - [Searching &AHI; image sets](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_SearchImageSets.html)
+    - [Getting an &AHI; image set](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_GetImageSet.html)
+    - [Getting &AHI; image set metadata](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_GetImageSetMetadata.html)
+    - [Getting an &AHI; image frame](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_GetImageFrame.html)
+    - [Listing &AHI; image set versions](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_ListImageSetVersions.html)
+    - [Updating &AHI; image set metadata](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_UpdateImageSetMetadata.html)
+    - [Copying an &AHI; image set](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_CopyImageSet.html)
+    - [Deleting an &AHI; image set](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_DeleteImageSet.html)
+
+- &AHI; resource tagging
+    - [Tagging an &AHI; resource](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_TagResource.html)
+    - [Untagging an &AHI; resource](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_UntagResource.html) 
+    - [Listing tags for an &AHI; resource](https://docs.aws.amazon.com/healthlake/latest/APIReference/API_ListTagsForResource.html)

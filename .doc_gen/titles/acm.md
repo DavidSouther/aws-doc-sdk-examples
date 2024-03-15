@@ -8,22 +8,22 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  acm: {DescribeCertificate: '', GetCertificate: '', ListCertificates: '',
+  "acm: {DescribeCertificate: '', GetCertificate: '', ListCertificates: '',
   ImportCertificate: '', DeleteCertificate: '', AddTagsToCertificate: '',
   ExportCertificate: '', ListTagsForCertificate: '', RemoveTagsFromCertificate:
   '', RequestCertificate: '', ResendValidationEmail: '', RenewCertificate: '',
-  UpdateCertificateOptions: ''}
+  UpdateCertificateOptions: ''} "
 ---
-- [Describing a Certificate in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html)
-- [Getting a Certificate from AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_GetCertificate.html)
-- [Listing Certificates in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_ListCertificates.html)
-- [Importing a Certificate to AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_ImportCertificate.html)
-- [Deleting a Certificate from AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_DeleteCertificate.html)
-- [Adding Tags to a Certificate in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_AddTagsToCertificate.html)
-- [Exporting a Certificate from AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_ExportCertificate.html)
-- [Listing Tags for a Certificate in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_ListTagsForCertificate.html)
-- [Removing Tags from a Certificate in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_RemoveTagsFromCertificate.html)
-- [Requesting a Certificate from AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html)
-- [Resending a Validation Email for a Certificate in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_ResendValidationEmail.html)
-- [Renewing a Certificate in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_RenewCertificate.html)
-- [Updating Certificate Options in AWS Certificate Manager (ACM)](https://docs.aws.amazon.com/acm/latest/APIReference/API_UpdateCertificateOptions.html)
+- [Describing a &ACM; certificate](&DescribeCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html)
+- [Getting a &ACM; certificate](&GetCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_GetCertificate.html)  
+- [Listing &ACM; certificates](&ListCertificates;https://docs.aws.amazon.com/acm/latest/APIReference/API_ListCertificates.html)
+- [Importing a certificate to &ACM;](&ImportCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_ImportCertificate.html)
+- [Deleting an &ACM; certificate](&DeleteCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_DeleteCertificate.html)
+- [Adding tags to an &ACM; certificate](&AddTagsToCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_AddTagsToCertificate.html)
+- [Exporting an &ACM; certificate](&ExportCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_ExportCertificate.html)
+- [Listing tags for an &ACM; certificate](&ListTagsForCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_ListTagsForCertificate.html)
+- [Removing tags from an &ACM; certificate](&RemoveTagsFromCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_RemoveTagsFromCertificate.html)
+- [Requesting an &ACM; certificate](&RequestCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html)
+- [Resending &ACM; validation email](&ResendValidationEmail;https://docs.aws.amazon.com/acm/latest/APIReference/API_ResendValidationEmail.html)
+- [Renewing an &ACM; certificate](&RenewCertificate;https://docs.aws.amazon.com/acm/latest/APIReference/API_RenewCertificate.html)
+- [Updating &ACM; certificate options](&UpdateCertificateOptions;https://docs.aws.amazon.com/acm/latest/APIReference/API_UpdateCertificateOptions.html)

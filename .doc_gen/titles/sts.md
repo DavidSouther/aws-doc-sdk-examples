@@ -7,7 +7,9 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'sts: {AssumeRole: '''', GetSessionToken: ''''}'
+prompt: '"sts: {AssumeRole: '''', GetSessionToken: ''''} Entities: STSlong STS"'
 ---
-1. [Assume Role in AWS Security Token Service](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html)
-2. [Get Session Token in AWS Security Token Service](https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html)
+Here is a markdown list with titles for the STS service actions and URLs pointing to the API reference pages:
+
+- [Assuming a Role in &STSlong;](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html)
+- [Getting a Session Token in &STS;](https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html)

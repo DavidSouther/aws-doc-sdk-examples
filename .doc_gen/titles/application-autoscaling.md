@@ -8,9 +8,11 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  application-autoscaling: {RegisterScalableTarget: '', DeleteScalingPolicy: '',
-  DescribeScalingPolicies: ''}
+  "application-autoscaling: {RegisterScalableTarget: '', DeleteScalingPolicy:
+  '', DescribeScalingPolicies: ''} "
 ---
-- [Registering a Scalable Target in Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/APIReference/API_RegisterScalableTarget.html)
-- [Deleting a Scaling Policy in Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/APIReference/API_DeleteScalingPolicy.html)
-- [Describing Scaling Policies in Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/APIReference/API_DescribeScalingPolicies.html)
+Here is a markdown list with generated titles for the actions, and URLs pointing to the API reference pages:
+
+- [Registering a &AppAutoScaling; Target](https://docs.aws.amazon.com/ApplicationAutoScaling/latest/APIReference/API_RegisterScalableTarget.html)
+- [Deleting an &AppAutoScaling; Policy](https://docs.aws.amazon.com/ApplicationAutoScaling/latest/APIReference/API_DeleteScalingPolicy.html)
+- [Describing &AppAutoScaling; Policies](https://docs.aws.amazon.com/ApplicationAutoScaling/latest/APIReference/API_DescribeScalingPolicies.html)

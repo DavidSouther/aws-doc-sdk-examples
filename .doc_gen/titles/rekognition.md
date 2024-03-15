@@ -2,13 +2,13 @@
 combined: true
 debug:
   engine: bedrock
-  finish: max_tokens
+  finish: end_turn
   id: null
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
 prompt: >-
-  rekognition: {DescribeCollection: '', DeleteCollection: '', IndexFaces: '',
+  "rekognition: {DescribeCollection: '', DeleteCollection: '', IndexFaces: '',
   ListFaces: '', SearchFacesByImage: '', SearchFaces: '', DeleteFaces: '',
   CreateCollection: '', ListCollections: '', DetectFaces: '', CompareFaces: '',
   DetectLabels: '', DetectModerationLabels: '', DetectText: '',
@@ -16,30 +16,33 @@ prompt: >-
   GetContentModeration: '', GetLabelDetection: '', GetPersonTracking: '',
   GetSegmentDetection: '', GetTextDetection: '', StartCelebrityRecognition: '',
   StartContentModeration: '', StartLabelDetection: '', StartPersonTracking: '',
-  StartSegmentDetection: '', StartTextDetection: ''}
+  StartSegmentDetection: '', StartTextDetection: ''} Entities: REKlong REK"
 ---
-- [Describing a Collection in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DescribeCollection.html)
-- [Deleting a Collection in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteCollection.html)
-- [Indexing Faces in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_IndexFaces.html)
-- [Listing Faces in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_ListFaces.html)
-- [Searching for Faces by Image in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_SearchFacesByImage.html)
-- [Searching for Faces in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_SearchFaces.html)
-- [Deleting Faces in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteFaces.html)
-- [Creating a Collection in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateCollection.html)
-- [Listing Collections in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_ListCollections.html)
-- [Detecting Faces in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html)
-- [Comparing Faces in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_CompareFaces.html)
-- [Detecting Labels in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectLabels.html)
-- [Detecting Moderation Labels in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectModerationLabels.html)
-- [Detecting Text in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectText.html)
-- [Recognizing Celebrities in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_RecognizeCelebrities.html)
-- [Getting Celebrity Information in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetCelebrityInfo.html)
-- [Getting Celebrity Recognition in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetCelebrityRecognition.html)
-- [Getting Content Moderation in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetContentModeration.html)
-- [Getting Label Detection in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetLabelDetection.html)
-- [Getting Person Tracking in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetPersonTracking.html)
-- [Getting Segment Detection in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetSegmentDetection.html)
-- [Getting Text Detection in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_GetTextDetection.html)
-- [Starting Celebrity Recognition in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_StartCelebrityRecognition.html)
-- [Starting Content Moderation in Amazon Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/API_StartContentModeration.html)
-- [Starting Label
+- [Describe a collection in &REKlong;](&REK;DescribeCollection)
+- [Delete a collection in &REKlong;](&REK;DeleteCollection)
+- [Index faces in &REKlong;](&REK;IndexFaces)
+- [List faces in &REKlong;](&REK;ListFaces)
+- [Search for faces by image in &REKlong;](&REK;SearchFacesByImage)
+- [Search for faces in &REKlong;](&REK;SearchFaces)
+- [Delete faces in &REKlong;](&REK;DeleteFaces)
+- [Create a collection in &REKlong;](&REK;CreateCollection)
+- [List collections in &REKlong;](&REK;ListCollections)
+- [Detect faces in &REKlong;](&REK;DetectFaces)
+- [Compare faces in &REKlong;](&REK;CompareFaces)
+- [Detect labels in &REKlong;](&REK;DetectLabels)
+- [Detect moderation labels in &REKlong;](&REK;DetectModerationLabels)
+- [Detect text in &REKlong;](&REK;DetectText)
+- [Recognize celebrities in &REKlong;](&REK;RecognizeCelebrities)
+- [Get celebrity info in &REKlong;](&REK;GetCelebrityInfo)
+- [Get celebrity recognition in &REKlong;](&REK;GetCelebrityRecognition)
+- [Get content moderation in &REKlong;](&REK;GetContentModeration)
+- [Get label detection in &REKlong;](&REK;GetLabelDetection)
+- [Get person tracking in &REKlong;](&REK;GetPersonTracking)
+- [Get segment detection in &REKlong;](&REK;GetSegmentDetection)
+- [Get text detection in &REKlong;](&REK;GetTextDetection)
+- [Start celebrity recognition in &REKlong;](&REK;StartCelebrityRecognition)
+- [Start content moderation in &REKlong;](&REK;StartContentModeration)
+- [Start label detection in &REKlong;](&REK;StartLabelDetection)
+- [Start person tracking in &REKlong;](&REK;StartPersonTracking)
+- [Start segment detection in &REKlong;](&REK;StartSegmentDetection)
+- [Start text detection in &REKlong;](&REK;StartTextDetection)

@@ -7,11 +7,12 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'aurora:'
+prompt: '"aurora: Entities: AURlong AUR"'
 ---
-- [Managing Data in Amazon Aurora](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraOverview.html)
-- [Creating an Amazon Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.Creating.html)
-- [Connecting to an Amazon Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.Connecting.html)
-- [Monitoring Amazon Aurora with Amazon CloudWatch](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/MonitoringAurora.html)
-- [Backing Up and Restoring an Amazon Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraOverview.BackingUpAndRestoringAurora.html)
-- [Migrating Data to an Amazon Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.html)
+Here is a markdown list of titles for Aurora service actions, with each title as the URL text linking to the respective API reference page:
+
+- [Creating a &AURlong; Cluster](https://docs.aws.amazon.com/AuroraDataAPI/latest/APIReference/API_CreateDBCluster.html)
+- [Deleting a &AUR; Instance](https://docs.aws.amazon.com/AuroraDataAPI/latest/APIReference/API_DeleteDBInstance.html)
+- [Modifying &AUR; Cluster Parameters](https://docs.aws.amazon.com/AuroraDataAPI/latest/APIReference/API_ModifyDBClusterParameterGroup.html)
+- [Restoring a &AURlong; Database](https://docs.aws.amazon.com/AuroraDataAPI/latest/APIReference/API_RestoreDBClusterFromSnapshot.html)
+- [Backing Up an &AUR; Cluster](https://docs.aws.amazon.com/AuroraDataAPI/latest/APIReference/API_CreateDBClusterSnapshot.html)

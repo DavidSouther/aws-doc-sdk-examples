@@ -8,15 +8,14 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  mediastore: {CreateContainer: '', DeleteContainer: '', DeleteObject: '',
+  "mediastore: {CreateContainer: '', DeleteContainer: '', DeleteObject: '',
   DescribeContainer: '', GetObject: '', ListContainers: '', PutObject: ''}
+  Entities: EMSlong EMS"
 ---
-Here is a markdown list with titles for each MediaStore action and a URL link pointing to the API reference page:
-
-- [Creating a Container for Media Files in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_CreateContainer.html)
-- [Deleting a Container in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_DeleteContainer.html)
-- [Removing an Object from a Container in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_DeleteObject.html)
-- [Describing a Container's Configuration in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_DescribeContainer.html)
-- [Retrieving an Object from a Container in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_GetObject.html)
-- [Listing Containers in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_ListContainers.html)
-- [Uploading an Object to a Container in AWS MediaStore](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_PutObject.html)
+1. [Creating a &EMSlong; Container](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_CreateContainer.html)
+2. [Deleting a &EMSlong; Container](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_DeleteContainer.html)
+3. [Deleting an Object from &EMS;](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_DeleteObject.html)
+4. [Describing a &EMSlong; Container](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_DescribeContainer.html)
+5. [Getting an Object from &EMS;](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_GetObject.html)
+6. [Listing &EMSlong; Containers](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_ListContainers.html)
+7. [Putting an Object into &EMS;](https://docs.aws.amazon.com/mediastore/latest/APIReference/API_PutObject.html)

@@ -4,7 +4,7 @@ isolated: true
 comment: |
   This was generated from .doc_gen metadata with
 
-  cat *_metadata.yaml | yq '.*.services as $svc ireduce ({}; . * $svc )' | while read line ; do SVC=$(echo "$line" | cut -f 1 -d :); echo "---\nprompt: \"$line\"\n---" > ../titles/$SVC.md ; done
+  cat ../metadata/*_metadata.yaml | yq '.*.services as $svc ireduce ({}; . * $svc )' | while read line ; do SVC=$(echo "$line" | cut -f 1 -d :); ENTS=$(cat ./ids/ids.json | jq '.[] | select(.service == "$SVC") | "Entities: " + .longname + " " + .shortname') ; echo "---\nprompt: >-\n\t$line\n\t$ENTS---" > ./$SVC.md ; done
 
   and then running ailly on these files.
 ---
@@ -75,3 +75,5 @@ You are a code examples engineer creating titles for each action of these servic
 The services is listed first, followed by the actions for the services.
 
 Generate a markdown list where each action is an itme, and each entry has a URL. The URL text is your generated title. The URL link points to the API reference page, which looks like this for cloudfront CreatePublicKey: https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreatePublicKey.html
+
+Do not use complete service names in titles. Instead, use the provided entities. When using entities, they should be in XML entity format - &FOO; or &FOOlong; or equivalent.

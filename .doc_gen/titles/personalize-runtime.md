@@ -7,9 +7,9 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'personalize-runtime: {GetRecommendations: '''', GetPersonalizedRanking: ''''}'
+prompt: '"personalize-runtime: {GetRecommendations: '''', GetPersonalizedRanking: ''''} "'
 ---
-personalize-runtime:
+Here are the titles for the actions of the &personalize-runtime; service, with each title as a Markdown link pointing to the corresponding API reference page:
 
-- [Getting Recommendations for the Amazon Personalize Runtime](https://docs.aws.amazon.com/personalize/latest/dg/getting-recommendations.html)
-- [Getting a Personalized Ranking from the Amazon Personalize Runtime](https://docs.aws.amazon.com/personalize/latest/dg/getting-personalized-ranking.html)
+- [Getting Recommendations with &personalize-runtime;](https://docs.aws.amazon.com/personalize-runtime/latest/APIReference/API_GetRecommendations.html)
+- [Getting Personalized Ranking with &personalize-runtime;](https://docs.aws.amazon.com/personalize-runtime/latest/APIReference/API_GetPersonalizedRanking.html)

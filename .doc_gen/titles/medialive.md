@@ -7,12 +7,17 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'medialive:'
+prompt: '"medialive: Entities: EMLlong EML"'
 ---
-MediaLive:
+Here is a markdown list with titles for MediaLive service actions and their corresponding API reference URLs:
 
-1. [Creating a Channel](https://docs.aws.amazon.com/medialive/latest/api/CREATE_Channel.html)
-2. [Deleting a Channel](https://docs.aws.amazon.com/medialive/latest/api/DELETE_Channel.html)
-3. [Configuring Input Security Groups](https://docs.aws.amazon.com/medialive/latest/api/CREATE_InputSecurityGroup.html)
-4. [Managing Channel Schedules](https://docs.aws.amazon.com/medialive/latest/api/CREATE_ChannelSchedule.html)
-5. [Monitoring Channel Metrics](https://docs.aws.amazon.com/medialive/latest/api/DESCRIBE_ScheduledReplays.html)
+- [Managing &EMLlong; channels](#https://docs.aws.amazon.com/medialive/latest/api/channels-channels.html)
+- [Creating an &EML; input](#https://docs.aws.amazon.com/medialive/latest/api/inputs-create.html)
+- [Deleting an &EML; input](#https://docs.aws.amazon.com/medialive/latest/api/inputs-delete.html)
+- [Listing &EML; inputs](#https://docs.aws.amazon.com/medialive/latest/api/inputs-list.html)
+- [Creating an &EML; input security group](#https://docs.aws.amazon.com/medialive/latest/api/input-security-groups-create.html)
+- [Deleting an &EML; input security group](#https://docs.aws.amazon.com/medialive/latest/api/input-security-groups-delete.html)
+- [Listing &EML; input security groups](#https://docs.aws.amazon.com/medialive/latest/api/input-security-groups-list.html)
+- [Creating an &EML; multiplex](#https://docs.aws.amazon.com/medialive/latest/api/multiplexes-create.html)
+- [Deleting an &EML; multiplex](#https://docs.aws.amazon.com/medialive/latest/api/multiplexes-delete.html)
+- [Listing &EML; multiplexes](#https://docs.aws.amazon.com/medialive/latest/api/multiplexes-list.html)

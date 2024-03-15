@@ -7,8 +7,8 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'ExecuteStatement:'
+prompt: '"ExecuteStatement: "'
 ---
-Here is a markdown list with a title for the ExecuteStatement action and a URL link to the API reference page:
+Here's a markdown list with titles for the ExecuteStatement action, with the URL text as the generated title and the URL link pointing to the API reference page:
 
-- [Executing SQL Statements in Amazon RDS](https://docs.aws.amazon.com/rds/latest/APIReference/API_ExecuteStatement.html)
+- [Executing a Statement in &RDSDataService;](https://docs.aws.amazon.com/rds-data/latest/APIReference/API_ExecuteStatement.html)

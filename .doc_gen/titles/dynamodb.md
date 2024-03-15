@@ -8,22 +8,22 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  dynamodb: {ListTables: '', CreateTable: '', BatchGetItem: '', DescribeTable:
+  "dynamodb: {ListTables: '', CreateTable: '', BatchGetItem: '', DescribeTable:
   '', BatchWriteItem: '', DeleteTable: '', PutItem: '', GetItem: '', UpdateItem:
   '', DeleteItem: '', Query: '', Scan: '', ExecuteStatement: '',
-  BatchExecuteStatement: ''}
+  BatchExecuteStatement: ''} Entities: DDBlong DDB"
 ---
-- [List DynamoDB Tables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html)
-- [Creating a DynamoDB Table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)
-- [Batch Getting Items from DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)
-- [Describing a DynamoDB Table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html)
-- [Batch Writing Items to DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)
-- [Deleting a DynamoDB Table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)
-- [Putting an Item in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)
-- [Getting an Item from DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
-- [Updating an Item in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
-- [Deleting an Item from DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)
-- [Querying DynamoDB Tables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)
-- [Scanning DynamoDB Tables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)
-- [Executing a Statement in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteStatement.html)
-- [Batch Executing Statements in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchExecuteStatement.html)
+- [&DDBlong; tables enumeration]( https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html)
+- [Creating &DDBlong; table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)
+- [Batch reading &DDBlong; items](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)
+- [Describing &DDBlong; table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html)
+- [Batch writing &DDBlong; items](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)
+- [Deleting &DDBlong; table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)
+- [Adding item to &DDBlong; table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)
+- [Retrieving &DDBlong; item](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
+- [Updating &DDBlong; item](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
+- [Deleting &DDBlong; item](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)
+- [Querying &DDBlong; table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)
+- [Scanning &DDBlong; table](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)
+- [Executing &DDBlong; statement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteStatement.html)
+- [Batch executing &DDBlong; statements](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchExecuteStatement.html)

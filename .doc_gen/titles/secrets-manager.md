@@ -8,15 +8,15 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  secrets-manager: {CreateSecret: '', DescribeSecret: '', GetSecretValue: '',
+  "secrets-manager: {CreateSecret: '', DescribeSecret: '', GetSecretValue: '',
   PutSecretValue: '', UpdateSecret: '', DeleteSecret: '', ListSecrets: '',
-  BatchGetSecretValue: ''}
+  BatchGetSecretValue: ''} "
 ---
-- [Creating Secrets in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html)
-- [Describing Secrets in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html)
-- [Retrieving Secret Values in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
-- [Storing Secret Values in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)
-- [Updating Secrets in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html)
-- [Deleting Secrets in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html)
-- [Listing Secrets in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html)
-- [Batch Retrieving Secret Values in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_BatchGetSecretValue.html)
+- [Creating a &secrets-manager; secret](&secrets-manager-createSecret;)
+- [Describing a &secrets-manager; secret](&secrets-manager-describesecret;)
+- [Getting a &secrets-manager; secret value](&secrets-manager-getsecretvalue;)
+- [Putting a &secrets-manager; secret value](&secrets-manager-putsecretvalue;)
+- [Updating a &secrets-manager; secret](&secrets-manager-updatesecret;)
+- [Deleting a &secrets-manager; secret](&secrets-manager-deletesecret;)
+- [Listing &secrets-manager; secrets](&secrets-manager-listsecrets;)
+- [Batch getting &secrets-manager; secret values](&secrets-manager-batchgetsecretvalue;)

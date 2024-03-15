@@ -8,17 +8,15 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  elastic-load-balancing-v2: {DescribeLoadBalancers: '', CreateTargetGroup: '',
+  "elastic-load-balancing-v2: {DescribeLoadBalancers: '', CreateTargetGroup: '',
   DescribeTargetGroups: '', DeleteTargetGroup: '', CreateLoadBalancer: '',
-  CreateListener: '', DeleteLoadBalancer: '', DescribeTargetHealth: ''}
+  CreateListener: '', DeleteLoadBalancer: '', DescribeTargetHealth: ''} "
 ---
-Here is a markdown list with generated titles for the actions of the Elastic Load Balancing V2 service, with each entry as a URL pointing to the API reference page:
-
-- [Exploring Load Balancers in Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
-- [Establishing a Target Group in Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateTargetGroup.html)
-- [Inspecting Target Groups in Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html)
-- [Removing a Target Group from Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DeleteTargetGroup.html)
-- [Provisioning a Load Balancer in Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateLoadBalancer.html)
-- [Configuring a Listener for Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateListener.html)
-- [Decommissioning a Load Balancer in Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DeleteLoadBalancer.html)
-- [Monitoring Target Health in Elastic Load Balancing V2](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetHealth.html)
+- [Creating a &ELBv2; Target Group](&describeloadbalancers;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
+- [Viewing &ELBv2; Target Groups](&createtargetgroup;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateTargetGroup.html)
+- [Managing &ELBv2; Target Groups](&describetargetgroups;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html)
+- [Deleting an &ELBv2; Target Group](&deletetargetgroup;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DeleteTargetGroup.html)
+- [Provisioning an &ELBv2; Load Balancer](&createloadbalancer;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateLoadBalancer.html)
+- [Configuring an &ELBv2; Listener](&createlistener;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateListener.html)
+- [Deprovisioning an &ELBv2; Load Balancer](&deleteloadbalancer;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DeleteLoadBalancer.html)
+- [Monitoring &ELBv2; Target Health](&describetargethealth;https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetHealth.html)

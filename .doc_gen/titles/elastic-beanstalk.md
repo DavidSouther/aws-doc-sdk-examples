@@ -8,9 +8,10 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  elastic-beanstalk: {ListAvailableSolutionStacks: '', DescribeApplications: '',
-  UpdateApplication: ''}
+  "elastic-beanstalk: {ListAvailableSolutionStacks: '', DescribeApplications:
+  '', UpdateApplication: ''} "
 ---
-- [Listing Available Solution Stacks in AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html)
-- [Describing Applications in AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_DescribeApplications.html)
-- [Updating an Application in AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_UpdateApplication.html)
+- [Creating an Application Environment in &ElasticBeanstalk;](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_CreateEnvironment.html)
+- [Listing Available Solution Stacks for &ElasticBeanstalk;](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html)
+- [Describing Applications in &ElasticBeanstalk;](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_DescribeApplications.html)
+- [Updating an Application in &ElasticBeanstalk;](https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_UpdateApplication.html)

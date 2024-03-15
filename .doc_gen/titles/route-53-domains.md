@@ -8,18 +8,20 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  route-53-domains: {ListPrices: '', CheckDomainAvailability: '',
+  "route-53-domains: {ListPrices: '', CheckDomainAvailability: '',
   CheckDomainTransferability: '', GetDomainDetail: '', GetDomainSuggestions: '',
   GetOperationDetail: '', ListDomains: '', ListOperations: '', RegisterDomain:
-  '', ViewBilling: ''}
+  '', ViewBilling: ''} "
 ---
-- [Listing Prices for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListPrices.html)
-- [Checking Domain Availability for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_CheckDomainAvailability.html)
-- [Checking Domain Transferability for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_CheckDomainTransferability.html)
-- [Getting Domain Details for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetDomainDetail.html)
-- [Getting Domain Suggestions for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetDomainSuggestions.html)
-- [Getting Operation Details for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html)
-- [Listing Domains for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListDomains.html)
-- [Listing Operations for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListOperations.html)
-- [Registering a Domain for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_RegisterDomain.html)
-- [Viewing Billing for Route 53 Domains](https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ViewBilling.html)
+Here is a markdown list with titles for the route-53-domains actions and links to the API reference:
+
+- [Pricing for &AWSDomain;](/route53/latest/APIReference/API_ListPrices.html)
+- [Checking &AWSDomain; Availability](/route53/latest/APIReference/API_CheckDomainAvailability.html)  
+- [Checking &AWSDomain; Transfer Eligibility](/route53/latest/APIReference/API_CheckDomainTransferability.html)
+- [Viewing &AWSDomain; Details](/route53/latest/APIReference/API_GetDomainDetail.html)
+- [Suggesting &AWSDomain;s](/route53/latest/APIReference/API_GetDomainSuggestions.html)
+- [Tracking &AWSDomain; Operations](/route53/latest/APIReference/API_GetOperationDetail.html)
+- [Listing Registered &AWSDomain;s](/route53/latest/APIReference/API_ListDomains.html)
+- [Viewing &AWSDomain; Operation History](/route53/latest/APIReference/API_ListOperations.html)
+- [Registering a &AWSDomain;](/route53/latest/APIReference/API_RegisterDomain.html)
+- [Viewing &AWSDomain; Billing](/route53/latest/APIReference/API_ViewBilling.html)

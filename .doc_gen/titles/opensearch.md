@@ -8,12 +8,10 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  opensearch: {CreateDomain: '', DeleteDomain: '', ListDomainNames: '',
-  UpdateDomainConfig: ''}
+  "opensearch: {CreateDomain: '', DeleteDomain: '', ListDomainNames: '',
+  UpdateDomainConfig: ''} "
 ---
-Opensearch:
-
-- [Provisioning an Amazon OpenSearch Service Domain](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_CreateDomain.html)
-- [Deleting an Amazon OpenSearch Service Domain](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_DeleteDomain.html)
-- [Listing Amazon OpenSearch Service Domain Names](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_ListDomainNames.html)
-- [Updating an Amazon OpenSearch Service Domain Configuration](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_UpdateDomainConfig.html)
+- [Managing domains in &OpenSearchsrvc;](&OpenSearchurl;API_CreateDomain.html)
+- [Deleting domains in &OpenSearchsrvc;](&OpenSearchurl;API_DeleteDomain.html)
+- [Listing domain names in &OpenSearchsrvc;](&OpenSearchurl;API_ListDomainNames.html)
+- [Updating domain configurations in &OpenSearchsrvc;](&OpenSearchurl;API_UpdateDomainConfig.html)

@@ -7,10 +7,12 @@ debug:
   model: anthropic.claude-3-sonnet-20240229-v1:0
   usage: null
 isolated: true
-prompt: 'ebs: {StartSnapshot: '''', PutSnapshotBlock: '''', CompleteSnapshot: ''''}'
+prompt: >-
+  "ebs: {StartSnapshot: '', PutSnapshotBlock: '', CompleteSnapshot: ''}
+  Entities: EBSlong EBS"
 ---
-ebs:
+Here is a markdown list with generated titles for the EBS actions and links to their API reference pages:
 
-1. [Initiating an Amazon EBS Snapshot](https://docs.aws.amazon.com/ebs/latest/APIReference/API_StartSnapshot.html)
-2. [Uploading Data to an Amazon EBS Snapshot](https://docs.aws.amazon.com/ebs/latest/APIReference/API_PutSnapshotBlock.html)
-3. [Finalizing an Amazon EBS Snapshot](https://docs.aws.amazon.com/ebs/latest/APIReference/API_CompleteSnapshot.html)
+- [Initiating &EBSlong; Snapshot Capture]https://docs.aws.amazon.com/ebs/latest/APIReference/API_StartSnapshot.html)
+- [Uploading &EBS; Snapshot Block](https://docs.aws.amazon.com/ebs/latest/APIReference/API_PutSnapshotBlock.html)
+- [Finalizing &EBS; Snapshot](https://docs.aws.amazon.com/ebs/latest/APIReference/API_CompleteSnapshot.html)

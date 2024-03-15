@@ -8,10 +8,17 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  cloudtrail: {ListTrails: '', CreateTrail: '', LookupEvents: '', DeleteTrail:
-  ''}
+  "cloudtrail: {ListTrails: '', CreateTrail: '', LookupEvents: '', DeleteTrail:
+  ''} Entities: CTlong CT"
 ---
-- [Exploring CloudTrail Trails](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_ListTrails.html)
-- [Establishing an Audit Trail in AWS](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_CreateTrail.html)
-- [Investigating AWS Events with CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_LookupEvents.html)
-- [Removing Audit Trails from CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_DeleteTrail.html)
+&CTlong;
+- [Listing Trails](&CTlong;/latest/APIReference/API_ListTrails.html)
+- [Creating a Trail](&CTlong;/latest/APIReference/API_CreateTrail.html)
+- [Looking Up Events](&CTlong;/latest/APIReference/API_LookupEvents.html)
+- [Deleting a Trail](&CTlong;/latest/APIReference/API_DeleteTrail.html)
+
+&CT;
+- [Listing &CT; Trails](&CT;/latest/APIReference/API_ListTrails.html)
+- [Creating a &CT; Trail](&CT;/latest/APIReference/API_CreateTrail.html)
+- [Looking Up &CT; Events](&CT;/latest/APIReference/API_LookupEvents.html)
+- [Deleting a &CT; Trail](&CT;/latest/APIReference/API_DeleteTrail.html)

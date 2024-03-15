@@ -8,19 +8,19 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  keyspaces: {ListKeyspaces: '', CreateKeyspace: '', GetKeyspace: '',
+  "keyspaces: {ListKeyspaces: '', CreateKeyspace: '', GetKeyspace: '',
   CreateTable: '', GetTable: '', ListTables: '', UpdateTable: '', RestoreTable:
-  '', DeleteTable: '', DeleteKeyspace: ''}
+  '', DeleteTable: '', DeleteKeyspace: ''} "
 ---
-Here's a markdown list with generated titles for each action of the keyspaces service, and the URLs pointing to the corresponding API reference pages:
+Here is a markdown list with generated titles for each action and a URL link to the API reference page:
 
-- [Listing Keyspaces in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_ListKeyspaces.html)
-- [Creating a Keyspace in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_CreateKeyspace.html)
-- [Getting Keyspace Details in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_GetKeyspace.html)
-- [Creating a Table in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_CreateTable.html)
-- [Getting Table Details in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_GetTable.html)
-- [Listing Tables in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_ListTables.html)
-- [Updating a Table in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_UpdateTable.html)
-- [Restoring a Table in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_RestoreTable.html)
-- [Deleting a Table in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_DeleteTable.html)
-- [Deleting a Keyspace in Amazon Keyspaces](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_DeleteKeyspace.html)
+- [Managing &KVRkeyspaces; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_ListKeyspaces.html)
+- [Provisioning a New &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_CreateKeyspace.html)
+- [Retrieving &KVRkeyspace; Details in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_GetKeyspace.html)
+- [Creating a &DBtable; in an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_CreateTable.html)
+- [Viewing &DBtable; Information in an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_GetTable.html)
+- [Listing &DBtables; in an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_ListTables.html)
+- [Modifying a &DBtable; in an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_UpdateTable.html)
+- [Restoring a &DBtable; in an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_RestoreTable.html)
+- [Deleting a &DBtable; from an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_DeleteTable.html)
+- [Removing an &KVRkeyspace; in &ASC;](https://docs.aws.amazon.com/keyspaces/latest/APIReference/API_DeleteKeyspace.html)

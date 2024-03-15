@@ -8,21 +8,21 @@ debug:
   usage: null
 isolated: true
 prompt: >-
-  auto-scaling: {DescribeAutoScalingGroups: '', CreateAutoScalingGroup: '',
+  "auto-scaling: {DescribeAutoScalingGroups: '', CreateAutoScalingGroup: '',
   DeleteAutoScalingGroup: '', UpdateAutoScalingGroup: '',
   TerminateInstanceInAutoScalingGroup: '', SetDesiredCapacity: '',
   DescribeAutoScalingInstances: '', DescribeScalingActivities: '',
   EnableMetricsCollection: '', DisableMetricsCollection: '',
-  AttachLoadBalancerTargetGroups: ''}
+  AttachLoadBalancerTargetGroups: ''} "
 ---
-- [Managing Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_DescribeAutoScalingGroups.html)
-- [Provisioning Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_CreateAutoScalingGroup.html)
-- [Deleting Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_DeleteAutoScalingGroup.html)
-- [Updating Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_UpdateAutoScalingGroup.html)
-- [Terminating Instances in Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_TerminateInstanceInAutoScalingGroup.html)
-- [Adjusting Desired Capacity of Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_SetDesiredCapacity.html)
-- [Viewing Auto Scaling Instances in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_DescribeAutoScalingInstances.html)
-- [Monitoring Scaling Activities in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_DescribeScalingActivities.html)
-- [Enabling Metrics Collection for Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_EnableMetricsCollection.html)
-- [Disabling Metrics Collection for Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_DisableMetricsCollection.html)
-- [Integrating Load Balancers with Auto Scaling Groups in Amazon Auto Scaling](https://docs.aws.amazon.com/autoscaling/latest/APIReference/API_AttachLoadBalancerTargetGroups.html)
+- [Describe &AutoScaling; Groups](&DescribeAutoScalingGroups;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DescribeAutoScalingGroups.html)
+- [Create &AutoScaling; Group](&CreateAutoScalingGroup;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_CreateAutoScalingGroup.html)  
+- [Delete &AutoScaling; Group](&DeleteAutoScalingGroup;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DeleteAutoScalingGroup.html)
+- [Update &AutoScaling; Group](&UpdateAutoScalingGroup;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_UpdateAutoScalingGroup.html)
+- [Terminate Instance in &AutoScaling; Group](&TerminateInstanceInAutoScalingGroup;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_TerminateInstanceInAutoScalingGroup.html)
+- [Set Desired Capacity for &AutoScaling; Group](&SetDesiredCapacity;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_SetDesiredCapacity.html)
+- [Describe &AutoScaling; Instances](&DescribeAutoScalingInstances;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DescribeAutoScalingInstances.html)
+- [Describe &AutoScaling; Activities](&DescribeScalingActivities;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DescribeScalingActivities.html)
+- [Enable Metrics Collection for &AutoScaling;](&EnableMetricsCollection;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_EnableMetricsCollection.html)
+- [Disable Metrics Collection for &AutoScaling;](&DisableMetricsCollection;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DisableMetricsCollection.html)
+- [Attach Load Balancer Target Groups to &AutoScaling;](&AttachLoadBalancerTargetGroups;https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_AttachLoadBalancerTargetGroups.html)
