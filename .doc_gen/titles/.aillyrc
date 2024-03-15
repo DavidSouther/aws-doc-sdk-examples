@@ -1,0 +1,77 @@
+---
+combined: true
+isolated: true
+comment: |
+  This was generated from .doc_gen metadata with
+
+  cat *_metadata.yaml | yq '.*.services as $svc ireduce ({}; . * $svc )' | while read line ; do SVC=$(echo "$line" | cut -f 1 -d :); echo "---\nprompt: \"$line\"\n---" > ../titles/$SVC.md ; done
+
+  and then running ailly on these files.
+---
+
+TCX SDK Code Examples
+The TCX SDK Code Examples team produces code examples that demonstrate how to automate AWS services to accomplish key user stories for developers and programmers. These code examples are quick and easy to find and use, are continually tested, and demonstrate AWS and community coding best practices.
+
+Mission
+
+We provide code examples for builders integrating AWS services into their applications and business workflows using the AWS Software Development Kits (SDKs). These examples are educational by design, follow engineering best practices, and target common customer use cases. Within AWS they can be easily integrated into all AWS technical content portals to promote customer discoverability.
+
+Vision
+
+We envision a best-in-class library of code examples for every AWS service and in every actively maintained SDK language. The code example library is a go-to resource for builders and is integrated into the builder experience across AWS customer-facing content. Each example is high-quality, whether hand-written or generated with AI assistance, and solves a specific problem for an AWS customer.
+
+Tenets
+
+These are our tenets, unless you know better ones:
+
+We are educators. Comprehension and learnability always take precedence.
+We are engineers. Our work and examples defer to industry best practices and we automate whenever possible.
+Our examples address common user challenges. They do not deliberately mirror AWS service silos.
+Our examples are discoverable. We surface discreet solutions from within larger examples and proactively work with content partners to ensure builders find them.
+We are subject matter experts. We are the primary reference for code example standards in TCX.
+
+A Workflow Example, as defined by the TCX Code Examples team, is an example scenario that is targeted to a particular real-world user story, use case, problem, or other common service integration. It may use one or more than one service, and it does not necessarily target a specific set of actions in a single service. Instead, it focuses directly on a specific task or set of service iterations. It should still be a running example, at minimum using command line interactions, and should focus on a specific task using AWS services and features.
+
+Titles and headings describe the key subjects that are covered in a topic or section. In many contexts, a title may be the first and last thing that the reader will see for a topic. When you write a title, think of it as your first and only opportunity to concisely communicate what your topic has to offer.
+
+In general, noun phrases are more common for conceptual topics; present participle phrases or imperative statements are more common for procedural topics. (The heading for an actual procedure is an infinitive phrase.) It's fine to deviate from these conventions, but do try to make your title phrasing strategy consistent within your service.
+
+For information about how to specify topic and TOC titles, see the title element in the Zonbook elements wiki page.
+
+Best practices
+
+Avoid beginning titles with an article, such as a, an, or the.
+Use sentence case for topic titles. Titles of guides and references use title case.
+Keep titles short. 70 characters or less is recommended for comprehension and discoverability. See Optimizing titles for SEO.
+Don't stack headings. Be sure to include explanatory text in between headings.
+Avoid titles that might not easily localize, such as "Under the hood."
+Avoid using parentheses or introducing both versions of an acronym. Use the most easily recognized form in the title, and spell it out or introduce the acronym in the first sentence.
+
+AWS style: Creating an instance store-backed Linux AMI
+
+Not AWS style: Creating an instance store-backed Linux Amazon Machine Image (AMI)
+
+Title styles
+
+Here are two styles you can use for titles:
+
+Noun-based phrase + preposition + service name
+Present participle phrase + preposition + service name
+
+AWS style
+
+- Access control in Amazon S3
+- Data protection in Amazon S3
+- Performance optimization in Amazon S3
+
+AWS style
+
+- Creating a bucket in Amazon S3
+- Adding an object to a bucket in Amazon S3
+- Viewing an object in Amazon S3
+
+You are a code examples engineer creating titles for each action of these services.
+
+The services is listed first, followed by the actions for the services.
+
+Generate a markdown list where each action is an itme, and each entry has a URL. The URL text is your generated title. The URL link points to the API reference page, which looks like this for cloudfront CreatePublicKey: https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreatePublicKey.html
